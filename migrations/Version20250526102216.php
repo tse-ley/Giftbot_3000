@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250406155742 extends AbstractMigration
+final class Version20250526102216 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -57,10 +57,17 @@ final class Version20250406155742 extends AbstractMigration
             CREATE INDEX IDX_E52FFDEEA76ED395 ON orders (user_id)
         SQL);
         $this->addSql(<<<'SQL'
-            CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, password VARCHAR(255) NOT NULL, is_admin BOOLEAN NOT NULL)
+            CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(255) NOT NULL, email VARCHAR(180) NOT NULL, roles CLOB NOT NULL --(DC2Type:json)
+            , password VARCHAR(255) NOT NULL, is_admin BOOLEAN NOT NULL)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON user (email)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE wish_list (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER DEFAULT NULL, gift_id INTEGER DEFAULT NULL, added_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+            , updated_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+            , is_public BOOLEAN NOT NULL, viewed_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+            , shared_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
             , CONSTRAINT FK_5B8739BDA76ED395 FOREIGN KEY (user_id) REFERENCES user (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_5B8739BD97A95A83 FOREIGN KEY (gift_id) REFERENCES gift (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
         SQL);
         $this->addSql(<<<'SQL'
@@ -68,6 +75,20 @@ final class Version20250406155742 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             CREATE INDEX IDX_5B8739BD97A95A83 ON wish_list (gift_id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE TABLE wish_list_item (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, wishlist_id INTEGER DEFAULT NULL, gift_id INTEGER DEFAULT NULL, user_id INTEGER DEFAULT NULL, added_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+            , updated_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+            , CONSTRAINT FK_9A7FA711FB8E54CD FOREIGN KEY (wishlist_id) REFERENCES wish_list (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_9A7FA71197A95A83 FOREIGN KEY (gift_id) REFERENCES gift (id) NOT DEFERRABLE INITIALLY IMMEDIATE, CONSTRAINT FK_9A7FA711A76ED395 FOREIGN KEY (user_id) REFERENCES user (id) NOT DEFERRABLE INITIALLY IMMEDIATE)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX IDX_9A7FA711FB8E54CD ON wish_list_item (wishlist_id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX IDX_9A7FA71197A95A83 ON wish_list_item (gift_id)
+        SQL);
+        $this->addSql(<<<'SQL'
+            CREATE INDEX IDX_9A7FA711A76ED395 ON wish_list_item (user_id)
         SQL);
         $this->addSql(<<<'SQL'
             CREATE TABLE messenger_messages (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, body CLOB NOT NULL, headers CLOB NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
@@ -112,6 +133,9 @@ final class Version20250406155742 extends AbstractMigration
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE wish_list
+        SQL);
+        $this->addSql(<<<'SQL'
+            DROP TABLE wish_list_item
         SQL);
         $this->addSql(<<<'SQL'
             DROP TABLE messenger_messages

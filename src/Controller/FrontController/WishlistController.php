@@ -1,9 +1,9 @@
 <?php
 namespace App\Controller\FrontController;
 
-use App\Entity\Wishlist;
+use App\Entity\WishList;
 use App\Form\WishlistType;
-use App\Repository\WishlistRepository;
+use App\Repository\WishListRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/wishlist')]
 #[IsGranted('ROLE_USER')]
-class WishlistController extends AbstractController
+class WishListController extends AbstractController
 {
     #[Route('', name: 'app_wishlist_index')]
     public function index(WishlistRepository $wishlistRepository): Response
