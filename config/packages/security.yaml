@@ -10,10 +10,26 @@ security:
             entity:
                 class: App\Entity\User
                 property: email
+        admin_users:
+            entity:
+                class: App\Entity\AdminUser
+                property: email
+        # used to reload user from session & other features (e.g. switch_user)
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/admin
+            provider: admin_users
+            entry_point: form_login
+            form_login:
+                login_path: admin_login
+                check_path: admin_login
+                enable_csrf: true
+            logout:
+                path: app_logout
+            custom_authenticator: App\Security\SecurityAuthenticator
         main:
             lazy: true
             provider: app_user_provider
@@ -28,7 +44,6 @@ security:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week in seconds
                 path: /
-                #always_remember_me: true
             custom_authenticator: App\Security\SecurityAuthenticator
 
             # activate different ways to authenticate
@@ -40,6 +55,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/register, roles: PUBLIC_ACCESS }

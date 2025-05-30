@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\BackController;
+namespace App\Controller\BackController\Admin;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -12,7 +12,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin/user')]
 #[IsGranted('ROLE_ADMIN')]
-class AdminUserController extends AbstractController
+class UserController extends AbstractController
 {
     #[Route('', name: 'admin_user_index')]
     public function index(UserRepository $userRepository): Response

@@ -1,5 +1,6 @@
 <?php
-namespace App\Controller\BackController;
+
+namespace App\Controller\BackController\Admin;
 
 use App\Entity\Gift;
 use App\Form\GiftType;
@@ -9,10 +10,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/admin/gift')]
 #[IsGranted('ROLE_ADMIN')]
-class AdminGiftController extends AbstractController
+class GiftController extends AbstractController
 {
     #[Route('', name: 'admin_gift_index')]
     public function index(GiftRepository $giftRepository): Response

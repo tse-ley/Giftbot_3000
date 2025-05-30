@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller\BackController;
+namespace App\Controller\BackController\Admin;
 
 use App\Entity\Order;
 use App\Repository\OrderRepository;
@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/order')]
 #[IsGranted('ROLE_ADMIN')]
-class AdminOrderController extends AbstractController
+class OrderController extends AbstractController
 {
     #[Route('', name: 'admin_order_index')]
     public function index(OrderRepository $orderRepository): Response

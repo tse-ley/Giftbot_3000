@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Controller\FrontController;
 
 use App\Entity\NewsletterSubscription;
 use App\Form\NewsletterType;
