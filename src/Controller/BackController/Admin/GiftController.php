@@ -12,14 +12,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-#[Route('/admin/gift')]
+#[Route('/gift')]
 #[IsGranted('ROLE_ADMIN')]
 class GiftController extends AbstractController
 {
     #[Route('', name: 'admin_gift_index')]
     public function index(GiftRepository $giftRepository): Response
     {
-        return $this->render('admin/gift/index.html.twig', [
+        return $this->render('gift/index.html.twig', [
             'gifts' => $giftRepository->findAll()
         ]);
     }

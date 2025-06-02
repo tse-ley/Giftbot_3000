@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/admin/user')]
+#[Route('user')]
 #[IsGranted('ROLE_ADMIN')]
 class UserController extends AbstractController
 {

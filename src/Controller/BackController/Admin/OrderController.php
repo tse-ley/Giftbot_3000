@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/order')]
+#[Route('order')]
 #[IsGranted('ROLE_ADMIN')]
 class OrderController extends AbstractController
 {

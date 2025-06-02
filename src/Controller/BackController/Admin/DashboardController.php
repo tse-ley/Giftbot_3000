@@ -17,7 +17,7 @@ class DashboardController extends AbstractDashboardController
     #[IsGranted('ROLE_ADMIN')]
     public function index(): Response
     {
-        // Fetch repositories using the container
+        // Fetch repositories using dependency injection (preferred) or container
         $userRepository = $this->container->get(UserRepository::class);
         $giftRepository = $this->container->get(GiftRepository::class);
         $orderRepository = $this->container->get(OrderRepository::class);
@@ -27,6 +27,28 @@ class DashboardController extends AbstractDashboardController
             'giftCount' => $giftRepository->count([]),
             'orderCount' => $orderRepository->count([]),
             'recentOrders' => $orderRepository->findRecent(5),
+            'user' => $this->getUser(), // Add current user for display
         ]);
+    }
+
+    public function configureDashboard(): Dashboard
+    {
+        return Dashboard::new()
+            ->setTitle('Admin Dashboard')
+            ->setFaviconPath('favicon.ico')
+            ->setTranslationDomain('admin');
+    }
+
+    public function configureMenuItems(): iterable
+    {
+        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
+        
+        yield MenuItem::section('Management');
+        yield MenuItem::linkToCrud('Users', 'fas fa-users', \App\Entity\User::class);
+        yield MenuItem::linkToCrud('Gifts', 'fas fa-gift', \App\Entity\Gift::class);
+        yield MenuItem::linkToCrud('Orders', 'fas fa-shopping-cart', \App\Entity\Order::class);
+        
+        yield MenuItem::section('System');
+        yield MenuItem::linkToLogout('Logout', 'fa fa-sign-out-alt');
     }
 }

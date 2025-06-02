@@ -1,3 +1,62 @@
-controllers:
-    resource: '../src/Controller/'
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+# Admin (Back Office) routes using attribute routing
+admin_controllers:
+    resource: '../src/Controller/BackController/Admin'
     type: attribute
+    prefix: /back/admin
+
+
+# Front office routes
+front:
+    path: /front
+    controller: App\Controller\FrontController::index
+    methods: [GET]
+
+cart:
+    path: /cart
+    controller: App\Controller\CartController::index
+    methods: [GET, POST]
+
+gift:
+    path: /gift
+    controller: App\Controller\GiftController::index
+    methods: [GET]
+
+wishlist:
+    path: /wishlist
+    controller: App\Controller\WishlistController::index
+    methods: [GET, POST]
+
+user:
+    path: /user
+    controller: App\Controller\UserController::index
+    methods: [GET, POST]
+
+register:
+    path: /register
+    controller: App\Controller\RegistrationController::index
+    methods: [GET, POST]
+
+newsletter:
+    path: /newsletter
+    controller: App\Controller\NewsletterController::index
+    methods: [GET, POST]
+
+user_account:
+    path: /user-account
+    controller: App\Controller\UserAccountController::index
+    methods: [GET, POST]
+
+category:
+    path: /category
+    controller: App\Controller\CategoryController::index
+    methods: [GET, POST]
+
+order:
+    path: /order
+    controller: App\Controller\OrderController::index
+    methods: [GET, POST]
+
