@@ -1,0 +1,71 @@
+<!-- Navbar Component -->
+<nav class="navbar navbar-expand-lg" style="background-color: #FD6C9E;">
+    <div class="container">
+        <a class="navbar-brand text-white fw-bold d-flex align-items-center" href="#">
+            <img src="{{ asset('images/giftbot-logo.png') }}" alt="GiftBot" height="40" class="me-2">
+            <span>GiftBot 3000</span>
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fas fa-bars text-white fs-4"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto text-center">
+                <li class="nav-item">
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'home' %}fw-bold{% endif %}" href="#">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'store' %}fw-bold{% endif %}" href="#">Store</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'search' %}fw-bold{% endif %}" href="#">Recherche</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'about' %}fw-bold{% endif %}" href="#">À propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'contact' %}fw-bold{% endif %}" href="#">Contact</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
+                <!-- Cart -->
+                <li class="nav-item position-relative">
+                    <a class="nav-link text-white" href="#" id="cartDropdown">
+                        <i class="fas fa-shopping-cart fs-5"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-white text-danger" id="cart-count" style="font-size: 0.7rem;">
+                            0
+                        </span>
+                    </a>
+                </li>
+
+                <!-- User / Auth -->
+                {% if app.user %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user me-1"></i> {{ app.user.firstName ?? 'Mon Compte' }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2"></i>Mon Profil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-shopping-bag me-2"></i>Mes Commandes</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-heart me-2"></i>Ma Liste de Souhaits</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="authDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user fs-5"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-sign-in-alt me-2"></i>Connexion</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user-plus me-2"></i>Inscription</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

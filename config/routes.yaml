@@ -12,7 +12,7 @@ admin_controllers:
 # Front office routes
 front:
     path: /front
-    controller: App\Controller\FrontController::index
+    controller: App\Controller\FrontController\MainController::index
     methods: [GET]
 
 cart:

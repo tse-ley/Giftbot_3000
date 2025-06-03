@@ -32,10 +32,6 @@ security:
             logout:
                 path: admin_logout
                 target: /back/admin/login
-                enable_csrf: true
-                default_target_path: /back/admin/
-                username_parameter: '_username'
-                password_parameter: '_password'
             entry_point: form_login
             
         main:
