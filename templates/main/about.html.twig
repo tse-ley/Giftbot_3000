@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}À propos | GiftBot 3000{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('build/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/footer.css') }}">
+{% endblock %}
+
+{% block body %}
+{% include 'components/_navbar.html.twig' %}
+<!-- ABOUT SECTION -->
+<section class="py-5" style="background-color: #F9E4DA;">
+    <div class="container" >
+        <h2 class="mb-4 fw-bold">A Propos</h2>
+        <p class="mb-4" style="max-width: 700px;">
+            Nous sommes votre allié high-tech pour des cadeaux toujours pertinents ! 
+            Notre intelligence artificielle et notre touche humaine travaillent ensemble pour transformer l'art d'offrir en expérience magique.
+            Simple, malin, personnalisé : découvrez une nouvelle façon de gâter vos proches.
+        </p>
+        <div class="d-flex flex-wrap gap-3 mb-5">
+            <img src="{{ asset('images/gift-hands.jpg') }}" alt="Cadeau" class="rounded" style="height: 150px;">
+            <img src="{{ asset('images/bot-delivery-1.png') }}" alt="Livraison" class="rounded" style="height: 150px;">
+            <img src="{{ asset('images/bot-delivery-2.png') }}" alt="Bot" class="rounded" style="height: 150px;">
+        </div>
+
+</section>
+
+<section class="py-5" style="background-color: #fffafc;">
+    <div class="container d-flex flex-column align-items-center text-center">
+        <h3 class="fw-bold mb-4">Giftbot 3000 : L'Art High-Tech du Cadeau Parfait</h3>
+        <p class="mb-4" style="max-width: 800px;">
+            Chez Giftbot 3000, nous avons réinventé l'art d'offrir en harmonisant technologie de pointe et sensibilité humaine. 
+            Notre plateforme intelligente utilise des algorithmes d'apprentissage automatique pour analyser les tendances et comprendre les personnalités, 
+            suggérant ainsi des cadeaux qui créent de véritables moments de bonheur.
+        </p>
+        <p class="mb-4" style="max-width: 800px;">
+            Bien plus qu'un simple moteur de recommandations, nous cultivons l’innovation responsable avec une technologie utile qui simplifie la vie sans sacrifier 
+            l’émotion authentique. Chaque suggestion est soigneusement vérifiée par notre équipe passionnée, parce que nous croyons au plaisir partagé d’offrir et recevoir.
+        </p>
+        <p style="max-width: 800px;">
+            Accessibles à tous les budgets et adaptés à chaque occasion, nos cadeaux transforment un simple geste en une expérience sans stress, personnalisée et mémorable.
+            Après tout, un cadeau réussi est avant tout une belle histoire qui commence… et nous sommes fiers d'en écrire les premières lignes avec vous.
+        </p>
+    </div>
+</section>
+
+<!-- REVIEWS SECTION -->
+<section class="py-5" style="background-color: #ff4da6;">
+    <div class="container text-white text-center">
+        <h4 class="fw-bold mb-4">Our reviews !</h4>
+        <div class="d-flex justify-content-between align-items-center mb-3 px-3">
+            <button class="btn btn-light btn-sm rounded-circle">
+                <i class="fas fa-arrow-left text-primary"></i>
+            </button>
+            <button class="btn btn-light btn-sm rounded-circle">
+                <i class="fas fa-arrow-right text-primary"></i>
+            </button>
+        </div>
+
+        <div class="row justify-content-center g-3">
+            {% for i in 1..4 %}
+            <div class="col-12 col-sm-6 col-md-3">
+                <div class="bg-white text-dark rounded p-3 h-100">
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="rounded-circle bg-dark me-2" style="width: 15px; height: 15px;"></div>
+                        <strong>Henry h</strong>
+                    </div>
+                    <p class="mb-0" style="font-size: 0.9rem;">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et.
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+    {% include 'components/_footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+{% endblock %}

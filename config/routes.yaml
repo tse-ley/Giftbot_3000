@@ -60,3 +60,7 @@ order:
     controller: App\Controller\OrderController::index
     methods: [GET, POST]
 
+front_controllers:
+    resource: '../src/Controller/FrontController/'
+    type: attribute
+

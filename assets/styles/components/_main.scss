@@ -522,3 +522,49 @@ body {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+section h2, section h3 {
+    color: #111;
+}
+
+section p {
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+
+// contact page styles //
+
+.contact-section {
+    background-color: #fde6e6;
+    padding: 60px 20px;
+}
+
+.contact-box {
+    background-color: #fd6c9e;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: center;
+    color: #000;
+    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.contact-box:hover {
+    transform: translateY(-5px);
+}
+
+.contact-box i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.contact-box h6 {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.contact-box p {
+    font-size: 0.9rem;
+    margin: 0;
+}

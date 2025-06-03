@@ -1,7 +1,7 @@
 <!-- Navbar Component -->
 <nav class="navbar navbar-expand-lg" style="background-color: #FD6C9E;">
     <div class="container">
-        <a class="navbar-brand text-white fw-bold d-flex align-items-center" href="#">
+        <a class="navbar-brand text-white fw-bold d-flex align-items-center me-4" href="#">
             <img src="{{ asset('images/giftbot-logo.png') }}" alt="GiftBot" height="40" class="me-2">
             <span>GiftBot 3000</span>
         </a>
@@ -11,7 +11,8 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto text-center">
+            <!-- Center nav links -->
+            <ul class="navbar-nav mx-auto text-center gap-lg-3 gap-2">
                 <li class="nav-item">
                     <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'home' %}fw-bold{% endif %}" href="#">Accueil</a>
                 </li>
@@ -29,6 +30,7 @@
                 </li>
             </ul>
 
+            <!-- Right-side icons -->
             <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
                 <!-- Cart -->
                 <li class="nav-item position-relative">

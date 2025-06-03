@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addStyleEntry('main', './assets/styles/components/_main.scss')
+    .addStyleEntry('navbar', './assets/styles/components/_navbar.scss')
     .addStyleEntry('footer', './assets/styles/components/_footer.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
