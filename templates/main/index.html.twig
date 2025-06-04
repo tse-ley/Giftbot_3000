@@ -14,9 +14,8 @@
     {% include 'components/_navbar.html.twig' %}
 
     <!-- Hero Section -->
-   <!-- Hero Section (with image background and overlay text) -->
         <section class="hero-section text-white text-center">
-            <div class="container">
+            <div class="container" style="background: url('{{ asset('image/pink-553149_1280.jpg') }}') center center/cover no-repeat; border-radius: 1rem; padding: 4rem 2rem;">
                 <h1 class="display-4 fw-bold">Bienvenue sur GiftBot 3000</h1>
                 <p class="lead">Votre Destination Cadeaux Hors du Commun !</p>
             </div>
@@ -27,33 +26,16 @@
             <div class="container text-center">
                 <h2 class="fw-bold mb-4">Des Cadeaux Uniques, Pour des Souvenirs Inoubliables !</h2>
                 <p class="mb-4">Chez GiftBot 3000, nous transformons le simple geste d'offrir...</p>
-                <p class="mb-5">Parce qu’un cadeau devrait toujours être mémorable...</p>
-                <a href="#" class="btn btn-lg rounded-pill text-white" style="background-color: #FF4DA6;">En Savoir Plus</a>
-            </div>
-        </section>
-
-    <!-- Unique Gifts Section -->
-    <section class="section-unique-gifts">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 mx-auto text-center">
-                    <h2 class="fw-bold mb-4">Des Cadeaux Uniques, Pour des Souvenirs Inoubliables !</h2>
-                    <p class="mb-4">
-                        Chez GiftBot 3000, nous transformons le simple geste d'offrir en une expérience 
+                <p class="mb-5"> Chez GiftBot 3000, nous transformons le simple geste d'offrir en une expérience 
                         magique. Que ce soit pour un anniversaire, une fête, ou juste pour faire plaisir, 
                         notre sélection intelligente de cadeaux saura trouver LE présent qui fera sourire. 
                         Laissez notre "bot cadeautier" vous guider vers des idées uniques, tendance et 
-                        personnalisées.
-                    </p>
-                    <p class="mb-5">
-                        Parce qu'un cadeau devrait toujours être mémorable, créatif et plein d'émotion... 
-                        GiftBot 3000 est là pour tout simplifier !
-                    </p>
-                    <button class="btn btn-custom btn-lg">En Savoir Plus</button>
-                </div>
+                        personnalisées.</p>
+                <a href="{{ path('app_about') }}" class="btn btn-lg rounded-pill text-white" style="background-color: #FF4DA6;">En Savoir Plus</a>
             </div>
-        </div>
-    </section>
+        </section>
+
+  
 
     <!-- Adventure Section -->
     <section class="section-adventure">
@@ -64,7 +46,7 @@
             <div class="row">
                 <div class="col-md-4 mb-4">
                     <div class="category-card position-relative">
-                        <img src="{{ asset('images/homme-gifts.jpg') }}" alt="Cadeaux Homme">
+                        <img src="{{ asset('image/wrist-watch-2159351_1920.jpg') }}" alt="Cadeaux Homme">
                         <div class="category-overlay">
                             <div class="category-name">Homme</div>
                         </div>
@@ -72,7 +54,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="category-card position-relative">
-                        <img src="{{ asset('images/femme-gifts.jpg') }}" alt="Cadeaux Femme">
+                        <img src="{{ asset('image/perfume-2445617_1920.jpg') }}" alt="Cadeaux Femme">
                         <div class="category-overlay">
                             <div class="category-name">Femme</div>
                         </div>
@@ -80,7 +62,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="category-card position-relative">
-                        <img src="{{ asset('images/enfants-gifts.jpg') }}" alt="Cadeaux Enfants">
+                        <img src="{{ asset('image/mattress-2489615_1920.jpg') }}" alt="Cadeaux Enfants">
                         <div class="category-overlay">
                             <div class="category-name">Enfants</div>
                         </div>
@@ -88,7 +70,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="category-card position-relative">
-                        <img src="{{ asset('images/animaux-gifts.jpg') }}" alt="Cadeaux Animaux">
+                        <img src="{{ asset('image/dogs-5021084_1280.jpg') }}" alt="Cadeaux Animaux">
                         <div class="category-overlay">
                             <div class="category-name">Animaux</div>
                         </div>
@@ -96,7 +78,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="category-card position-relative">
-                        <img src="{{ asset('images/livres-gifts.jpg') }}" alt="Livres">
+                        <img src="{{ asset('image/a-book-1760998_1280.jpg') }}" alt="Livres">
                         <div class="category-overlay">
                             <div class="category-name">Livres</div>
                         </div>
@@ -104,7 +86,7 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="category-card position-relative">
-                        <img src="{{ asset('images/accessoires-gifts.jpg') }}" alt="Accessoires">
+                        <img src="{{ asset('image/new-year-6920394_1280.jpg') }}" alt="Accessoires">
                         <div class="category-overlay">
                             <div class="category-name">Accessoires</div>
                         </div>
@@ -131,7 +113,7 @@
                     <button class="btn btn-outline-light btn-lg">Essayez-le</button>
                 </div>
                 <div class="col-lg-6">
-                    <img src="{{ asset('images/tech-gifts.jpg') }}" alt="Tech Gifts" class="img-fluid rounded">
+                    <img src="{{ asset('image/opel-9246352_1920.jpg') }}" alt="Tech Gifts" class="img-fluid rounded">
                 </div>
             </div>
         </div>

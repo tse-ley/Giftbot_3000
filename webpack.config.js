@@ -24,6 +24,10 @@ Encore
     .addStyleEntry('main', './assets/styles/components/_main.scss')
     .addStyleEntry('navbar', './assets/styles/components/_navbar.scss')
     .addStyleEntry('footer', './assets/styles/components/_footer.scss')
+    .addStyleEntry('gift', './assets/styles/components/_gift.scss')
+    .addStyleEntry('giftsearch', './assets/styles/components/_giftsearch.scss')
+    .addStyleEntry('cart', './assets/styles/components/_cart.scss')
+    .addStyleEntry('contact', './assets/styles/components/_contact.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

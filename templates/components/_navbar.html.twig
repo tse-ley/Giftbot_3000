@@ -1,7 +1,7 @@
 <!-- Navbar Component -->
 <nav class="navbar navbar-expand-lg" style="background-color: #FD6C9E;">
     <div class="container">
-        <a class="navbar-brand text-white fw-bold d-flex align-items-center me-4" href="#">
+        <a class="navbar-brand text-white fw-bold d-flex align-items-center me-4" href="{{ path('app_home') }}">
             <img src="{{ asset('image/logo.png') }}" alt="GiftBot" height="40" class="me-2">
             <span>GiftBot 3000</span>
         </a>
@@ -14,19 +14,19 @@
             <!-- Center nav links -->
             <ul class="navbar-nav mx-auto text-center gap-lg-3 gap-2">
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'home' %}fw-bold{% endif %}" href="#">Accueil</a>
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'home' %}fw-bold{% endif %}" href="{{ path('app_home') }}">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'store' %}fw-bold{% endif %}" href="#">Store</a>
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'store' %}fw-bold{% endif %}" href="{{ path('app_gifts') }}">Store</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'search' %}fw-bold{% endif %}" href="#">Recherche</a>
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'search' %}fw-bold{% endif %}" href="{{ path('app_giftsearch') }}">Recherche</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'about' %}fw-bold{% endif %}" href="#">À propos</a>
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'about' %}fw-bold{% endif %}" href="{{ path('app_about') }}">À propos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'contact' %}fw-bold{% endif %}" href="#">Contact</a>
+                    <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'contact' %}fw-bold{% endif %}" href="{{ path('app_contact') }}">Contact</a>
                 </li>
             </ul>
 

@@ -1,0 +1,359 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GiftBot 3000 - Recherche Intelligente{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/giftsearch.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'components/_navbar.html.twig' %}
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">Votre Cadeau Parfait Vous Attend...</h1>
+            <div class="hero-content ">
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop" alt="Gift Search" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <div style="display:none; width:100%; height:100%; background: linear-gradient(135deg, var(--light-pink), var(--primary-pink)); align-items:center; justify-content:center; color:white; font-size:2rem;">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+                <div class="hero-text">
+                    <p class="hero-description">
+                        Notre moteur de recherche intelligent analyse vos critères 
+                        (budget, occasion, centres d'intérêt) pour dénicher des 
+                        pépites adaptées. Plus besoin de chercher pendant des heures. 
+                        Laissez notre technologie vous proposer des idées qui font 
+                        mouche à coup sûr!
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <h2 class="search-title">Trouvez le Cadeau Idéal en Quelques Clics !</h2>
+            <form class="search-form" id="giftSearchForm">
+                <div class="form-group">
+                    <label class="form-label">Gender</label>
+                    <select class="form-input" name="gender" id="gender">
+                        <option value="">Tous</option>
+                        <option value="homme">Homme</option>
+                        <option value="femme">Femme</option>
+                        <option value="enfant">Enfant</option>
+                        <option value="unisexe">Unisexe</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Age</label>
+                    <select class="form-input" name="age" id="age">
+                        <option value="">Tous âges</option>
+                        <option value="0-5">0-5 ans</option>
+                        <option value="6-12">6-12 ans</option>
+                        <option value="13-17">13-17 ans</option>
+                        <option value="18-25">18-25 ans</option>
+                        <option value="26-40">26-40 ans</option>
+                        <option value="41-60">41-60 ans</option>
+                        <option value="60+">60+ ans</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Likes</label>
+                    <select class="form-input" name="interests" id="interests">
+                        <option value="">Sélectionnez</option>
+                        <option value="sport">Sport</option>
+                        <option value="tech">Technologie</option>
+                        <option value="art">Art & Culture</option>
+                        <option value="cuisine">Cuisine</option>
+                        <option value="mode">Mode</option>
+                        <option value="voyage">Voyage</option>
+                        <option value="lecture">Lecture</option>
+                        <option value="musique">Musique</option>
+                        <option value="jardinage">Jardinage</option>
+                        <option value="jeux">Jeux</option>
+                    </select>
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search me-2"></i>
+                    Search
+                </button>
+            </form>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section">
+            <h2 class="results-title">Our findings..</h2>
+            <p class="results-subtitle">In Store products</p>
+            
+            <div class="results-container" id="resultsContainer">
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>Recherche en cours...</p>
+                </div>
+
+                <!-- No Results State -->
+                <div class="no-results" id="noResults">
+                    <i class="fas fa-search"></i>
+                    <h3>Prêt à découvrir des cadeaux parfaits ?</h3>
+                    <p>Utilisez notre moteur de recherche intelligent ci-dessus pour commencer votre recherche.</p>
+                </div>
+
+                <!-- Results List -->
+                <div id="resultsList" style="display: none;">
+                    <div class="search-stats" id="searchStats"></div>
+                    <!-- Results will be populated here -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {% include 'components/_footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchForm = document.getElementById('giftSearchForm');
+            const loadingState = document.getElementById('loadingState');
+            const noResults = document.getElementById('noResults');
+            const resultsList = document.getElementById('resultsList');
+            const resultsContainer = document.getElementById('resultsContainer');
+            const searchStats = document.getElementById('searchStats');
+
+            // Sample gift data - in real app this would come from your Symfony controller
+            const sampleGifts = [
+                {
+                    id: 1,
+                    name: "Montre Connectée Premium",
+                    description: "Parfaite pour les amateurs de technologie et de sport",
+                    price: "299.99 €",
+                    gender: "unisexe",
+                    age: "18-25",
+                    interests: "tech",
+                    icon: "fas fa-watch"
+                },
+                {
+                    id: 2,
+                    name: "Kit de Cuisine Gourmet",
+                    description: "Idéal pour les passionnés de cuisine",
+                    price: "159.99 €",
+                    gender: "unisexe",
+                    age: "26-40",
+                    interests: "cuisine",
+                    icon: "fas fa-utensils"
+                },
+                {
+                    id: 3,
+                    name: "Coffret Beauté Luxe",
+                    description: "Collection de produits de beauté premium",
+                    price: "89.99 €",
+                    gender: "femme",
+                    age: "18-25",
+                    interests: "mode",
+                    icon: "fas fa-spa"
+                },
+                {
+                    id: 4,
+                    name: "Console de Jeux Portable",
+                    description: "Divertissement pour toute la famille",
+                    price: "249.99 €",
+                    gender: "unisexe",
+                    age: "13-17",
+                    interests: "jeux",
+                    icon: "fas fa-gamepad"
+                },
+                {
+                    id: 5,
+                    name: "Livre d'Art Contemporain",
+                    description: "Pour les amateurs d'art et de culture",
+                    price: "45.99 €",
+                    gender: "unisexe",
+                    age: "26-40",
+                    interests: "art",
+                    icon: "fas fa-book"
+                },
+                {
+                    id: 6,
+                    name: "Équipement de Sport",
+                    description: "Accessoires pour l'entraînement quotidien",
+                    price: "119.99 €",
+                    gender: "homme",
+                    age: "18-25",
+                    interests: "sport",
+                    icon: "fas fa-dumbbell"
+                }
+            ];
+
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                performSearch();
+            });
+
+            function performSearch() {
+                const formData = new FormData(searchForm);
+                const criteria = {
+                    gender: formData.get('gender'),
+                    age: formData.get('age'),
+                    interests: formData.get('interests')
+                };
+
+                // Show loading state
+                showLoadingState();
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    const filteredGifts = filterGifts(criteria);
+                    displayResults(filteredGifts, criteria);
+                }, 1500);
+            }
+
+            function showLoadingState() {
+                noResults.style.display = 'none';
+                resultsList.style.display = 'none';
+                loadingState.style.display = 'flex';
+            }
+
+            function filterGifts(criteria) {
+                return sampleGifts.filter(gift => {
+                    let matches = true;
+
+                    if (criteria.gender && criteria.gender !== 'unisexe') {
+                        matches = matches && (gift.gender === criteria.gender || gift.gender === 'unisexe');
+                    }
+
+                    if (criteria.age) {
+                        matches = matches && gift.age === criteria.age;
+                    }
+
+                    if (criteria.interests) {
+                        matches = matches && gift.interests === criteria.interests;
+                    }
+
+                    return matches;
+                });
+            }
+
+            function displayResults(gifts, criteria) {
+                loadingState.style.display = 'none';
+
+                if (gifts.length === 0) {
+                    showNoResults();
+                    return;
+                }
+
+                // Update search stats
+                const criteriaText = [];
+                if (criteria.gender) criteriaText.push(`Genre: ${criteria.gender}`);
+                if (criteria.age) criteriaText.push(`Âge: ${criteria.age}`);
+                if (criteria.interests) criteriaText.push(`Intérêts: ${criteria.interests}`);
+
+                searchStats.innerHTML = `
+                    <strong>${gifts.length} cadeau${gifts.length > 1 ? 's' : ''} trouvé${gifts.length > 1 ? 's' : ''}</strong>
+                    ${criteriaText.length > 0 ? ' - ' + criteriaText.join(' | ') : ''}
+                `;
+
+                // Create gift items HTML
+                const giftsHTML = gifts.map(gift => createGiftHTML(gift)).join('');
+                
+                resultsList.innerHTML = searchStats.outerHTML + giftsHTML;
+                resultsList.style.display = 'block';
+                
+                // Add fade-in animation
+                resultsList.classList.add('fade-in');
+                
+                // Add event listeners for new buttons
+                addCartButtonListeners();
+            }
+
+            function createGiftHTML(gift) {
+                return `
+                    <div class="gift-item" data-gift-id="${gift.id}">
+                        <div class="gift-image">
+                            <i class="${gift.icon} fa-2x"></i>
+                        </div>
+                        <div class="gift-details">
+                            <div class="gift-name">${gift.name}</div>
+                            <div class="gift-description">${gift.description}</div>
+                            <div class="gift-price">${gift.price}</div>
+                        </div>
+                        <div class="gift-actions">
+                            <button class="btn-add-cart" data-gift-id="${gift.id}">
+                                <i class="fas fa-shopping-cart me-1"></i>
+                                Ajouter
+                            </button>
+                            <button class="btn-view-details" data-gift-id="${gift.id}">
+                                Détails
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function showNoResults() {
+                resultsList.style.display = 'none';
+                noResults.innerHTML = `
+                    <i class="fas fa-search"></i>
+                    <h3>Aucun cadeau trouvé</h3>
+                    <p>Essayez de modifier vos critères de recherche pour découvrir plus d'options.</p>
+                `;
+                noResults.style.display = 'block';
+            }
+
+            function addCartButtonListeners() {
+                // Add to cart buttons
+                document.querySelectorAll('.btn-add-cart').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const giftId = this.dataset.giftId;
+                        const originalHTML = this.innerHTML;
+                        
+                        // Success animation
+                        this.innerHTML = '<i class="fas fa-check me-1"></i>Ajouté!';
+                        this.style.background = '#4caf50';
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalHTML;
+                            this.style.background = '';
+                        }, 2000);
+                        
+                        console.log('Added gift to cart:', giftId);
+                        
+                        // Here you would make an AJAX call to add to cart
+                        // Example: addToCart(giftId);
+                    });
+                });
+
+                // View details buttons
+                document.querySelectorAll('.btn-view-details').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const giftId = this.dataset.giftId;
+                        console.log('View details for gift:', giftId);
+                        
+                        // Here you would redirect to product details page
+                        // window.location.href = `/gift/${giftId}`;
+                    });
+                });
+            }
+
+            // Optional: Auto-search when criteria change
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    // Uncomment to enable auto-search
+                    // performSearch();
+                });
+            });
+        });
+    </script>
+{% endblock %}

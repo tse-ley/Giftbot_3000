@@ -1,7 +1,4 @@
-// Custom SCSS for GiftBot 3000 - Main Body
-// Note: This file can be imported into Symfony's asset pipeline (e.g., via Webpack Encore)
-
-// ===== CSS VARIABLES =====
+// ===== MAIN STYLES =====
 :root {
     --primary-pink: #FD6C9E;
     --secondary-beige: #F9E4DA;
@@ -128,41 +125,7 @@ body {
     }
 }
 
-// ===== NAVBAR STYLES =====
-.navbar-custom {
-    background-color: var(--primary-pink);
-    box-shadow: var(--shadow-md);
-    padding: var(--spacing-sm) 0;
 
-    .navbar-brand {
-        font-weight: var(--font-weight-bold);
-        font-size: 1.5rem;
-    }
-
-    .nav-link {
-        color: var(--white) !important;
-        font-weight: var(--font-weight-medium);
-        padding: var(--spacing-xs) var(--spacing-sm) !important;
-        border-radius: var(--border-radius-md);
-        transition: all var(--transition-normal);
-        margin: 0 var(--spacing-xs);
-
-        &:hover,
-        &.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-1px);
-        }
-    }
-
-    .navbar-toggler {
-        border: none;
-        padding: 4px 8px;
-
-        &:focus {
-            box-shadow: none;
-        }
-    }
-}
 
 // ===== HERO SECTION =====
 .hero-section {
@@ -297,27 +260,73 @@ body {
     }
 }
 
-// ===== NAVIGATION STYLES =====
-.category-nav {
+
+
+
+// ===== SECTION STYLES =====
+.section-padding {
+    padding: var(--spacing-xxl) 0;
+}
+
+.section-unique-gifts {
+    padding: var(--spacing-xxl) 0;
     background-color: var(--white);
-    border-radius: var(--border-radius-pill);
-    padding: var(--spacing-xs);
-    margin: var(--spacing-lg) 0;
-    box-shadow: var(--shadow-md);
+}
 
-    .nav-link {
+.section-adventure {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--secondary-beige);
+}
+
+.tech-section {
+    background-color: var(--primary-pink);
+    color: var(--white);
+    padding: var(--spacing-xxl) 0;
+}
+
+.newsletter-section {
+    background-color: var(--secondary-beige);
+    padding: var(--spacing-xl) 0;
+}
+
+// ===== FILTER STYLES =====
+.filter-section {
+    padding: var(--spacing-lg) 0;
+    
+    .sort-dropdown {
+        border: 1px solid var(--border-gray);
+        border-radius: var(--border-radius-md);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        background: var(--white);
         color: var(--text-gray);
-        padding: var(--spacing-xs) var(--spacing-lg);
-        border-radius: var(--border-radius-pill);
-        margin: 0 var(--spacing-xs);
-        transition: all var(--transition-normal);
-        font-weight: var(--font-weight-medium);
+        
+        &:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 0 3px rgba(253, 108, 158, 0.1);
+        }
+    }
+    
+    .collection-link {
+        color: var(--primary-pink);
         text-decoration: none;
-
-        &:hover,
-        &.active {
-            background-color: var(--primary-pink);
-            color: var(--white);
+        font-weight: var(--font-weight-medium);
+        display: inline-flex;
+        align-items: center;
+        margin-bottom: var(--spacing-lg);
+        transition: color var(--transition-normal);
+        
+        &:hover {
+            color: var(--dark-pink);
+            
+            i {
+                transform: translateX(3px);
+            }
+        }
+        
+        i {
+            margin-left: 5px;
+            transition: transform var(--transition-normal);
         }
     }
 }
@@ -369,81 +378,12 @@ body {
         }
     }
 }
-
-// ===== SECTION STYLES =====
-.section-padding {
-    padding: var(--spacing-xxl) 0;
-}
-
-.section-unique-gifts {
-    padding: var(--spacing-xxl) 0;
-    background-color: var(--white);
-}
-
-.section-adventure {
-    padding: var(--spacing-xxl) 0;
-    background-color: var(--secondary-beige);
-}
-
-.tech-section {
-    background-color: var(--primary-pink);
-    color: var(--white);
-    padding: var(--spacing-xxl) 0;
-}
-
-.newsletter-section {
-    background-color: var(--secondary-beige);
-    padding: var(--spacing-xl) 0;
-}
-
-// ===== FILTER STYLES =====
-.filter-section {
-    padding: var(--spacing-lg) 0;
-
-    .sort-dropdown {
-        border: 1px solid var(--border-gray);
-        border-radius: var(--border-radius-md);
-        padding: var(--spacing-xs) var(--spacing-sm);
-        background: var(--white);
-        color: var(--text-gray);
-
-        &:focus {
-            outline: none;
-            border-color: var(--primary-pink);
-            box-shadow: 0 0 0 3px rgba(253, 108, 158, 0.1);
-        }
-    }
-
-    .collection-link {
-        color: var(--primary-pink);
-        text-decoration: none;
-        font-weight: var(--font-weight-medium);
-        display: inline-flex;
-        align-items: center;
-        margin-bottom: var(--spacing-lg);
-        transition: color var(--transition-normal);
-
-        &:hover {
-            color: var(--dark-pink);
-
-            i {
-                transform: translateX(3px);
-            }
-        }
-
-        i {
-            margin-left: 5px;
-            transition: transform var(--transition-normal);
-        }
-    }
-}
-
 // ===== RESPONSIVE STYLES =====
 @media (max-width: 768px) {
     .hero-section {
         padding: var(--spacing-xl) 0;
         text-align: center;
-
+        
         h1 {
             font-size: 2rem;
         }
@@ -533,102 +473,8 @@ section p {
 }
 
 
-// contact page styles 
-
-.contact-section {
-    flex: 1; 
-    padding: 2rem 0;
-    background-color: #fde6e6;
-    padding: 60px 20px;
-}
-
-.contact-box {
-    background-color: #fd6c9e;
-    border-radius: 20px;
-    padding: 1.5rem;
-    text-align: center;
-    color: #000;
-    transition: transform 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.contact-box:hover {
-    transform: translateY(-5px);
-}
-
-.contact-box i {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-}
-
-.contact-box h6 {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.contact-box p {
-    font-size: 0.9rem;
-    margin: 0;
-}
-
-//cart styles
 
 
-body {
-        background-color: #1e1e1e;
-    }
 
-    .page-wrapper {
-        background-color: #fddbd4;
-        padding: 2rem;
-    }
 
-    .cart-item, .summary-box, .coupon-box {
-        background-color: #fddbd4;
-        border: none;
-        padding: 1rem;
-        margin-bottom: 1rem;
-    }
 
-    .cart-item {
-        border-bottom: 2px solid #000;
-    }
-
-    .summary-box {
-        background-color: #ff5da2;
-        border-radius: 10px;
-        padding: 1.5rem;
-    }
-
-    .coupon-box {
-        background-color: #ff5da2;
-        border-radius: 10px;
-        padding: 1rem;
-    }
-
-    .item-image {
-        width: 80px;
-        height: 80px;
-        background-color: white;
-        border-radius: 5px;
-    }
-
-    .item-controls button {
-        width: 40px;
-    }
-
-    .trash-icon {
-        cursor: pointer;
-    }
-
-    .checkout-btn, .apply-btn {
-        background-color: #fff0eb;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-weight: bold;
-    }
-
-    .checkout-btn:hover, .apply-btn:hover {
-        background-color: #fce1da;
-    }

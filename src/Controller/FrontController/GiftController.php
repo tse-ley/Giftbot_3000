@@ -21,7 +21,7 @@ class GiftController extends AbstractController
             ? $giftRepository->search($form->getData())
             : $giftRepository->findAll();
 
-        return $this->render('gift/index.html.twig', [
+        return $this->render('gift/gift.html.twig', [
             'gifts' => $gifts,
             'searchForm' => $form->createView()
         ]);

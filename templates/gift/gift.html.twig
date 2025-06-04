@@ -1,0 +1,263 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GiftBot 3000 - Store{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('build/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/footer.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% include 'components/_navbar.html.twig' %}
+
+    <!-- Hero Section with Carousel -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Populaire</h1>
+                    <p class="lead">Découvrez nos produits les plus appréciés</p>
+                </div>
+                <div class="col-lg-6">
+                    <div id="popularCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#popularCarousel" data-bs-slide-to="0" class="active"></button>
+                            <button type="button" data-bs-target="#popularCarousel" data-bs-slide-to="1"></button>
+                            <button type="button" data-bs-target="#popularCarousel" data-bs-slide-to="2"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="product-image">
+                                    <i class="fas fa-gift fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="product-image">
+                                    <i class="fas fa-heart fa-3x"></i>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="product-image">
+                                    <i class="fas fa-star fa-3x"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Search Section -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="search-container d-flex">
+                    <input type="text" class="search-input" placeholder="Rechercher un produit...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <nav class="nav justify-content-center">
+                <a class="nav-link active" href="#" data-category="all">Tous</a>
+                <a class="nav-link" href="#" data-category="homme">Homme</a>
+                <a class="nav-link" href="#" data-category="femme">Femme</a>
+                <a class="nav-link" href="#" data-category="enfants">Enfants</a>
+                <a class="nav-link" href="#" data-category="animaux">Animaux</a>
+                <a class="nav-link" href="#" data-category="accessoires">Accessoires</a>
+            </nav>
+        </div>
+
+        <!-- Products Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="section-title mb-0">Nos Produits</h2>
+            <select class="sort-dropdown">
+                <option>Trier par</option>
+                <option>Prix croissant</option>
+                <option>Prix décroissant</option>
+                <option>Nouveautés</option>
+                <option>Popularité</option>
+            </select>
+        </div>
+
+        <div class="row" id="products-container">
+            <!-- Product Cards -->
+            {% for i in 1..15 %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="product-card" data-product-id="{{ i }}">
+                    <div class="product-image">
+                        <i class="fas fa-gift fa-2x"></i>
+                    </div>
+                    <div class="product-title">Produit {{ i }}</div>
+                    <div class="product-price">{{ random(10, 100) }}.99 €</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-4">
+            <button class="btn btn-outline-primary btn-lg px-5">
+                Voir plus de produits
+            </button>
+        </div>
+    </div>
+
+    <!-- Product Expanded Modal -->
+    <div class="modal-backdrop-custom" id="modalBackdrop"></div>
+    <div class="product-expanded" id="productModal">
+        <button class="btn-close-modal" id="closeModal">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="text-center">
+            <div class="product-image mb-3">
+                <i class="fas fa-gift fa-3x"></i>
+            </div>
+            <h3 class="mb-3" id="modalTitle">Nom du Produit</h3>
+            <p class="text-muted mb-3" id="modalDescription">
+                Une description détaillée du produit avec ses caractéristiques principales. 
+                Ce produit offre une qualité exceptionnelle et un design moderne.
+            </p>
+            <div class="mb-3">
+                <span class="product-price fs-4" id="modalPrice">49.99 €</span>
+            </div>
+            <button class="btn btn-add-cart">
+                <i class="fas fa-shopping-cart me-2"></i>
+                Ajouter au panier
+            </button>
+        </div>
+    </div>
+
+    {% include 'components/_footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const productCards = document.querySelectorAll('.product-card');
+            const productModal = document.getElementById('productModal');
+            const modalBackdrop = document.getElementById('modalBackdrop');
+            const closeModal = document.getElementById('closeModal');
+            const categoryLinks = document.querySelectorAll('[data-category]');
+
+            // Product card click handler
+            productCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const productId = this.dataset.productId;
+                    const title = this.querySelector('.product-title').textContent;
+                    const price = this.querySelector('.product-price').textContent;
+                    
+                    // Update modal content
+                    document.getElementById('modalTitle').textContent = title;
+                    document.getElementById('modalPrice').textContent = price;
+                    
+                    // Show modal
+                    modalBackdrop.classList.add('show');
+                    productModal.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+
+            // Close modal handlers
+            function closeProductModal() {
+                modalBackdrop.classList.remove('show');
+                productModal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            closeModal.addEventListener('click', closeProductModal);
+            modalBackdrop.addEventListener('click', closeProductModal);
+
+            // Escape key to close modal
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeProductModal();
+                }
+            });
+
+            // Category navigation
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    categoryLinks.forEach(l => l.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    
+                    // Here you would typically filter products based on category
+                    console.log('Filtering products by category:', category);
+                    
+                    // Add loading animation
+                    const container = document.getElementById('products-container');
+                    container.style.opacity = '0.5';
+                    
+                    setTimeout(() => {
+                        container.style.opacity = '1';
+                    }, 500);
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.querySelector('.search-input');
+            const searchBtn = document.querySelector('.search-btn');
+
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    console.log('Searching for:', query);
+                    // Here you would implement the actual search logic
+                }
+            }
+
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Sort dropdown
+            const sortDropdown = document.querySelector('.sort-dropdown');
+            sortDropdown.addEventListener('change', function() {
+                const sortBy = this.value;
+                console.log('Sorting by:', sortBy);
+                // Here you would implement the sorting logic
+            });
+
+            // Add to cart button
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-add-cart') || e.target.closest('.btn-add-cart')) {
+                    e.preventDefault();
+                    
+                    const btn = e.target.classList.contains('btn-add-cart') ? e.target : e.target.closest('.btn-add-cart');
+                    const originalText = btn.innerHTML;
+                    
+                    // Animation feedback
+                    btn.innerHTML = '<i class="fas fa-check me-2"></i>Ajouté !';
+                    btn.style.background = '#4caf50';
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        closeProductModal();
+                    }, 1500);
+                    
+                    console.log('Product added to cart');
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -15,12 +15,6 @@ front:
     controller: App\Controller\FrontController\MainController::index
     methods: [GET]
 
-
-gift:
-    path: /gift
-    controller: App\Controller\GiftController::index
-    methods: [GET]
-
 wishlist:
     path: /wishlist
     controller: App\Controller\WishlistController::index
