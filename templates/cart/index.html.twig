@@ -1,20 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Panier{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('build/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/footer.css') }}">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="container page-wrapper mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Cart</h3>
+            {% for i in 1..3 %}
+                <div class="cart-item d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="item-image"></div>
+                        <div>
+                            <strong>Item</strong><br>
+                            <small>Description<br>Size</small><br>
+                            <span>$39</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 item-controls">
+                        <button class="btn btn-light">+</button>
+                        <span>1</span>
+                        <button class="btn btn-light">-</button>
+                        <i class="bi bi-trash trash-icon"></i>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <div class="col-md-4">
+            <div class="summary-box">
+                <h5>Order summary</h5>
+                <div class="d-flex justify-content-between">
+                    <span>Subtotal</span><span>$20</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Discount</span><span>$5</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Shipping</span><span>Free</span>
+                </div>
+                <div class="d-flex justify-content-between fw-bold">
+                    <span>Total</span><span>$15</span>
+                </div>
+                <div class="mt-3 text-center">
+                    <button class="checkout-btn">Proceed to checkout</button>
+                </div>
+                <hr>
+                <p class="text-center mb-0">Estimated delivery by August 6</p>
+            </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/tseley/Project_final/giftbot/src/Controller/CartController.php</code></li>
-        <li>Your template at <code>/home/tseley/Project_final/giftbot/templates/cart/index.html.twig</code></li>
-    </ul>
+            <div class="coupon-box mt-3">
+                <p><strong>Have a coupon code?</strong></p>
+                <div class="d-flex">
+                    <input type="text" class="form-control me-2" placeholder="Code here">
+                    <button class="apply-btn">Apply</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
+ {% include 'components/_footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 {% endblock %}

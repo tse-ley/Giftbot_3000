@@ -15,10 +15,6 @@ front:
     controller: App\Controller\FrontController\MainController::index
     methods: [GET]
 
-cart:
-    path: /cart
-    controller: App\Controller\CartController::index
-    methods: [GET, POST]
 
 gift:
     path: /gift

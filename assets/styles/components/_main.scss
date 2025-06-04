@@ -533,9 +533,11 @@ section p {
 }
 
 
-// contact page styles //
+// contact page styles 
 
 .contact-section {
+    flex: 1; 
+    padding: 2rem 0;
     background-color: #fde6e6;
     padding: 60px 20px;
 }
@@ -543,7 +545,7 @@ section p {
 .contact-box {
     background-color: #fd6c9e;
     border-radius: 20px;
-    padding: 30px 20px;
+    padding: 1.5rem;
     text-align: center;
     color: #000;
     transition: transform 0.3s ease;
@@ -568,3 +570,65 @@ section p {
     font-size: 0.9rem;
     margin: 0;
 }
+
+//cart styles
+
+
+body {
+        background-color: #1e1e1e;
+    }
+
+    .page-wrapper {
+        background-color: #fddbd4;
+        padding: 2rem;
+    }
+
+    .cart-item, .summary-box, .coupon-box {
+        background-color: #fddbd4;
+        border: none;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .cart-item {
+        border-bottom: 2px solid #000;
+    }
+
+    .summary-box {
+        background-color: #ff5da2;
+        border-radius: 10px;
+        padding: 1.5rem;
+    }
+
+    .coupon-box {
+        background-color: #ff5da2;
+        border-radius: 10px;
+        padding: 1rem;
+    }
+
+    .item-image {
+        width: 80px;
+        height: 80px;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    .item-controls button {
+        width: 40px;
+    }
+
+    .trash-icon {
+        cursor: pointer;
+    }
+
+    .checkout-btn, .apply-btn {
+        background-color: #fff0eb;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        font-weight: bold;
+    }
+
+    .checkout-btn:hover, .apply-btn:hover {
+        background-color: #fce1da;
+    }
