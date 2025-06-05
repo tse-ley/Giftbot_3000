@@ -1,61 +1,78 @@
 security:
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+    # Password hasher configuration
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    # User providers
     providers:
         app_user_provider:
             entity:
                 class: App\Entity\User
                 property: email
-        admin_users:
+        admin_user_provider:
             entity:
-                class: App\Entity\AdminUser
+                class: App\Entity\Admin
                 property: email
 
     firewalls:
+        # Development tools
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-            
+
+        # Admin login under /back/admin
         admin:
             pattern: ^/back/admin
-            provider: admin_users
+            provider: admin_user_provider
             form_login:
                 login_path: admin_login
                 check_path: admin_login
                 enable_csrf: true
                 default_target_path: /back/admin/
-                username_parameter: '_username'
-                password_parameter: '_password'
+                username_parameter: _username
+                password_parameter: _password
             logout:
                 path: admin_logout
                 target: /back/admin/login
             entry_point: form_login
-            
+
+        # Main application firewall for regular users
         main:
             lazy: true
             provider: app_user_provider
             form_login:
-                login_path: /back/admin/login
-                check_path: /back/admin/login
+                login_path: app_login
+                check_path: app_login
+                default_target_path: /
+                enable_csrf: true
             logout:
                 path: app_logout
+                target: app_login
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week
+                path: /
+                always_remember_me: false
 
+    # Access control rules
     access_control:
         - { path: ^/back/admin/login, roles: PUBLIC_ACCESS }
         - { path: ^/back/admin, roles: ROLE_ADMIN }
+        - { path: ^/profile, roles: ROLE_USER }
+
+    # Role hierarchy (optional but useful)
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
 when@test:
     security:
         password_hashers:
-            # By default, password hashers are resource intensive and take time. This is
-            # important to generate secure password hashes. In tests however, secure hashes
-            # are not important, waste resources and increase test times. The following
-            # reduces the work factor to the lowest possible values.
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
-                cost: 4 # Lowest possible value for bcrypt
-                time_cost: 3 # Lowest possible value for argon
-                memory_cost: 10 # Lowest possible value for argon
+                cost: 4 # For bcrypt
+                time_cost: 3 # For argon2i
+                memory_cost: 10 # For argon2i
+
+services:
+    App\Security\AuthenticationSuccessHandler: ~

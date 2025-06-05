@@ -129,7 +129,7 @@ body {
 
 // ===== HERO SECTION =====
 .hero-section {
-    background: linear-gradient(135deg, var(--primary-pink) 0%, var(--dark-pink) 100%);
+    background: linear-gradient(135deg, rgba(240, 129, 174, 0.8) 0%, rgba(217, 99, 149, 0.8) 100%), url('..assets/image/pink-553149_1280.jpg');
     color: var(--white);
     padding: var(--spacing-xxl) 0;
     position: relative;
@@ -137,33 +137,26 @@ body {
     min-height: 400px;
     display: flex;
     align-items: center;
+    border-radius: 1rem;
+    margin: 2rem 1rem;
+}
 
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        opacity: 0.3;
-        z-index: 1;
-    }
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
 
-    .hero-content {
-        position: relative;
-        z-index: 2;
-    }
+.hero-section h1 {
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--spacing-lg);
+    font-size: 3rem;
+}
 
-    h1 {
-        font-weight: var(--font-weight-bold);
-        margin-bottom: var(--spacing-lg);
-    }
-
-    .lead {
-        font-size: 1.25rem;
-        font-weight: var(--font-weight-normal);
-        opacity: 0.95;
-    }
+.hero-section .lead {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-normal);
+    opacity: 0.95;
 }
 
 // ===== CARD STYLES =====

@@ -40,4 +40,13 @@ class OrdersRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findRecent(int $limit = 5): array
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.created_at', 'DESC') // <-- use the property name from your entity
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

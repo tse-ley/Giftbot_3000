@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Entity\AdminUser;
+use App\Entity\Admin;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -12,10 +12,10 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[AsCommand(
-    name: 'app:create-admin-user',
-    description: 'Creates a new admin user.'
+    name: 'app:create-admin',
+    description: 'Creates a new admin.'
 )]
-class CreateAdminUserCommand extends Command
+class CreateAdminCommand extends Command
 {
     private EntityManagerInterface $em;
     private UserPasswordHasherInterface $passwordHasher;
@@ -31,6 +31,9 @@ class CreateAdminUserCommand extends Command
     {
         $helper = $this->getHelper('question');
 
+        $usernameQuestion = new Question('Enter admin username: ');
+        $username = $helper->ask($input, $output, $usernameQuestion);
+
         $emailQuestion = new Question('Enter admin email: ');
         $email = $helper->ask($input, $output, $emailQuestion);
 
@@ -39,13 +42,14 @@ class CreateAdminUserCommand extends Command
         $passwordQuestion->setHiddenFallback(false);
         $plainPassword = $helper->ask($input, $output, $passwordQuestion);
 
-        $adminUser = new AdminUser();
-        $adminUser->setEmail($email);
-        $adminUser->setRoles(['ROLE_ADMIN']);
-        $hashedPassword = $this->passwordHasher->hashPassword($adminUser, $plainPassword);
-        $adminUser->setPassword($hashedPassword);
+        $admin = new Admin();
+        $admin->setUsername($username);
+        $admin->setEmail($email);
+        $admin->setRoles(['ROLE_ADMIN']);
+        $hashedPassword = $this->passwordHasher->hashPassword($admin, $plainPassword);
+        $admin->setPassword($hashedPassword);
 
-        $this->em->persist($adminUser);
+        $this->em->persist($admin);
         $this->em->flush();
 
         $output->writeln('<info>Admin user created successfully!</info>');
