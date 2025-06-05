@@ -21,13 +21,14 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.js')
-    .addStyleEntry('main', './assets/styles/components/_main.scss')
-    .addStyleEntry('navbar', './assets/styles/components/_navbar.scss')
-    .addStyleEntry('footer', './assets/styles/components/_footer.scss')
-    .addStyleEntry('gift', './assets/styles/components/_gift.scss')
-    .addStyleEntry('giftsearch', './assets/styles/components/_giftsearch.scss')
-    .addStyleEntry('cart', './assets/styles/components/_cart.scss')
-    .addStyleEntry('contact', './assets/styles/components/_contact.scss')
+    .addEntry('shared', './assets/styles/components/_shared.scss')
+    .addStyleEntry('main', './assets/styles/components/pages/_main.scss')
+    .addStyleEntry('navbar', './assets/styles/components/pages/_navbar.scss')
+    .addStyleEntry('footer', './assets/styles/components/pages/_footer.scss')
+    .addStyleEntry('gift', './assets/styles/components/pages/_gift.scss')
+    .addStyleEntry('giftsearch', './assets/styles/components/pages/_giftsearch.scss')
+    .addStyleEntry('cart', './assets/styles/components/pages/_cart.scss')
+    .addStyleEntry('contact', './assets/styles/components/pages/_contact.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

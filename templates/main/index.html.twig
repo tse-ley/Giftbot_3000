@@ -5,6 +5,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('build/shared.css') }}">
     <link rel="stylesheet" href="{{ asset('build/main.css') }}">
     <link rel="stylesheet" href="{{ asset('build/hero.css') }}">
     <link rel="stylesheet" href="{{ asset('build/navbar.css') }}">
@@ -96,7 +97,7 @@
                 </div>
             </div>
             <div class="text-center mt-4">
-                <a href="#" class="btn btn-custom btn-lg">La Boutique</a>
+                <a href="{{ path('app_gifts') }}" class="btn btn-custom btn-lg">La Boutique</a>
             </div>
         </div>
     </section>
@@ -112,7 +113,7 @@
                         uniques. Des filtres intelligents, des idées personnalisées en un clic. Plus de casse-
                         tête : offrez juste ce qui fera sourire.
                     </p>
-                    <button class="btn btn-outline-light btn-lg">Essayez-le</button>
+                    <a href="{{ path('app_giftsearch') }}" class="btn" style="background-color: #F9E4DA;">Essayez-le</a>
                 </div>
                 <div class="col-lg-6">
                     <img src="{{ asset('image/opel-9246352_1920.jpg') }}" alt="Tech Gifts" class="img-fluid rounded">
@@ -131,7 +132,7 @@
                 <div class="col-lg-6">
                     <div class="input-group">
                         <input type="email" class="form-control" placeholder="Votre email">
-                        <button class="btn btn-newsletter" type="button">S'inscrire</button>
+                        <button class="btn btn-pink" >S'inscrire</button>
                     </div>
                 </div>
             </div>

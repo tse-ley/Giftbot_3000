@@ -2,9 +2,11 @@
 @import '~bootstrap/scss/bootstrap';
 
 /* Your custom styles */
-@import 'components/navbar';
-@import 'components/footer';
-@import 'components/main';
-@import 'components/gift';
-@import 'components/giftsearch';
-@import 'components/cart';
+@import 'components/shared';
+@import 'components/pages/navbar';
+@import 'components/pages/footer';
+@import 'components/pages/main';
+@import 'components/pages/gift';
+@import 'components/pages/giftsearch';
+@import 'components/pages/cart';
+@import 'components/pages/contact';

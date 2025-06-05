@@ -28,7 +28,7 @@ class UserController extends AbstractController
     public function register(
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
-        UserAuthenticatorInterface $authenticator,
+        UserAuthenticatorInterface $userAuthenticator,
         EntityManagerInterface $em
     ): Response {
         $user = new User();
@@ -42,19 +42,14 @@ class UserController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
-            // Set the name property from the form
             $user->setName($form->get('name')->getData());
-
-            $user->setIsAdmin(false); // <-- Add this line
+            $user->setIsAdmin(false);
 
             $em->persist($user);
             $em->flush();
 
-            return $authenticator->authenticateUser(
-                $user,
-                $request
-            );
+            // If using Symfony 6.3+ default authenticator:
+            return $userAuthenticator->authenticateUser($user, $request);
         }
 
         return $this->render('Registration/register.html.twig', [
@@ -62,7 +57,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Route('/login', name: 'app_login')]
+    #[Route('/login', name: 'user_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         // get the login error if there is one
