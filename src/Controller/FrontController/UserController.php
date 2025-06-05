@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 #[Route('/user')]
 class UserController extends AbstractController
@@ -18,7 +19,7 @@ class UserController extends AbstractController
     #[Route('', name: 'user_index')]
     public function index(): Response
     {
-        return $this->render('user/index.html.twig', [
+        return $this->render('main/index.html.twig', [
             'controller_name' => 'UserController',
         ]);
     }
@@ -28,7 +29,6 @@ class UserController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
         UserAuthenticatorInterface $authenticator,
-        LoginAuthenticator $formAuthenticator,
         EntityManagerInterface $em
     ): Response {
         $user = new User();
@@ -43,25 +43,37 @@ class UserController extends AbstractController
                 )
             );
 
+            // Set the name property from the form
+            $user->setName($form->get('name')->getData());
+
+            $user->setIsAdmin(false); // <-- Add this line
+
             $em->persist($user);
             $em->flush();
 
             return $authenticator->authenticateUser(
                 $user,
-                $formAuthenticator,
                 $request
             );
         }
 
-        return $this->render('user/register.html.twig', [
+        return $this->render('Registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
 
     #[Route('/login', name: 'app_login')]
-    public function login(): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        return $this->render('user/login.html.twig');
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('admin/login.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error,
+        ]);
     }
 
     #[Route('/logout', name: 'app_logout')]
