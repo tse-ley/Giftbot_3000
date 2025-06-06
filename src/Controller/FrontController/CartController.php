@@ -19,7 +19,7 @@ class CartController extends AbstractController
     public function index(CartItemRepository $cartItemRepository): Response
     {
         return $this->render('cart/index.html.twig', [
-            'cartItems' => $cartItemRepository->findByUser($this->getUser())
+            'cartItem' => $cartItemRepository->findByUser($this->getUser())
         ]);
     }
 

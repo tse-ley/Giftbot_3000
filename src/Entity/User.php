@@ -47,9 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $orders;
 
     /**
-     * @var Collection<int, CartItems>
+     * @var Collection<int, CartItem>
      */
-    #[ORM\OneToMany(targetEntity: CartItems::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'user')]
     private Collection $cartItems;
 
     public function __construct()
@@ -201,14 +201,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, CartItems>
+     * @return Collection<int, CartItem>
      */
     public function getCartItems(): Collection
     {
         return $this->cartItems;
     }
 
-    public function addCartItem(CartItems $cartItem): static
+    public function addCartItem(CartItem $cartItem): static
     {
         if (!$this->cartItems->contains($cartItem)) {
             $this->cartItems->add($cartItem);
@@ -218,7 +218,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeCartItem(CartItems $cartItem): static
+    public function removeCartItem(CartItem $cartItem): static
     {
         if ($this->cartItems->removeElement($cartItem)) {
             // set the owning side to null (unless already changed)

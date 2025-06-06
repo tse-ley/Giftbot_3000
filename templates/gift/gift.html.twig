@@ -56,7 +56,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="search-container d-flex">
-                    <input type="text" class="search-input" placeholder="Rechercher un produit...">
+                    <input tyape="text" class="search-input" placeholder="Rechercher un produit...">
                     <button class="search-btn">
                         <i class="fas fa-search"></i>
                     </button>
@@ -121,13 +121,10 @@
             <div class="product-image mb-3">
                 <i class="fas fa-gift fa-3x"></i>
             </div>
-            <h3 class="mb-3" id="modalTitle">Nom du Produit</h3>
-            <p class="text-muted mb-3" id="modalDescription">
-                Une description détaillée du produit avec ses caractéristiques principales. 
-                Ce produit offre une qualité exceptionnelle et un design moderne.
-            </p>
+            <h3 class="mb-3" id="modalTitle"></h3>
+            <p class="text-muted mb-3" id="modalDescription"></p>
             <div class="mb-3">
-                <span class="product-price fs-4" id="modalPrice">49.99 €</span>
+                <span class="product-price fs-4" id="modalPrice"></span>
             </div>
             <button class="btn btn-add-cart">
                 <i class="fas fa-shopping-cart me-2"></i>
@@ -149,6 +146,9 @@
             const modalBackdrop = document.getElementById('modalBackdrop');
             const closeModal = document.getElementById('closeModal');
             const categoryLinks = document.querySelectorAll('[data-category]');
+            const addToCartBtn = productModal.querySelector('.btn-add-cart');
+
+            let currentProduct = {};
 
             // Product card click handler
             productCards.forEach(card => {
@@ -156,16 +156,42 @@
                     const productId = this.dataset.productId;
                     const title = this.querySelector('.product-title').textContent;
                     const price = this.querySelector('.product-price').textContent;
-                    
+                    // If you have a description, get it here
+                    const description = "Une description détaillée du produit avec ses caractéristiques principales. Ce produit offre une qualité exceptionnelle et un design moderne.";
+
                     // Update modal content
                     document.getElementById('modalTitle').textContent = title;
                     document.getElementById('modalPrice').textContent = price;
-                    
+                    document.getElementById('modalDescription').textContent = description;
+
+                    // Store current product info for add-to-cart
+                    currentProduct = {
+                        title: title,
+                        price: parseFloat(price),
+                        description: description
+                    };
+
                     // Show modal
                     modalBackdrop.classList.add('show');
                     productModal.classList.add('show');
                     document.body.style.overflow = 'hidden';
                 });
+            });
+
+            // Add to cart from modal
+            addToCartBtn.addEventListener('click', function() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const index = cart.findIndex(item => item.title === currentProduct.title);
+
+                if (index >= 0) {
+                    cart[index].quantity += 1;
+                } else {
+                    cart.push({ ...currentProduct, quantity: 1 });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                // Redirect to cart page after adding
+                window.location.href = "{{ path('app_cart') }}";
             });
 
             // Close modal handlers
@@ -189,22 +215,13 @@
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Remove active class from all links
                     categoryLinks.forEach(l => l.classList.remove('active'));
-                    
-                    // Add active class to clicked link
                     this.classList.add('active');
-                    
                     const category = this.dataset.category;
-                    
-                    // Here you would typically filter products based on category
+                    // Filtering logic here
                     console.log('Filtering products by category:', category);
-                    
-                    // Add loading animation
                     const container = document.getElementById('products-container');
                     container.style.opacity = '0.5';
-                    
                     setTimeout(() => {
                         container.style.opacity = '1';
                     }, 500);
@@ -219,7 +236,7 @@
                 const query = searchInput.value.trim();
                 if (query) {
                     console.log('Searching for:', query);
-                    // Here you would implement the actual search logic
+                    // Implement search logic here
                 }
             }
 
@@ -235,29 +252,7 @@
             sortDropdown.addEventListener('change', function() {
                 const sortBy = this.value;
                 console.log('Sorting by:', sortBy);
-                // Here you would implement the sorting logic
-            });
-
-            // Add to cart button
-            document.addEventListener('click', function(e) {
-                if (e.target.classList.contains('btn-add-cart') || e.target.closest('.btn-add-cart')) {
-                    e.preventDefault();
-                    
-                    const btn = e.target.classList.contains('btn-add-cart') ? e.target : e.target.closest('.btn-add-cart');
-                    const originalText = btn.innerHTML;
-                    
-                    // Animation feedback
-                    btn.innerHTML = '<i class="fas fa-check me-2"></i>Ajouté !';
-                    btn.style.background = '#4caf50';
-                    
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                        btn.style.background = '';
-                        closeProductModal();
-                    }, 1500);
-                    
-                    console.log('Product added to cart');
-                }
+                // Implement sorting logic here
             });
         });
     </script>

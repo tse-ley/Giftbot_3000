@@ -26,15 +26,24 @@
 
         <!-- Unique Gifts Section (white bg with centered text and button) -->
         <section class="bg-white py-5">
-            <div class="container text-center">
-                <h2 class="fw-bold mb-4">Des Cadeaux Uniques, Pour des Souvenirs Inoubliables !</h2>
-                <p class="mb-4">Chez GiftBot 3000, nous transformons le simple geste d'offrir...</p>
-                <p class="mb-5"> Chez GiftBot 3000, nous transformons le simple geste d'offrir en une expérience 
-                        magique. Que ce soit pour un anniversaire, une fête, ou juste pour faire plaisir, 
-                        notre sélection intelligente de cadeaux saura trouver LE présent qui fera sourire. 
-                        Laissez notre "bot cadeautier" vous guider vers des idées uniques, tendance et 
-                        personnalisées.</p>
-                <a href="{{ path('app_about') }}" class="btn btn-lg rounded-pill text-white" style="background-color: #FF4DA6;">En Savoir Plus</a>
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 text-center">
+                        <img src="{{ asset('image/pexels-photo-6063706.jpeg') }}" alt="Tech Gifts" class="img-fluid rounded">
+                    </div>
+                    <div class="col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
+                        <h2 class="fw-bold mb-4">Des Cadeaux Uniques, Pour des Souvenirs Inoubliables !</h2>
+                        <p class="mb-4">Chez GiftBot 3000, nous transformons le simple geste d'offrir...</p>
+                        <p class="mb-5">
+                            Chez GiftBot 3000, nous transformons le simple geste d'offrir en une expérience 
+                            magique. Que ce soit pour un anniversaire, une fête, ou juste pour faire plaisir, 
+                            notre sélection intelligente de cadeaux saura trouver LE présent qui fera sourire. 
+                            Laissez notre "bot cadeautier" vous guider vers des idées uniques, tendance et 
+                            personnalisées.
+                        </p>
+                        <a href="{{ path('app_about') }}" class="btn btn-lg rounded-pill text-white" style="background-color: #FF4DA6;">En Savoir Plus</a>
+                    </div>
+                </div>
             </div>
         </section>
 

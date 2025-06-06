@@ -12,70 +12,139 @@
 {% endblock %}
 
 {% block body %}
-<div class="container page-wrapper mt-4">
-    <div class="row">
-        <div class="col-md-8">
-            <h3>Cart</h3>
-            {% for i in 1..3 %}
-                <div class="cart-item d-flex align-items-center justify-content-between">
-                    <div class="d-flex align-items-center gap-3">
-                        <div class="item-image"></div>
-                        <div>
-                            <strong>Item</strong><br>
-                            <small>Description<br>Size</small><br>
-                            <span>$39</span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2 item-controls">
-                        <button class="btn btn-light">+</button>
-                        <span>1</span>
-                        <button class="btn btn-light">-</button>
-                        <i class="bi bi-trash trash-icon"></i>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+    {% include 'components/_navbar.html.twig' %}
 
-        <div class="col-md-4">
-            <div class="summary-box">
-                <h5>Order summary</h5>
-                <div class="d-flex justify-content-between">
-                    <span>Subtotal</span><span>$20</span>
+    <div class="container page-wrapper mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Cart</h3>
+                <div id="cart-items-container">
+                    <!-- JS will render items here -->
                 </div>
-                <div class="d-flex justify-content-between">
-                    <span>Discount</span><span>$5</span>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <span>Shipping</span><span>Free</span>
-                </div>
-                <div class="d-flex justify-content-between fw-bold">
-                    <span>Total</span><span>$15</span>
-                </div>
-                <div class="mt-3 text-center">
-                    <button class="checkout-btn">Proceed to checkout</button>
-                </div>
-                <hr>
-                <p class="text-center mb-0">Estimated delivery by August 6</p>
             </div>
 
-            <div class="coupon-box mt-3">
-                <p><strong>Have a coupon code?</strong></p>
-                <div class="d-flex">
-                    <input type="text" class="form-control me-2" placeholder="Code here">
-                    <button class="apply-btn">Apply</button>
+            <div class="col-md-4">
+                <div class="summary-box">
+                    <h5>Order summary</h5>
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal</span><span id="subtotal-amount">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Discount</span><span id="discount-amount">$0.00</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Shipping</span><span>Free</span>
+                    </div>
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total</span><span id="total-amount">$0.00</span>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <button class="checkout-btn">Proceed to checkout</button>
+                    </div>
+                    <hr>
+                    <p class="text-center mb-0">Estimated delivery by August 6</p>
+                </div>
+
+                <div class="coupon-box mt-3">
+                    <p><strong>Have a coupon code?</strong></p>
+                    <div class="d-flex">
+                        <input type="text" class="form-control me-2" placeholder="Code here">
+                        <button class="apply-btn">Apply</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-
-
- {% include 'components/_footer.html.twig' %}
+    {% include 'components/_footer.html.twig' %}
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartContainer = document.getElementById('cart-items-container');
+        const subtotalEl = document.getElementById('subtotal-amount');
+        const discountEl = document.getElementById('discount-amount');
+        const totalEl = document.getElementById('total-amount');
+
+        function renderCart() {
+            cartContainer.innerHTML = '';
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p>Your cart is empty.</p>';
+                subtotalEl.textContent = '$0.00';
+                discountEl.textContent = '$0.00';
+                totalEl.textContent = '$0.00';
+                return;
+            }
+
+            cart.forEach((item, index) => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item d-flex align-items-center justify-content-between mb-3';
+                itemDiv.innerHTML = `
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="item-image" style="width: 60px; height: 60px; background: #eee;"></div>
+                        <div>
+                            <strong>${item.title}</strong><br>
+                            <small>${item.description || ''}</small><br>
+                            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 item-controls">
+                        <button class="btn btn-light increase" data-index="${index}">+</button>
+                        <span>${item.quantity}</span>
+                        <button class="btn btn-light decrease" data-index="${index}">-</button>
+                        <i class="bi bi-trash trash-icon text-danger" data-index="${index}" style="cursor:pointer;"></i>
+                    </div>
+                `;
+                cartContainer.appendChild(itemDiv);
+            });
+
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const discount = 0; // Placeholder for now
+            const total = subtotal - discount;
+
+            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            discountEl.textContent = `$${discount.toFixed(2)}`;
+            totalEl.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        cartContainer.addEventListener('click', e => {
+            const index = e.target.dataset.index;
+            if (e.target.classList.contains('increase')) {
+                cart[index].quantity += 1;
+                saveCart();
+            } else if (e.target.classList.contains('decrease')) {
+                if (cart[index].quantity > 1) {
+                    cart[index].quantity -= 1;
+                } else {
+                    cart.splice(index, 1);
+                }
+                saveCart();
+            } else if (e.target.classList.contains('trash-icon')) {
+                cart.splice(index, 1);
+                saveCart();
+            }
+        });
+
+        document.querySelector('.apply-btn')?.addEventListener('click', () => {
+            alert('Coupon applied! (Functionality to be implemented)');
+        });
+
+        renderCart();
+    });
+    </script>
 {% endblock %}

@@ -50,10 +50,10 @@ class Gift
     private Collection $orderItems;
 
     /**
-     * @var Collection<int, CartItems>
+     * @var Collection<int, CartItem>
      */
-    #[ORM\OneToMany(targetEntity: CartItems::class, mappedBy: 'gift')]
-    private Collection $cartItems;
+    #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'gift')]
+    private Collection $cartItem;
 
     public function __construct()
     {
@@ -212,26 +212,26 @@ class Gift
     }
 
     /**
-     * @return Collection<int, CartItems>
+     * @return Collection<int, CartItem>
      */
-    public function getCartItems(): Collection
+    public function getCartItem(): Collection
     {
-        return $this->cartItems;
+        return $this->cartItem;
     }
 
-    public function addCartItem(CartItems $cartItem): static
+    public function addCartItem(CartItem $cartItem): static
     {
-        if (!$this->cartItems->contains($cartItem)) {
-            $this->cartItems->add($cartItem);
+        if (!$this->cartItem->contains($cartItem)) {
+            $this->cartItem->add($cartItem);
             $cartItem->setGift($this);
         }
 
         return $this;
     }
 
-    public function removeCartItem(CartItems $cartItem): static
+    public function removeCartItem(CartItem $cartItem): static
     {
-        if ($this->cartItems->removeElement($cartItem)) {
+        if ($this->cartItem->removeElement($cartItem)) {
             // set the owning side to null (unless already changed)
             if ($cartItem->getGift() === $this) {
                 $cartItem->setGift(null);
