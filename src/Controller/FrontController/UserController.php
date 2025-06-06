@@ -3,7 +3,7 @@ namespace App\Controller\FrontController;
 
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\LoginAuthenticator;
+use App\Security\SecurityAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,8 @@ class UserController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
         UserAuthenticatorInterface $userAuthenticator,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        SecurityAuthenticator $securityAuthenticator // <-- Change here
     ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -48,8 +49,12 @@ class UserController extends AbstractController
             $em->persist($user);
             $em->flush();
 
-            // If using Symfony 6.3+ default authenticator:
-            return $userAuthenticator->authenticateUser($user, $request);
+            // Pass the authenticator as the second argument
+            return $userAuthenticator->authenticateUser(
+                $user,
+                $securityAuthenticator, // <-- Change here
+                $request
+            );
         }
 
         return $this->render('Registration/register.html.twig', [

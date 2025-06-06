@@ -22,7 +22,7 @@ wishlist:
 
 user:
     path: /user
-    controller: App\Controller\UserController::index
+    controller: App\Controller\FrontController\UserController::index
     methods: [GET, POST]
 
 newsletter:

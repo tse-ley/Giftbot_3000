@@ -11,7 +11,360 @@
 {% endblock %}
 
 {% block body %}
-    {% include 'components/_navbar.html.twig' %}
+{% include 'components/_navbar.html.twig' %}
+{% set products = [
+    {
+        id: 1,
+        name: 'Bracelet personnalisé gravé',
+        price: 45.00,
+        image: 'gift1.jpg',
+        description: 'Bracelet en cuir ou acier avec message secret, parfait pour un anniversaire.'
+    },
+    {
+        id: 2,
+        name: 'Lunettes de soleil style aviator',
+        price: 120.00,
+        image: 'gift2.jpg',
+        description: 'Lunettes polarisées anti-UV avec un design rétro.'
+    },
+    {
+        id: 3,
+        name: 'Coffret bien-être barbier',
+        price: 55.00,
+        image: 'gift3.jpg',
+        description: 'Kit de rasage bio avec huile, baume et brosse en poils de sanglier.'
+    },
+    {
+        id: 4,
+        name: 'Drone avec caméra 4K',
+        price: 350.00,
+        image: 'gift4.jpg',
+        description: 'Drone intuitif, idéal pour les paysages ou événements sportifs.'
+    },
+    {
+        id: 5,
+        name: 'Montre connectée GPS',
+        price: 250.00,
+        image: 'gift5.jpg',
+        description: 'Suivi santé et sommeil avec GPS intégré - modèle Garmin.'
+    },
+    {
+        id: 6,
+        name: 'Escape Game Batman',
+        price: 40.00,
+        image: 'gift6.jpg',
+        description: "Expérience immersive à Paris dans l'univers de Batman."
+    },
+    {
+        id: 7,
+        name: 'Couteau Laguiole personnalisé',
+        price: 160.00,
+        image: 'gift7.jpg',
+        description: "Ménagère de 24 pièces made in France gravée."
+    },
+    {
+        id: 8,
+        name: 'Simulateur de vol/voiture',
+        price: 130.00,
+        image: 'gift8.jpg',
+        description: "Session de simulation pour passionnés de pilotage."
+    },
+    {
+        id: 9,
+        name: 'Chemise en lin Bergerac',
+        price: 119.00,
+        image: 'gift9.jpg',
+        description: "Chemise en tissu respirant, fabrication éthique."
+    },
+    {
+        id: 10,
+        name: 'Saut en parachute ou parapente',
+        price: 250.00,
+        image: 'gift10.jpg',
+        description: "Sensations fortes garanties pour un anniversaire mémorable."
+    },
+    {
+        id: 11,
+        name: 'Coffret DIY cosmétiques bio',
+        price: 60.00,
+        image: 'gift11.jpg',
+        description: "Kit complet pour créer ses propres soins avec livret."
+    },
+    {
+        id: 12,
+        name: 'Carte cadeau Sephora',
+        price: 50.00,
+        image: 'gift12.jpg',
+        description: "Choix libre parmi des produits de beauté de luxe."
+    },
+    {
+        id: 13,
+        name: 'Housse de couette satin coton',
+        price: 109.00,
+        image: 'gift13.jpg',
+        description: "Housse élégante anti-déshydratation en satin de coton."
+    },
+    {
+        id: 14,
+        name: 'Lampe glacière Kooduu',
+        price: 150.00,
+        image: 'gift14.jpg',
+        description: "Lampe LED Bluetooth avec compartiment glacière."
+    },
+    {
+        id: 15,
+        name: 'Bijou infini en argent massif',
+        price: 29.00,
+        image: 'gift15.jpg',
+        description: "Bague symbole d’éternité en argent, taille ajustable."
+    },
+    {
+        id: 16,
+        name: 'Robe sur mesure Sumissura',
+        price: 220.00,
+        image: 'gift16.jpg',
+        description: "Robe personnalisée pour une coupe parfaite."
+    },
+    {
+        id: 17,
+        name: 'Escapade bien-être à Nivelles',
+        price: 124.00,
+        image: 'gift17.jpg',
+        description: "Week-end détente avec spa et hammam en Belgique."
+    },
+    {
+        id: 18,
+        name: 'Plateau de bain en bambou',
+        price: 34.00,
+        image: 'gift18.jpg',
+        description: "Support pour tablette et accessoires de bain."
+    },
+    {
+        id: 19,
+        name: 'Sac à main Coccinelle',
+        price: 250.00,
+        image: 'gift19.jpg',
+        description: "Sac en cuir italien au design intemporel."
+    },
+    {
+        id: 20,
+        name: 'Luminette 3 luminothérapie',
+        price: 229.00,
+        image: 'gift20.jpg',
+        description: "Lampe pour lutter contre la dépression saisonnière."
+    },
+    {
+        id: 21,
+        name: 'Planétarium interactif',
+        price: 80.00,
+        image: 'gift21.jpg',
+        description: "Projette les constellations avec livret éducatif."
+    },
+    {
+        id: 22,
+        name: 'Kit jardinage enfant',
+        price: 30.00,
+        image: 'gift22.jpg',
+        description: "Outils adaptés et graines bio, made in France."
+    },
+    {
+        id: 23,
+        name: 'Jeu de société Möllky',
+        price: 50.00,
+        image: 'gift23.jpg',
+        description: "Jeu de quilles en bois pour apprendre en s’amusant."
+    },
+    {
+        id: 24,
+        name: 'Doudou lapin personnalisable',
+        price: 37.00,
+        image: 'gift24.jpg',
+        description: "Doudou lavable brodé au prénom de l’enfant."
+    },
+    {
+        id: 25,
+        name: 'Puzzle Pompier 24 pièces',
+        price: 27.00,
+        image: 'gift25.jpg',
+        description: "Puzzle éducatif avec grandes pièces solides."
+    },
+    {
+        id: 26,
+        name: 'Tapis de jeu Royaume des animaux',
+        price: 66.00,
+        image: 'gift26.jpg',
+        description: "Tapis coloré pour l’éveil sensoriel."
+    },
+    {
+        id: 27,
+        name: 'Veilleuse tortue en bois',
+        price: 79.00,
+        image: 'gift27.jpg',
+        description: "Veilleuse apaisante en matériaux durables."
+    },
+    {
+        id: 28,
+        name: 'Sac à dos Forêt enchantée',
+        price: 27.00,
+        image: 'gift28.jpg',
+        description: "Petit sac à dos avec motifs féériques."
+    },
+    {
+        id: 29,
+        name: 'Pâte à modeler réutilisable',
+        price: 20.00,
+        image: 'gift29.jpg',
+        description: "Non toxique, textures variées et amusantes."
+    },
+    {
+        id: 30,
+        name: 'Livre d’éveil musical',
+        price: 54.00,
+        image: 'gift30.jpg',
+        description: "Livre interactif avec comptines et sons."
+    },
+    {
+        id: 31,
+        name: 'Portrait personnalisé animal',
+        price: 40.00,
+        image: 'gift31.jpg',
+        description: "Portrait ou puzzle basé sur une photo de l’animal."
+    },
+    {
+        id: 32,
+        name: 'Collier GPS connecté',
+        price: 180.00,
+        image: 'gift32.jpg',
+        description: "Collier avec géolocalisation en temps réel."
+    },
+    {
+        id: 33,
+        name: 'Panier chauffant pour chat',
+        price: 60.00,
+        image: 'gift33.jpg',
+        description: "Panier lavable en mousse à mémoire de forme."
+    },
+    {
+        id: 34,
+        name: 'Jouet distributeur de friandises',
+        price: 30.00,
+        image: 'gift34.jpg',
+        description: "Stimule l’intelligence avec friandises."
+    },
+    {
+        id: 35,
+        name: 'Kit soin pour chien à poils longs',
+        price: 30.00,
+        image: 'gift35.jpg',
+        description: "Brosse et shampoing bio pour chiens."
+    },
+    {
+        id: 36,
+        name: 'Harnais ergonomique pour chien',
+        price: 50.00,
+        image: 'gift36.jpg',
+        description: "Confortable et réfléchissant pour les randonnées."
+    },
+    {
+        id: 37,
+        name: 'Fontaine à eau filtrante',
+        price: 65.00,
+        image: 'gift37.jpg',
+        description: "Encourage l’hydratation avec bruit doux."
+    },
+    {
+        id: 38,
+        name: 'Niche en bois design',
+        price: 200.00,
+        image: 'gift38.jpg',
+        description: "Niche isolante et personnalisable."
+    },
+    {
+        id: 39,
+        name: 'Suspension murale pour chat',
+        price: 120.00,
+        image: 'gift39.jpg',
+        description: "Espace modulable pour grimper."
+    },
+    {
+        id: 40,
+        name: 'Coffret jouets durables',
+        price: 35.00,
+        image: 'gift40.jpg',
+        description: "Cordes et peluches en matériaux recyclés."
+    },
+    {
+        id: 41,
+        name: 'Carte cadeau multi-enseignes',
+        price: 75.00,
+        image: 'gift41.jpg',
+        description: "Valable chez plus de 200 marques."
+    },
+    {
+        id: 42,
+        name: 'Gourde personnalisable Stanley',
+        price: 50.00,
+        image: 'gift42.jpg',
+        description: "Gourde isotherme avec base pour voiture."
+    },
+    {
+        id: 43,
+        name: 'Bougie parfumée Corse',
+        price: 38.00,
+        image: 'gift43.jpg',
+        description: "Bougie à la cire végétale senteur Méditerranée."
+    },
+    {
+        id: 44,
+        name: 'Chaussettes fantaisie recyclées',
+        price: 11.00,
+        image: 'gift44.jpg',
+        description: "Coton recyclé avec motifs originaux."
+    },
+    {
+        id: 45,
+        name: 'Plateau apéro Ping Pong',
+        price: 58.00,
+        image: 'gift45.jpg',
+        description: "Plateau en bois avec jeu intégré."
+    },
+    {
+        id: 46,
+        name: 'Tote bag océan recyclé',
+        price: 20.00,
+        image: 'gift46.jpg',
+        description: "1€ reversé à la protection marine."
+    },
+    {
+        id: 47,
+        name: 'Horloge en chêne massif',
+        price: 84.00,
+        image: 'gift47.jpg',
+        description: "Horloge locale au design épuré."
+    },
+    {
+        id: 48,
+        name: 'Gobelets à whisky gravés',
+        price: 35.00,
+        image: 'gift48.jpg',
+        description: "Cristal taillé avec gravure personnalisée."
+    },
+    {
+        id: 49,
+        name: 'Brume parfumée pour oreiller',
+        price: 20.00,
+        image: 'gift49.jpg',
+        description: "Parfum lavande et bois sacré."
+    },
+    {
+        id: 50,
+        name: 'Pochette ordinateur ardoise',
+        price: 50.00,
+        image: 'gift50.jpg',
+        description: "Pochette personnalisée anti-choc."
+    }
+] %}
+
 
     <!-- Hero Section with Carousel -->
     <section class="hero-section">
@@ -31,17 +384,17 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="product-image">
-                                    <i class="fas fa-gift fa-3x"></i>
+                                    <img src="{{ asset('images/gift1.jpg') }}" alt="Coffret Bien-être" class="img-fluid" />
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="product-image">
-                                    <i class="fas fa-heart fa-3x"></i>
+                                    <img src="{{ asset('images/gift2.jpg') }}" alt="Mug Personnalisé" class="img-fluid" />
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="product-image">
-                                    <i class="fas fa-star fa-3x"></i>
+                                    <img src="{{ asset('images/gift3.jpg') }}" alt="Bougie Parfumée" class="img-fluid" />
                                 </div>
                             </div>
                         </div>
@@ -56,7 +409,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="search-container d-flex">
-                    <input tyape="text" class="search-input" placeholder="Rechercher un produit...">
+                    <input type="text" class="search-input" placeholder="Rechercher un produit...">
                     <button class="search-btn">
                         <i class="fas fa-search"></i>
                     </button>
@@ -89,26 +442,25 @@
         </div>
 
         <div class="row" id="products-container">
-            <!-- Product Cards -->
-            {% for i in 1..15 %}
+            {% for product in products %}
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="product-card" data-product-id="{{ i }}">
+                <div class="product-card"
+                     data-product-id="{{ product.id }}"
+                     data-product-name="{{ product.name }}"
+                     data-product-price="{{ product.price }}"
+                     data-product-description="{{ product.description }}"
+                     data-product-image="{{ asset('images/' ~ product.image) }}">
                     <div class="product-image">
-                        <i class="fas fa-gift fa-2x"></i>
+                        <img src="{{ asset('images/' ~ product.image) }}" alt="{{ product.name }}" class="img-fluid" />
                     </div>
-                    <div class="product-title">Produit {{ i }}</div>
-                    <div class="product-price">{{ random(10, 100) }}.99 €</div>
+                    <div class="product-title">{{ product.name }}</div>
+                    <div class="product-price">{{ product.price|number_format(2, '.', ' ') }} €</div>
                 </div>
             </div>
             {% endfor %}
         </div>
 
-        <!-- Load More Button -->
-        <div class="text-center mt-4">
-            <button class="btn btn-outline-primary btn-lg px-5">
-                Voir plus de produits
-            </button>
-        </div>
+        
     </div>
 
     <!-- Product Expanded Modal -->
@@ -119,7 +471,7 @@
         </button>
         <div class="text-center">
             <div class="product-image mb-3">
-                <i class="fas fa-gift fa-3x"></i>
+                <img id="modalImage" src="" alt="" class="img-fluid" style="max-height: 200px;" />
             </div>
             <h3 class="mb-3" id="modalTitle"></h3>
             <p class="text-muted mb-3" id="modalDescription"></p>
@@ -145,30 +497,33 @@
             const productModal = document.getElementById('productModal');
             const modalBackdrop = document.getElementById('modalBackdrop');
             const closeModal = document.getElementById('closeModal');
-            const categoryLinks = document.querySelectorAll('[data-category]');
             const addToCartBtn = productModal.querySelector('.btn-add-cart');
+            const modalImage = document.getElementById('modalImage');
+            const categoryLinks = document.querySelectorAll('[data-category]');
 
             let currentProduct = {};
 
             // Product card click handler
             productCards.forEach(card => {
                 card.addEventListener('click', function() {
-                    const productId = this.dataset.productId;
-                    const title = this.querySelector('.product-title').textContent;
-                    const price = this.querySelector('.product-price').textContent;
-                    // If you have a description, get it here
-                    const description = "Une description détaillée du produit avec ses caractéristiques principales. Ce produit offre une qualité exceptionnelle et un design moderne.";
+                    const title = this.dataset.productName;
+                    const price = this.dataset.productPrice;
+                    const description = this.dataset.productDescription;
+                    const image = this.dataset.productImage;
 
                     // Update modal content
                     document.getElementById('modalTitle').textContent = title;
-                    document.getElementById('modalPrice').textContent = price;
+                    document.getElementById('modalPrice').textContent = price + ' €';
                     document.getElementById('modalDescription').textContent = description;
+                    modalImage.src = image;
+                    modalImage.alt = title;
 
                     // Store current product info for add-to-cart
                     currentProduct = {
                         title: title,
                         price: parseFloat(price),
-                        description: description
+                        description: description,
+                        image: image
                     };
 
                     // Show modal
@@ -211,7 +566,7 @@
                 }
             });
 
-            // Category navigation
+            // Category navigation (optional: implement filtering)
             categoryLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -220,15 +575,10 @@
                     const category = this.dataset.category;
                     // Filtering logic here
                     console.log('Filtering products by category:', category);
-                    const container = document.getElementById('products-container');
-                    container.style.opacity = '0.5';
-                    setTimeout(() => {
-                        container.style.opacity = '1';
-                    }, 500);
                 });
             });
 
-            // Search functionality
+            // Search functionality (optional: implement search)
             const searchInput = document.querySelector('.search-input');
             const searchBtn = document.querySelector('.search-btn');
 
@@ -247,7 +597,7 @@
                 }
             });
 
-            // Sort dropdown
+            // Sort dropdown (optional: implement sorting)
             const sortDropdown = document.querySelector('.sort-dropdown');
             sortDropdown.addEventListener('change', function() {
                 const sortBy = this.value;
