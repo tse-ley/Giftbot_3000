@@ -1,0 +1,379 @@
+<?php
+namespace App\DataFixtures;
+
+use App\Entity\Gift;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Persistence\ObjectManager;
+
+class GiftFixtures extends Fixture
+{
+    public function load(ObjectManager $manager): void
+    {
+        $products = [
+            [
+                'name' => 'Bracelet personnalisé gravé',
+                'price' => 45.00,
+                'image' => 'bracletperso.jpg', // fixed path
+                'description' => 'Bracelet en cuir ou acier avec message secret, parfait pour un anniversaire.',
+                'category' => 'homme', // lowercase and consistent
+            ],
+            [
+                'name' => 'Lunettes de soleil style aviator',
+                'price' => 120.00,
+                'image' => 'gift2.jpg',
+                'description' => 'Lunettes polarisées anti-UV avec un design rétro.',
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Coffret bien-être barbier',
+                'price' => 55.00,
+                'image' => 'gift3.jpg',
+                'description' => 'Kit de rasage bio avec huile, baume et brosse en poils de sanglier.',
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Drone avec caméra 4K',
+                'price' => 350.00,
+                'image' => 'gift4.jpg',
+                'description' => 'Drone intuitif, idéal pour les paysages ou événements sportifs.',
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Montre connectée GPS',
+                'price' => 250.00,
+                'image' => 'gift5.jpg',
+                'description' => 'Suivi santé et sommeil avec GPS intégré - modèle Garmin.',
+                'category' => 'Hhomme',
+            ],
+            [
+                'name' => 'Escape Game Batman',
+                'price' => 40.00,
+                'image' => 'gift6.jpg',
+                'description' => "Expérience immersive à Paris dans l'univers de Batman.",
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Couteau Laguiole personnalisé',
+                'price' => 160.00,
+                'image' => 'gift7.jpg',
+                'description' => "Ménagère de 24 pièces made in France gravée.",
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Simulateur de vol/voiture',
+                'price' => 130.00,
+                'image' => 'gift8.jpg',
+                'description' => "Session de simulation pour passionnés de pilotage.",
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Chemise en lin Bergerac',
+                'price' => 119.00,
+                'image' => 'gift9.jpg',
+                'description' => "Chemise en tissu respirant, fabrication éthique.",
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Saut en parachute ou parapente',
+                'price' => 250.00,
+                'image' => 'gift10.jpg',
+                'description' => "Sensations fortes garanties pour un anniversaire mémorable.",
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Coffret DIY cosmétiques bio',
+                'price' => 60.00,
+                'image' => 'gift11.jpg',
+                'description' => "Kit complet pour créer ses propres soins avec livret.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Carte cadeau Sephora',
+                'price' => 50.00,
+                'image' => 'gift12.jpg',
+                'description' => "Choix libre parmi des produits de beauté de luxe.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Housse de couette satin coton',
+                'price' => 109.00,
+                'image' => 'gift13.jpg',
+                'description' => "Housse élégante anti-déshydratation en satin de coton.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Lampe glacière Kooduu',
+                'price' => 150.00,
+                'image' => 'gift14.jpg',
+                'description' => "Lampe LED Bluetooth avec compartiment glacière.",
+                'category' => 'Accessoires',
+            ],
+            [
+                'name' => 'Bijou infini en argent massif',
+                'price' => 29.00,
+                'image' => 'gift15.jpg',
+                'description' => "Bague symbole d’éternité en argent, taille ajustable.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Robe sur mesure Sumissura',
+                'price' => 220.00,
+                'image' => 'gift16.jpg',
+                'description' => "Robe personnalisée pour une coupe parfaite.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Escapade bien-être à Nivelles',
+                'price' => 124.00,
+                'image' => 'gift17.jpg',
+                'description' => "Week-end détente avec spa et hammam en Belgique.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Plateau de bain en bambou',
+                'price' => 34.00,
+                'image' => 'gift18.jpg',
+                'description' => "Support pour tablette et accessoires de bain.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Sac à main Coccinelle',
+                'price' => 250.00,
+                'image' => 'gift19.jpg',
+                'description' => "Sac en cuir italien au design intemporel.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Luminette 3 luminothérapie',
+                'price' => 229.00,
+                'image' => 'gift20.jpg',
+                'description' => "Lampe pour lutter contre la dépression saisonnière.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Planétarium interactif',
+                'price' => 80.00,
+                'image' => 'gift21.jpg',
+                'description' => "Projette les constellations avec livret éducatif.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Kit jardinage enfant',
+                'price' => 30.00,
+                'image' => 'gift22.jpg',
+                'description' => "Outils adaptés et graines bio, made in France.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Jeu de société Möllky',
+                'price' => 50.00,
+                'image' => 'gift23.jpg',
+                'description' => "Jeu de quilles en bois pour apprendre en s’amusant.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Doudou lapin personnalisable',
+                'price' => 37.00,
+                'image' => 'gift24.jpg',
+                'description' => "Doudou lavable brodé au prénom de l’enfant.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Puzzle Pompier 24 pièces',
+                'price' => 27.00,
+                'image' => 'gift25.jpg',
+                'description' => "Puzzle éducatif avec grandes pièces solides.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Tapis de jeu Royaume des animaux',
+                'price' => 66.00,
+                'image' => 'gift26.jpg',
+                'description' => "Tapis coloré pour l’éveil sensoriel.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Veilleuse tortue en bois',
+                'price' => 79.00,
+                'image' => 'gift27.jpg',
+                'description' => "Veilleuse apaisante en matériaux durables.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Sac à dos Forêt enchantée',
+                'price' => 27.00,
+                'image' => 'gift28.jpg',
+                'description' => "Petit sac à dos avec motifs féériques.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Pâte à modeler réutilisable',
+                'price' => 20.00,
+                'image' => 'gift29.jpg',
+                'description' => "Non toxique, textures variées et amusantes.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Livre d’éveil musical',
+                'price' => 54.00,
+                'image' => 'gift30.jpg',
+                'description' => "Livre interactif avec comptines et sons.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Portrait personnalisé animal',
+                'price' => 40.00,
+                'image' => 'gift31.jpg',
+                'description' => "Portrait ou puzzle basé sur une photo de l’animal.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Collier GPS connecté',
+                'price' => 180.00,
+                'image' => 'gift32.jpg',
+                'description' => "Collier avec géolocalisation en temps réel.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Panier chauffant pour chat',
+                'price' => 60.00,
+                'image' => 'gift33.jpg',
+                'description' => "Panier lavable en mousse à mémoire de forme.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Jouet distributeur de friandises',
+                'price' => 30.00,
+                'image' => 'gift34.jpg',
+                'description' => "Stimule l’intelligence avec friandises.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Kit soin pour chien à poils longs',
+                'price' => 30.00,
+                'image' => 'gift35.jpg',
+                'description' => "Brosse et shampoing bio pour chiens.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Harnais ergonomique pour chien',
+                'price' => 50.00,
+                'image' => 'gift36.jpg',
+                'description' => "Confortable et réfléchissant pour les randonnées.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Fontaine à eau filtrante',
+                'price' => 65.00,
+                'image' => 'gift37.jpg',
+                'description' => "Encourage l’hydratation avec bruit doux.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Niche en bois design',
+                'price' => 200.00,
+                'image' => 'gift38.jpg',
+                'description' => "Niche isolante et personnalisable.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Suspension murale pour chat',
+                'price' => 120.00,
+                'image' => 'gift39.jpg',
+                'description' => "Espace modulable pour grimper.",
+                'category' => 'Animaux',
+            ],
+            [
+                'name' => 'Coffret jouets durables',
+                'price' => 35.00,
+                'image' => 'gift40.jpg',
+                'description' => "Cordes et peluches en matériaux recyclés.",
+                'category' => 'Enfants',
+            ],
+            [
+                'name' => 'Carte cadeau multi-enseignes',
+                'price' => 75.00,
+                'image' => 'gift41.jpg',
+                'description' => "Valable chez plus de 200 marques.",
+                'category' => 'Accessoires',
+            ],
+            [
+                'name' => 'Gourde personnalisable Stanley',
+                'price' => 50.00,
+                'image' => 'gift42.jpg',
+                'description' => "Gourde isotherme avec base pour voiture.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Bougie parfumée Corse',
+                'price' => 38.00,
+                'image' => 'gift43.jpg',
+                'description' => "Bougie à la cire végétale senteur Méditerranée.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Chaussettes fantaisie recyclées',
+                'price' => 11.00,
+                'image' => 'gift44.jpg',
+                'description' => "Coton recyclé avec motifs originaux.",
+                'category' => 'Accessoires',
+            ],
+            [
+                'name' => 'Plateau apéro Ping Pong',
+                'price' => 58.00,
+                'image' => 'gift45.jpg',
+                'description' => "Plateau en bois avec jeu intégré.",
+                'category' => 'Accessoires',
+            ],
+            [
+                'name' => 'Tote bag océan recyclé',
+                'price' => 20.00,
+                'image' => 'gift46.jpg',
+                'description' => "1€ reversé à la protection marine.",
+                'category' => 'Accessoires',
+            ],
+            [
+                'name' => 'Horloge en chêne massif',
+                'price' => 84.00,
+                'image' => 'gift47.jpg',
+                'description' => "Horloge locale au design épuré.",
+                'category' => 'Accessoires',
+            ],
+            [
+                'name' => 'Gobelets à whisky gravés',
+                'price' => 35.00,
+                'image' => 'gift48.jpg',
+                'description' => "Cristal taillé avec gravure personnalisée.",
+                'category' => 'homme',
+            ],
+            [
+                'name' => 'Brume parfumée pour oreiller',
+                'price' => 20.00,
+                'image' => 'gift49.jpg',
+                'description' => "Parfum lavande et bois sacré.",
+                'category' => 'femme',
+            ],
+            [
+                'name' => 'Pochette ordinateur ardoise',
+                'price' => 50.00,
+                'image' => 'gift50.jpg',
+                'description' => "Pochette personnalisée anti-choc.",
+                'category' => 'Accessoires',
+            ]
+        ];
+
+        foreach ($products as $data) {
+            $gift = new Gift();
+            $gift->setName($data['name']);
+            $gift->setPrice($data['price']);
+            $gift->setImageUrl($data['image']);
+            $gift->setDescription($data['description']);
+            $gift->setCategory($data['category']);
+            $gift->setStockQuantity(10);
+            $gift->setCreatedAt(new \DateTimeImmutable()); 
+            $manager->persist($gift);
+        }
+
+        $manager->flush();
+    }
+}

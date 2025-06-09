@@ -14,16 +14,21 @@ class GiftController extends AbstractController
     #[Route('/gifts', name: 'app_gifts')]
     public function index(Request $request, GiftRepository $giftRepository): Response
     {
-        $form = $this->createForm(GiftSearchType::class);
-        $form->handleRequest($request);
+        $query = $request->query->get('q', '');
 
-        $gifts = $form->isSubmitted() && $form->isValid() 
-            ? $giftRepository->search($form->getData())
-            : $giftRepository->findAll();
+        if ($query) {
+            $gifts = $giftRepository->createQueryBuilder('g')
+                ->where('LOWER(g.name) LIKE :q OR LOWER(g.description) LIKE :q')
+                ->setParameter('q', '%' . strtolower($query) . '%')
+                ->getQuery()
+                ->getResult();
+        } else {
+            $gifts = $giftRepository->findAll();
+        }
 
         return $this->render('gift/gift.html.twig', [
             'gifts' => $gifts,
-            'searchForm' => $form->createView()
+            'searchQuery' => $query,
         ]);
     }
 
