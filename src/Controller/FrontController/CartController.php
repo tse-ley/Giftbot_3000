@@ -12,18 +12,24 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/cart')]
-#[IsGranted('ROLE_USER')]
 class CartController extends AbstractController
 {
     #[Route('', name: 'app_cart')]
     public function index(CartItemRepository $cartItemRepository): Response
     {
+        // For guests, show session-based cart (implement as needed)
+        // For logged-in users, show DB cart
+        $cartItems = $this->getUser()
+            ? $cartItemRepository->findByUser($this->getUser())
+            : []; // Or fetch from session
+
         return $this->render('cart/index.html.twig', [
-            'cartItem' => $cartItemRepository->findByUser($this->getUser())
+            'cartItem' => $cartItems
         ]);
     }
 
     #[Route('/add/{giftId}', name: 'app_cart_add')]
+    #[IsGranted('ROLE_USER')]
     public function add(
         int $giftId,
         GiftRepository $giftRepository,
@@ -56,6 +62,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/remove/{id}', name: 'app_cart_remove')]
+    #[IsGranted('ROLE_USER')]
     public function remove(CartItem $cartItem, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted('DELETE', $cartItem);
@@ -67,6 +74,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/checkout', name: 'app_cart_checkout')]
+    #[IsGranted('ROLE_USER')]
     public function checkout(): Response
     {
         // Implementation would go here

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add New Gift{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1>Add New Gift</h1>
+    {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.price) }}
+        <button class="btn btn-success mt-3">Add Gift</button>
+    {{ form_end(form) }}
+    <a href="{{ path('admin_gift_index') }}" class="btn btn-secondary mt-3">Back to Gift List</a>
+</div>
+{% endblock %}

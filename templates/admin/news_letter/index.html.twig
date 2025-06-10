@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Newsletter Subscribers{% endblock %}
+
+{% block body %}
+<style>
+    .newsletter-wrapper {
+        margin: 2em auto;
+        max-width: 900px;
+        width: 95%;
+        font: 16px/1.5 sans-serif;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1em;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        text-align: left;
+    }
+    th {
+        background-color: #f8f8f8;
+    }
+    .subscriber-count {
+        font-weight: bold;
+        margin-bottom: 1em;
+    }
+    .add-btn {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="newsletter-wrapper">
+    <h1>📬 Newsletter Subscribers</h1>
+     <a href="{{ path('admin_dashboard', { slash: '/' }) }}" class="add-btn" style="background-color: #fc6ea0; margin-bottom: 20px;">⬅️ Back to Dashboard</a>
+
+    <div class="subscriber-count">
+        Total Subscribers: {{ subscribers|length }}
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Email</th>
+                <th>Subscribed At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for subscriber in subscribers %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ subscriber.email }}</td>
+                    <td>{{ subscriber.subscribedAt|date('Y-m-d H:i') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">No subscribers yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

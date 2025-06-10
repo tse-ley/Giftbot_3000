@@ -27,8 +27,8 @@ user:
 
 newsletter:
     path: /newsletter
-    controller: App\Controller\NewsletterController::index
-    methods: [GET, POST]
+    controller: App\Controller\FrontController\NewsletterController::subscribe
+    methods: [POST]
 
 user_account:
     path: /user-account
@@ -48,4 +48,3 @@ order:
 front_controllers:
     resource: '../src/Controller/FrontController/'
     type: attribute
-

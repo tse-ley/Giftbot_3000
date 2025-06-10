@@ -33,7 +33,6 @@ class AdminController extends AbstractController
         throw new \LogicException('This method is blank and intercepted by Symfony’s security system.');
     }
 
-    #[Route('/back/admin/', name: 'admin_dashboard')]
     public function dashboard(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');

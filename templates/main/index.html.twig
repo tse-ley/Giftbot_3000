@@ -41,7 +41,7 @@
                             Laissez notre "bot cadeautier" vous guider vers des idées uniques, tendance et 
                             personnalisées.
                         </p>
-                        <a href="{{ path('app_about') }}" class="btn btn-lg rounded-pill text-white" style="background-color: #FF4DA6;">En Savoir Plus</a>
+                        <a href="{{ path('app_about') }}" class="btn-custom" style="background-color: #FF4DA6;">En Savoir Plus</a>
                     </div>
                 </div>
             </div>
@@ -57,36 +57,44 @@
             </div>
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <div class="category-card position-relative">
-                        <img src="{{ asset('image/wrist-watch-2159351_1920.jpg') }}" alt="Cadeaux Homme">
-                        <div class="category-overlay">
-                            <div class="category-name">Homme</div>
+                    <a href="{{ path('app_gifts', {'category': 'homme'}) }}" class="text-decoration-none">
+                        <div class="category-card position-relative">
+                            <img src="{{ asset('image/wrist-watch-2159351_1920.jpg') }}" alt="Cadeaux Homme">
+                            <div class="category-overlay">
+                                <div class="category-name">Homme</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="category-card position-relative">
-                        <img src="{{ asset('image/perfume-2445617_1920.jpg') }}" alt="Cadeaux Femme">
-                        <div class="category-overlay">
-                            <div class="category-name">Femme</div>
+                    <a href="{{ path('app_gifts', {'category': 'homme'}) }}" class="text-decoration-none">
+                        <div class="category-card position-relative">
+                            <img src="{{ asset('image/perfume-2445617_1920.jpg') }}" alt="Cadeaux Femme">
+                            <div class="category-overlay">
+                                <div class="category-name">Femme</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="category-card position-relative">
-                        <img src="{{ asset('image/mattress-2489615_1920.jpg') }}" alt="Cadeaux Enfants">
-                        <div class="category-overlay">
-                            <div class="category-name">Enfants</div>
+                    <a href="{{ path('app_gifts', {'category': 'enfants'}) }}" class="text-decoration-none">
+                        <div class="category-card position-relative">
+                            <img src="{{ asset('image/mattress-2489615_1920.jpg') }}" alt="Cadeaux Enfants">
+                            <div class="category-overlay">
+                                <div class="category-name">Enfants</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="category-card position-relative">
-                        <img src="{{ asset('image/dogs-5021084_1280.jpg') }}" alt="Cadeaux Animaux">
-                        <div class="category-overlay">
-                            <div class="category-name">Animaux</div>
+                    <a href="{{ path('app_gifts', {'category': 'animaux'}) }}" class="text-decoration-none">
+                        <div class="category-card position-relative">
+                            <img src="{{ asset('image/dogs-5021084_1280.jpg') }}" alt="Cadeaux Animaux">
+                            <div class="category-overlay">
+                                <div class="category-name">Animaux</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="category-card position-relative">
@@ -97,12 +105,14 @@
                     </div>
                 </div>
                 <div class="col-md-4 mb-4">
-                    <div class="category-card position-relative">
-                        <img src="{{ asset('image/new-year-6920394_1280.jpg') }}" alt="Accessoires">
-                        <div class="category-overlay">
-                            <div class="category-name">Accessoires</div>
+                    <a href="{{ path('app_gifts', {'category': 'accessoires'}) }}" class="text-decoration-none">
+                        <div class="category-card position-relative">
+                            <img src="{{ asset('image/new-year-6920394_1280.jpg') }}" alt="Accessoires">
+                            <div class="category-overlay">
+                                <div class="category-name">Accessoires</div>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div class="text-center mt-4">
@@ -122,7 +132,7 @@
                         uniques. Des filtres intelligents, des idées personnalisées en un clic. Plus de casse-
                         tête : offrez juste ce qui fera sourire.
                     </p>
-                    <a href="{{ path('app_giftsearch') }}" class="btn" style="background-color: #F9E4DA;">Essayez-le</a>
+                    <a href="{{ path('app_giftsearch') }}" class="btn-custom" style="background-color: #F9E4DA;">Essayez-le</a>
                 </div>
                 <div class="col-lg-6">
                     <img src="{{ asset('image/opel-9246352_1920.jpg') }}" alt="Tech Gifts" class="img-fluid rounded">
@@ -139,10 +149,12 @@
                     <h3 class="fw-bold">Newsletter</h3>
                 </div>
                 <div class="col-lg-6">
-                    <div class="input-group">
-                        <input type="email" class="form-control" placeholder="Votre email">
-                        <button class="btn btn-pink" >S'inscrire</button>
-                    </div>
+                    <form method="post" action="{{ path('app_newsletter') }}">
+                        <div class="input-group">
+                            <input type="email" name="email" class="form-control" placeholder="Votre email" required>
+                            <button type="submit" class="btn btn-pink">S'inscrire</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

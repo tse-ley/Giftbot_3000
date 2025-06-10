@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Controller\FrontController;
+namespace App\Controller\BackController\Admin;
 
 use App\Entity\NewsLetter;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,11 +11,21 @@ use App\Repository\NewsLetterRepository;
 
 class NewsletterController extends AbstractController
 {
+    #[Route('/admin/newsletter', name: 'admin_news_letter_index')]
+    public function index(NewsLetterRepository $newsletterRepo): Response
+    {
+        $subscribers = $newsletterRepo->findAll();
+
+        return $this->render('admin/news_letter/index.html.twig', [
+            'subscribers' => $subscribers,
+        ]);
+    }
+
     #[Route('/newsletter', name: 'app_newsletter')]
     public function subscribe(
         Request $request,
         EntityManagerInterface $em,
-        NewsLetterRepository $newsletterRepository
+        NewsLetterRepository $newsletterRepo
     ): Response {
         $email = $request->request->get('email');
 
@@ -25,8 +34,9 @@ class NewsletterController extends AbstractController
             $newsLetter->setEmail($email);
             $newsLetter->setSubscribedAt(new \DateTimeImmutable());
 
-            $newsletterRepository->add($newsLetter, true);
-
+            $em->persist($newsLetter);
+            $em->flush();
+            
             $this->addFlash('success', 'You have been subscribed to our newsletter!');
             return $this->redirectToRoute('app_home');
         }

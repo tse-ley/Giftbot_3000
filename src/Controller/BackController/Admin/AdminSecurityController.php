@@ -14,7 +14,7 @@ class AdminSecurityController extends AbstractController
         // If user is already authenticated, redirect to admin dashboard
         if ($this->getUser()) {
             dump('User is authenticated:', $this->getUser());
-            return $this->redirectToRoute('admin_dashboard');
+            return $this->redirectToRoute('admin_dashboard', ['slash' => '/']);
         }
 
         // Get the login error if there is one
