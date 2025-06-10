@@ -6,8 +6,7 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/app.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+import '../node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');

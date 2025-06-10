@@ -90,21 +90,25 @@
 
         <div class="row" id="products-container">
             {% for gift in gifts %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="product-card"
-                     data-product-id="{{ gift.id }}"
-                     data-product-name="{{ gift.name }}"
-                     data-product-price="{{ gift.price }}"
-                     data-product-description="{{ gift.description }}"
-                     data-product-image="{{ asset(gift.imageUrl) }}"
-                     data-category="{{ gift.category|lower }}">
-                    <div class="product-image">
-                        <img src="{{ asset(gift.imageUrl) }}" alt="{{ gift.name }}" class="img-fluid" />
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="product-card"
+                         data-product-id="{{ gift.id }}"
+                         data-product-name="{{ gift.name }}"
+                         data-product-price="{{ gift.price }}"
+                         data-product-description="{{ gift.description }}"
+                         data-product-image="{{ asset(gift.imageUrl) }}"
+                         data-category="{{ gift.category|lower }}">
+                        <div class="product-image">
+                            <img src="{{ asset(gift.imageUrl) }}" alt="{{ gift.name }}" class="img-fluid" />
+                        </div>
+                        <div class="product-title">{{ gift.name }}</div>
+                        <div class="product-price">{{ gift.price|number_format(2, '.', ' ') }} €</div>
                     </div>
-                    <div class="product-title">{{ gift.name }}</div>
-                    <div class="product-price">{{ gift.price|number_format(2, '.', ' ') }} €</div>
                 </div>
-            </div>
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>Aucun produit trouvé.</p>
+                </div>
             {% endfor %}
         </div>
 

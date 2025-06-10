@@ -37,6 +37,9 @@ class Gift
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $label = null;
+
     /**
      * @var Collection<int, WishList>
      */
@@ -147,6 +150,18 @@ class Gift
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getLabel(): ?string
+    {
+        return $this->label;
+    }
+
+    public function setLabel(?string $label): static
+    {
+        $this->label = $label;
 
         return $this;
     }

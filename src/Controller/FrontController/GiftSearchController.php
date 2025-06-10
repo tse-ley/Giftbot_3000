@@ -51,4 +51,47 @@ class GiftSearchController extends AbstractController
 
         return new JsonResponse(['error' => 'Invalid form submission'], 400);
     }
+
+    #[Route('/gifts', name: 'app_gifts')]
+    public function index(Request $request, GiftRepository $giftRepository): Response
+    {
+        $query = $request->query->get('q', '');
+        $category = $request->query->get('category', '');
+        $label = $request->query->get('label', '');
+        $age = $request->query->get('age', '');
+
+        $qb = $giftRepository->createQueryBuilder('g');
+
+        // Age logic
+        if ($age === '0-5' || $age === '13-17') {
+            $qb->andWhere('LOWER(g.category) = :enfants')
+               ->setParameter('enfants', 'enfants');
+        } elseif ($category === 'animaux' || $age === 'animaux') {
+            $qb->andWhere('LOWER(g.category) = :animaux')
+               ->setParameter('animaux', 'animaux');
+        } elseif ($category) {
+            $qb->andWhere('LOWER(g.category) = :category')
+               ->setParameter('category', strtolower($category));
+        }
+
+        if ($label) {
+            $qb->andWhere('LOWER(g.label) = :label')
+               ->setParameter('label', strtolower($label));
+        }
+
+        if ($query) {
+            $qb->andWhere('LOWER(g.name) LIKE :q OR LOWER(g.description) LIKE :q')
+               ->setParameter('q', '%' . strtolower($query) . '%');
+        }
+
+        $gifts = $qb->getQuery()->getResult();
+
+        return $this->render('gift/gift.html.twig', [
+            'gifts' => $gifts,
+            'searchQuery' => $query,
+            'selectedCategory' => $category,
+            'selectedLabel' => $label,
+            'selectedAge' => $age,
+        ]);
+    }
 }

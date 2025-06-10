@@ -15,7 +15,8 @@ class GiftFixtures extends Fixture
                 'price' => 45.00,
                 'image' => 'bracletperso.jpg', // fixed path
                 'description' => 'Bracelet en cuir ou acier avec message secret, parfait pour un anniversaire.',
-                'category' => 'homme', // lowercase and consistent
+                'category' => 'homme',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Lunettes de soleil style aviator',
@@ -23,6 +24,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift2.jpg',
                 'description' => 'Lunettes polarisées anti-UV avec un design rétro.',
                 'category' => 'homme',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Coffret bien-être barbier',
@@ -30,6 +32,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift3.jpg',
                 'description' => 'Kit de rasage bio avec huile, baume et brosse en poils de sanglier.',
                 'category' => 'homme',
+                'label' => 'soins',
             ],
             [
                 'name' => 'Drone avec caméra 4K',
@@ -37,13 +40,15 @@ class GiftFixtures extends Fixture
                 'image' => 'gift4.jpg',
                 'description' => 'Drone intuitif, idéal pour les paysages ou événements sportifs.',
                 'category' => 'homme',
+                'label' => 'technologie',
             ],
             [
                 'name' => 'Montre connectée GPS',
                 'price' => 250.00,
                 'image' => 'gift5.jpg',
                 'description' => 'Suivi santé et sommeil avec GPS intégré - modèle Garmin.',
-                'category' => 'Hhomme',
+                'category' => 'homme',
+                'label' => 'technologie',
             ],
             [
                 'name' => 'Escape Game Batman',
@@ -51,6 +56,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift6.jpg',
                 'description' => "Expérience immersive à Paris dans l'univers de Batman.",
                 'category' => 'homme',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Couteau Laguiole personnalisé',
@@ -58,6 +64,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift7.jpg',
                 'description' => "Ménagère de 24 pièces made in France gravée.",
                 'category' => 'homme',
+                'label' => 'cuisine',
             ],
             [
                 'name' => 'Simulateur de vol/voiture',
@@ -65,6 +72,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift8.jpg',
                 'description' => "Session de simulation pour passionnés de pilotage.",
                 'category' => 'homme',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Chemise en lin Bergerac',
@@ -72,6 +80,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift9.jpg',
                 'description' => "Chemise en tissu respirant, fabrication éthique.",
                 'category' => 'homme',
+                'label' => 'vêtements',
             ],
             [
                 'name' => 'Saut en parachute ou parapente',
@@ -79,6 +88,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift10.jpg',
                 'description' => "Sensations fortes garanties pour un anniversaire mémorable.",
                 'category' => 'homme',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Coffret DIY cosmétiques bio',
@@ -86,6 +96,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift11.jpg',
                 'description' => "Kit complet pour créer ses propres soins avec livret.",
                 'category' => 'femme',
+                'label' => 'soins',
             ],
             [
                 'name' => 'Carte cadeau Sephora',
@@ -93,6 +104,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift12.jpg',
                 'description' => "Choix libre parmi des produits de beauté de luxe.",
                 'category' => 'femme',
+                'label' => 'soins',
             ],
             [
                 'name' => 'Housse de couette satin coton',
@@ -100,6 +112,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift13.jpg',
                 'description' => "Housse élégante anti-déshydratation en satin de coton.",
                 'category' => 'femme',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Lampe glacière Kooduu',
@@ -107,6 +120,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift14.jpg',
                 'description' => "Lampe LED Bluetooth avec compartiment glacière.",
                 'category' => 'Accessoires',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Bijou infini en argent massif',
@@ -114,6 +128,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift15.jpg',
                 'description' => "Bague symbole d’éternité en argent, taille ajustable.",
                 'category' => 'femme',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Robe sur mesure Sumissura',
@@ -121,6 +136,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift16.jpg',
                 'description' => "Robe personnalisée pour une coupe parfaite.",
                 'category' => 'femme',
+                'label' => 'vêtements',
             ],
             [
                 'name' => 'Escapade bien-être à Nivelles',
@@ -128,6 +144,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift17.jpg',
                 'description' => "Week-end détente avec spa et hammam en Belgique.",
                 'category' => 'femme',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Plateau de bain en bambou',
@@ -135,6 +152,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift18.jpg',
                 'description' => "Support pour tablette et accessoires de bain.",
                 'category' => 'femme',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Sac à main Coccinelle',
@@ -142,6 +160,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift19.jpg',
                 'description' => "Sac en cuir italien au design intemporel.",
                 'category' => 'femme',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Luminette 3 luminothérapie',
@@ -149,6 +168,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift20.jpg',
                 'description' => "Lampe pour lutter contre la dépression saisonnière.",
                 'category' => 'femme',
+                'label' => 'technologie',
             ],
             [
                 'name' => 'Planétarium interactif',
@@ -156,6 +176,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift21.jpg',
                 'description' => "Projette les constellations avec livret éducatif.",
                 'category' => 'Enfants',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Kit jardinage enfant',
@@ -163,6 +184,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift22.jpg',
                 'description' => "Outils adaptés et graines bio, made in France.",
                 'category' => 'Enfants',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Jeu de société Möllky',
@@ -170,6 +192,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift23.jpg',
                 'description' => "Jeu de quilles en bois pour apprendre en s’amusant.",
                 'category' => 'Enfants',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Doudou lapin personnalisable',
@@ -177,6 +200,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift24.jpg',
                 'description' => "Doudou lavable brodé au prénom de l’enfant.",
                 'category' => 'Enfants',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Puzzle Pompier 24 pièces',
@@ -184,6 +208,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift25.jpg',
                 'description' => "Puzzle éducatif avec grandes pièces solides.",
                 'category' => 'Enfants',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Tapis de jeu Royaume des animaux',
@@ -191,6 +216,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift26.jpg',
                 'description' => "Tapis coloré pour l’éveil sensoriel.",
                 'category' => 'Enfants',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Veilleuse tortue en bois',
@@ -198,6 +224,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift27.jpg',
                 'description' => "Veilleuse apaisante en matériaux durables.",
                 'category' => 'Enfants',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Sac à dos Forêt enchantée',
@@ -205,6 +232,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift28.jpg',
                 'description' => "Petit sac à dos avec motifs féériques.",
                 'category' => 'Enfants',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Pâte à modeler réutilisable',
@@ -212,6 +240,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift29.jpg',
                 'description' => "Non toxique, textures variées et amusantes.",
                 'category' => 'Enfants',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Livre d’éveil musical',
@@ -219,6 +248,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift30.jpg',
                 'description' => "Livre interactif avec comptines et sons.",
                 'category' => 'Enfants',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Portrait personnalisé animal',
@@ -226,6 +256,8 @@ class GiftFixtures extends Fixture
                 'image' => 'gift31.jpg',
                 'description' => "Portrait ou puzzle basé sur une photo de l’animal.",
                 'category' => 'Animaux',
+                'label' => 'accessoires',
+
             ],
             [
                 'name' => 'Collier GPS connecté',
@@ -233,6 +265,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift32.jpg',
                 'description' => "Collier avec géolocalisation en temps réel.",
                 'category' => 'Animaux',
+                'label' => 'technologie',
             ],
             [
                 'name' => 'Panier chauffant pour chat',
@@ -240,6 +273,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift33.jpg',
                 'description' => "Panier lavable en mousse à mémoire de forme.",
                 'category' => 'Animaux',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Jouet distributeur de friandises',
@@ -247,6 +281,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift34.jpg',
                 'description' => "Stimule l’intelligence avec friandises.",
                 'category' => 'Animaux',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Kit soin pour chien à poils longs',
@@ -254,6 +289,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift35.jpg',
                 'description' => "Brosse et shampoing bio pour chiens.",
                 'category' => 'Animaux',
+                'label' => 'soins',
             ],
             [
                 'name' => 'Harnais ergonomique pour chien',
@@ -261,6 +297,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift36.jpg',
                 'description' => "Confortable et réfléchissant pour les randonnées.",
                 'category' => 'Animaux',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Fontaine à eau filtrante',
@@ -268,6 +305,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift37.jpg',
                 'description' => "Encourage l’hydratation avec bruit doux.",
                 'category' => 'Animaux',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Niche en bois design',
@@ -275,6 +313,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift38.jpg',
                 'description' => "Niche isolante et personnalisable.",
                 'category' => 'Animaux',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Suspension murale pour chat',
@@ -282,6 +321,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift39.jpg',
                 'description' => "Espace modulable pour grimper.",
                 'category' => 'Animaux',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Coffret jouets durables',
@@ -289,6 +329,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift40.jpg',
                 'description' => "Cordes et peluches en matériaux recyclés.",
                 'category' => 'Enfants',
+                'label' => 'loisirs',
             ],
             [
                 'name' => 'Carte cadeau multi-enseignes',
@@ -296,6 +337,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift41.jpg',
                 'description' => "Valable chez plus de 200 marques.",
                 'category' => 'Accessoires',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Gourde personnalisable Stanley',
@@ -303,6 +345,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift42.jpg',
                 'description' => "Gourde isotherme avec base pour voiture.",
                 'category' => 'femme',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Bougie parfumée Corse',
@@ -310,6 +353,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift43.jpg',
                 'description' => "Bougie à la cire végétale senteur Méditerranée.",
                 'category' => 'femme',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Chaussettes fantaisie recyclées',
@@ -317,6 +361,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift44.jpg',
                 'description' => "Coton recyclé avec motifs originaux.",
                 'category' => 'Accessoires',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Plateau apéro Ping Pong',
@@ -324,6 +369,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift45.jpg',
                 'description' => "Plateau en bois avec jeu intégré.",
                 'category' => 'Accessoires',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Tote bag océan recyclé',
@@ -331,6 +377,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift46.jpg',
                 'description' => "1€ reversé à la protection marine.",
                 'category' => 'Accessoires',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Horloge en chêne massif',
@@ -338,6 +385,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift47.jpg',
                 'description' => "Horloge locale au design épuré.",
                 'category' => 'Accessoires',
+                'label' => 'maison',
             ],
             [
                 'name' => 'Gobelets à whisky gravés',
@@ -345,6 +393,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift48.jpg',
                 'description' => "Cristal taillé avec gravure personnalisée.",
                 'category' => 'homme',
+                'label' => 'accessoires',
             ],
             [
                 'name' => 'Brume parfumée pour oreiller',
@@ -352,6 +401,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift49.jpg',
                 'description' => "Parfum lavande et bois sacré.",
                 'category' => 'femme',
+                'label' => 'soins',
             ],
             [
                 'name' => 'Pochette ordinateur ardoise',
@@ -359,6 +409,7 @@ class GiftFixtures extends Fixture
                 'image' => 'gift50.jpg',
                 'description' => "Pochette personnalisée anti-choc.",
                 'category' => 'Accessoires',
+                'label' => 'accessoires',
             ]
         ];
 

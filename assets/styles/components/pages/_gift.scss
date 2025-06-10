@@ -1,5 +1,10 @@
 @use '../_shared' as *;
 
+body {
+  background-color: #f9e4da;
+}
+
+
 
 .hero-section {
   background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
@@ -60,7 +65,7 @@
 }
 
 .category-nav {
-  background: #f9e4da;
+  background: white;
   border-radius: 50px;
   padding: 0.5rem;
   margin-bottom: 3rem;
@@ -84,7 +89,7 @@
 }
 
 .product-card {
-  background: #f9e4da;
+  background: #ffff;
   border-radius: 20px;
   padding: 1.5rem;
   margin-bottom: 2rem;

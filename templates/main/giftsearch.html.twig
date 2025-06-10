@@ -40,51 +40,12 @@
         <!-- Search Section -->
         <section class="search-section">
             <h2 class="search-title">Trouvez le Cadeau Idéal en Quelques Clics !</h2>
-            <form class="search-form" id="giftSearchForm">
-                <div class="form-group">
-                    <label class="form-label">Gender</label>
-                    <select class="form-input" name="gender" id="gender">
-                        <option value="">Tous</option>
-                        <option value="homme">Homme</option>
-                        <option value="femme">Femme</option>
-                        <option value="enfant">Enfant</option>
-                        <option value="unisexe">Unisexe</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Age</label>
-                    <select class="form-input" name="age" id="age">
-                        <option value="">Tous âges</option>
-                        <option value="0-5">0-5 ans</option>
-                        <option value="6-12">6-12 ans</option>
-                        <option value="13-17">13-17 ans</option>
-                        <option value="18-25">18-25 ans</option>
-                        <option value="26-40">26-40 ans</option>
-                        <option value="41-60">41-60 ans</option>
-                        <option value="60+">60+ ans</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Likes</label>
-                    <select class="form-input" name="interests" id="interests">
-                        <option value="">Sélectionnez</option>
-                        <option value="sport">Sport</option>
-                        <option value="tech">Technologie</option>
-                        <option value="art">Art & Culture</option>
-                        <option value="cuisine">Cuisine</option>
-                        <option value="mode">Mode</option>
-                        <option value="voyage">Voyage</option>
-                        <option value="lecture">Lecture</option>
-                        <option value="musique">Musique</option>
-                        <option value="jardinage">Jardinage</option>
-                        <option value="jeux">Jeux</option>
-                    </select>
-                </div>
-                <button type="submit" class="search-btn" style="background-color: #FF4DA6;>
-                    <i class="fas fa-search me-2"></i>
-                    Search
-                </button>
-            </form>
+            {{ form_start(searchForm, {'attr': {'id': 'gift-search-form', 'class': 'search-form'}}) }}
+                {{ form_row(searchForm.category, {'attr': {'class': 'form-input'}, 'label_attr': {'class': 'form-label'}, 'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(searchForm.label, {'attr': {'class': 'form-input'}, 'label_attr': {'class': 'form-label'}, 'row_attr': {'class': 'form-group'}}) }}
+                {{ form_row(searchForm.age, {'attr': {'class': 'form-input'}, 'label_attr': {'class': 'form-label'}, 'row_attr': {'class': 'form-group'}}) }}
+                <button type="submit" class="btn btn-primary search-btn">Rechercher</button>
+            {{ form_end(searchForm) }}
         </section>
 
         <!-- Results Section -->
@@ -107,8 +68,12 @@
                 </div>
 
                 <!-- Results List -->
+            </div>
+
+            <div id="results-section">
+                <!-- Results will be injected here -->
+                <div class="search-stats" id="searchStats"></div>
                 <div id="resultsList" style="display: none;">
-                    <div class="search-stats" id="searchStats"></div>
                     <!-- Results will be populated here -->
                 </div>
             </div>
@@ -123,76 +88,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const searchForm = document.getElementById('giftSearchForm');
+            const searchForm = document.getElementById('gift-search-form');
             const loadingState = document.getElementById('loadingState');
             const noResults = document.getElementById('noResults');
             const resultsList = document.getElementById('resultsList');
             const resultsContainer = document.getElementById('resultsContainer');
             const searchStats = document.getElementById('searchStats');
 
-            // Sample gift data - in real app this would come from your Symfony controller
-            const sampleGifts = [
-                {
-                    id: 1,
-                    name: "Montre Connectée Premium",
-                    description: "Parfaite pour les amateurs de technologie et de sport",
-                    price: "299.99 €",
-                    gender: "unisexe",
-                    age: "18-25",
-                    interests: "tech",
-                    icon: "fas fa-watch"
-                },
-                {
-                    id: 2,
-                    name: "Kit de Cuisine Gourmet",
-                    description: "Idéal pour les passionnés de cuisine",
-                    price: "159.99 €",
-                    gender: "unisexe",
-                    age: "26-40",
-                    interests: "cuisine",
-                    icon: "fas fa-utensils"
-                },
-                {
-                    id: 3,
-                    name: "Coffret Beauté Luxe",
-                    description: "Collection de produits de beauté premium",
-                    price: "89.99 €",
-                    gender: "femme",
-                    age: "18-25",
-                    interests: "mode",
-                    icon: "fas fa-spa"
-                },
-                {
-                    id: 4,
-                    name: "Console de Jeux Portable",
-                    description: "Divertissement pour toute la famille",
-                    price: "249.99 €",
-                    gender: "unisexe",
-                    age: "13-17",
-                    interests: "jeux",
-                    icon: "fas fa-gamepad"
-                },
-                {
-                    id: 5,
-                    name: "Livre d'Art Contemporain",
-                    description: "Pour les amateurs d'art et de culture",
-                    price: "45.99 €",
-                    gender: "unisexe",
-                    age: "26-40",
-                    interests: "art",
-                    icon: "fas fa-book"
-                },
-                {
-                    id: 6,
-                    name: "Équipement de Sport",
-                    description: "Accessoires pour l'entraînement quotidien",
-                    price: "119.99 €",
-                    gender: "homme",
-                    age: "18-25",
-                    interests: "sport",
-                    icon: "fas fa-dumbbell"
-                }
-            ];
 
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -215,6 +117,22 @@
                     const filteredGifts = filterGifts(criteria);
                     displayResults(filteredGifts, criteria);
                 }, 1500);
+
+                fetch('{{ path('app_gift_search_results') }}', {
+                    method: 'POST',
+                    body: new FormData(searchForm),
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    displayResults(data, criteria);
+                })
+                .catch(() => {
+                    loadingState.style.display = 'none';
+                    showNoResults();
+                });
             }
 
             function showLoadingState() {
@@ -226,10 +144,6 @@
             function filterGifts(criteria) {
                 return sampleGifts.filter(gift => {
                     let matches = true;
-
-                    if (criteria.gender && criteria.gender !== 'unisexe') {
-                        matches = matches && (gift.gender === criteria.gender || gift.gender === 'unisexe');
-                    }
 
                     if (criteria.age) {
                         matches = matches && gift.age === criteria.age;
@@ -265,11 +179,11 @@
                 // Create gift items HTML
                 const giftsHTML = gifts.map(gift => createGiftHTML(gift)).join('');
                 
-                resultsList.innerHTML = searchStats.outerHTML + giftsHTML;
-                resultsList.style.display = 'block';
+                document.getElementById('results-section').innerHTML = searchStats.outerHTML + giftsHTML;
+                resultsList.style.display = 'none';
                 
                 // Add fade-in animation
-                resultsList.classList.add('fade-in');
+                document.getElementById('results-section').classList.add('fade-in');
                 
                 // Add event listeners for new buttons
                 addCartButtonListeners();
@@ -354,5 +268,7 @@
                 });
             });
         });
+
+        
     </script>
 {% endblock %}
