@@ -28,10 +28,10 @@ class CartController extends AbstractController
         ]);
     }
 
-    #[Route('/add/{giftId}', name: 'app_cart_add')]
+    #[Route('/add', name: 'app_cart_add', methods: ['POST'])]
     #[IsGranted('ROLE_USER')]
     public function add(
-        int $giftId,
+        Request $request,
         GiftRepository $giftRepository,
         CartItemRepository $cartItemRepository,
         EntityManagerInterface $em

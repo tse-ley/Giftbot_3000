@@ -4,6 +4,8 @@ framework:
         paths:
             - assets/
             - node_modules/
+        excluded_patterns:
+            - '/node_modules\/postcss-minify-font-values\//'
         missing_import_mode: strict
 
 when@prod:

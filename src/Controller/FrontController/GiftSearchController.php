@@ -27,29 +27,27 @@ class GiftSearchController extends AbstractController
     #[Route('/giftsearch/results', name: 'app_gift_search_results', methods: ['POST'])]
     public function searchResults(Request $request, GiftRepository $giftRepository): JsonResponse
     {
-        $form = $this->createForm(GiftSearchType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $gifts = $giftRepository->search($form->getData());
-
-            $data = array_map(function (Gift $gift) {
-                return [
-                    'id' => $gift->getId(),
-                    'name' => $gift->getName(),
-                    'description' => $gift->getDescription(),
-                    'price' => number_format($gift->getPrice(), 2) . ' €',
-                    'gender' => $gift->getGender(),
-                    'age' => $gift->getAgeGroup(),
-                    'interests' => $gift->getInterest(),
-                    'icon' => $gift->getIconClass() // assuming this field/method exists
-                ];
-            }, $gifts);
-
-            return new JsonResponse($data);
+        $criteria = $request->request->all('gift_search'); // 'gift_search' is the form name by default
+        if (!$criteria) {
+            $criteria = $request->request->all(); // fallback if not nested
         }
 
-        return new JsonResponse(['error' => 'Invalid form submission'], 400);
+        $gifts = $giftRepository->search($criteria);
+
+        $data = array_map(function (Gift $gift) {
+            return [
+                'id' => $gift->getId(),
+                'name' => $gift->getName(),
+                'description' => $gift->getDescription(),
+                'price' => number_format($gift->getPrice(), 2) . ' €',
+                'gender' => $gift->getGender(),
+                'age' => $gift->getAgeGroup(),
+                'interests' => $gift->getInterest(),
+                'icon' => $gift->getIconClass()
+            ];
+        }, $gifts);
+
+        return new JsonResponse($data);
     }
 
     #[Route('/gifts', name: 'app_gifts')]

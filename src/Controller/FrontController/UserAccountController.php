@@ -6,6 +6,7 @@ use App\Form\AccountType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\OrdersRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -15,9 +16,16 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class UserAccountController extends AbstractController
 {
     #[Route('', name: 'app_account')]
-    public function index(): Response
+    public function index(OrdersRepository $ordersRepository): Response
     {
-        return $this->render('account/index.html.twig');
+        /** @var User|null $user */
+        $user = $this->getUser();
+        $orders = $ordersRepository->findBy(['user' => $user]);
+
+        return $this->render('user_account/index.html.twig', [
+            'user' => $user,
+            'orders' => $orders,
+        ]);
     }
 
     #[Route('/edit', name: 'app_account_edit')]

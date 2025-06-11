@@ -1,0 +1,74 @@
+@use '../_shared' as *;
+
+.account-wrapper {
+        max-width: 800px;
+        margin: var(--spacing-lg) auto;
+        background-color: var(--white);
+        padding: var(--spacing-lg);
+        border-radius: var(--border-radius-xl);
+        box-shadow: var(--shadow-md);
+        font-family: var(--font-family-primary);
+        color: var(--black);
+    }
+
+    .account-header {
+        font-size: 2rem;
+        font-weight: var(--font-weight-bold);
+        color: var(--dark-pink);
+        margin-bottom: var(--spacing-md);
+        text-align: center;
+    }
+
+    .user-info {
+        background-color: var(--light-pink);
+        padding: var(--spacing-sm);
+        border-radius: var(--border-radius-md);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .user-info h2 {
+        margin-top: 0;
+        color: var(--primary-pink);
+    }
+
+    .user-info p {
+        margin: var(--spacing-xs) 0;
+    }
+
+    .orders-section h2 {
+        color: var(--primary-pink);
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .order {
+        background-color: var(--white);
+        border-left: 4px solid var(--primary-pink);
+        padding: var(--spacing-sm);
+        margin-bottom: var(--spacing-sm);
+        border-radius: var(--border-radius-sm);
+    }
+
+    .order p {
+        margin: 0.25rem 0;
+    }
+
+    .no-orders {
+        font-style: italic;
+        color: var(--dark-pink);
+    }
+
+    .back-button {
+        background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+        border: none;
+        color: var(--white);
+        transition: all var(--transition-normal);
+        padding: var(--spacing-xs) var(--spacing-sm);
+        border-radius: var(--border-radius-md);
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .back-button:hover {
+        transform: translateY(-2px);
+    }

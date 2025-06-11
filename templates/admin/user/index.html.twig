@@ -1,58 +1,323 @@
 {% extends 'base.html.twig' %}
 
-
 {% block title %}User Management - GiftBot 3000{% endblock %}
 
 {% block body %}
 <style>
-.add-btn {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #28a745;
-        color: white;
-        text-decoration: none;
-        border-radius: 5px;
-        margin-bottom: 10px;
+    :root {
+        --primary-pink: #fc6ea0;
+        --dark-pink: #c2185b;
+        --light-pink: #fde6e6;
+        --white: #ffffff;
+        --black: #000000;
+        --secondary-beige: #f9e4da;
     }
 
+    .container {
+        max-width: 1200px;
+    }
+
+    /* Enhanced Card Styling */
+    .management-card {
+        background: var(--white);
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(252, 110, 160, 0.15);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 2px solid var(--light-pink);
+    }
+
+    .management-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(252, 110, 160, 0.25);
+    }
+
+    .card-header-custom {
+        background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+        color: var(--white);
+        padding: 20px 30px;
+        border-bottom: none;
+        position: relative;
+    }
+
+    .card-header-custom::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--light-pink), var(--primary-pink), var(--light-pink));
+    }
+
+    .card-header-custom h2 {
+        font-weight: 600;
+        font-size: 1.5rem;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .card-body-custom {
+        padding: 30px;
+        background: var(--white);
+    }
+
+    /* Back Button Enhancement */
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, var(--dark-pink), var(--primary-pink));
+        color: var(--white);
+        text-decoration: none;
+        border-radius: 25px;
+        margin-bottom: 20px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(194, 24, 91, 0.3);
+    }
+
+    .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(194, 24, 91, 0.4);
+        color: var(--white);
+        text-decoration: none;
+    }
+
+    /* Button Enhancements */
+    .btn-custom-primary {
+        background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+        border: none;
+        color: var(--white);
+        padding: 12px 24px;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(252, 110, 160, 0.3);
+    }
+
+    .btn-custom-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(252, 110, 160, 0.4);
+        background: linear-gradient(135deg, var(--dark-pink), var(--primary-pink));
+        color: var(--white);
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        border: none;
+        border-radius: 20px;
+        padding: 8px 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 10px rgba(231, 76, 60, 0.3);
+    }
+
+    .btn-danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        background: linear-gradient(135deg, #c0392b, #e74c3c);
+    }
+
+    /* Table Enhancements */
+    .table-responsive {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(252, 110, 160, 0.1);
+    }
+
+    .table {
+        margin-bottom: 0;
+        background: var(--white);
+    }
+
+    .table thead th {
+        background: var(--light-pink);
+        color: var(--dark-pink);
+        font-weight: 600;
+        border: none;
+        padding: 15px 20px;
+        font-size: 0.95rem;
+    }
+
+    .table tbody tr {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(252, 110, 160, 0.1);
+    }
+
+    .table tbody tr:hover {
+        background: rgba(252, 110, 160, 0.05);
+        transform: scale(1.01);
+    }
+
+    .table tbody td {
+        padding: 15px 20px;
+        border: none;
+        color: var(--black);
+        font-weight: 400;
+    }
+
+    /* Form Enhancements */
+    .form-control {
+        border: 2px solid var(--light-pink);
+        border-radius: 10px;
+        padding: 12px 16px;
+        transition: all 0.3s ease;
+        background: var(--white);
+    }
+
+    .form-control:focus {
+        border-color: var(--primary-pink);
+        box-shadow: 0 0 0 0.2rem rgba(252, 110, 160, 0.25);
+        background: var(--white);
+    }
+
+    .form-label {
+        color: var(--dark-pink);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-text {
+        color: rgba(194, 24, 91, 0.7);
+        font-size: 0.875rem;
+        margin-top: 5px;
+    }
+
+    /* Feature List Styling */
+    .feature-list {
+        background: var(--light-pink);
+        border-radius: 10px;
+        padding: 20px;
+        list-style: none;
+        margin: 0;
+    }
+
+    .feature-list li {
+        padding: 8px 0;
+        color: var(--dark-pink);
+        font-weight: 500;
+        position: relative;
+        padding-left: 25px;
+    }
+
+    .feature-list li::before {
+        content: '👤';
+        position: absolute;
+        left: 0;
+        top: 8px;
+    }
+
+    /* User Count Badge */
+    .user-count-badge {
+        background: var(--white);
+        color: var(--primary-pink);
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-left: 10px;
+        box-shadow: 0 2px 8px rgba(252, 110, 160, 0.2);
+    }
+
+    /* Icon Enhancements */
+    .fas {
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+    }
+
+    /* Empty State Styling */
+    .empty-state {
+        padding: 40px 20px;
+        text-align: center;
+        color: rgba(194, 24, 91, 0.6);
+        font-style: italic;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 15px;
+        }
+        
+        .card-header-custom, .card-body-custom {
+            padding: 20px;
+        }
+        
+        .management-card {
+            margin-bottom: 20px;
+        }
+        
+        .btn-custom-primary {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+    }
+
+    /* Animation for form submission */
+    .form-submit-animation {
+        animation: pulse 0.6s ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
 </style>
 
 <div class="container my-5">
     <!-- User List Section -->
     <div class="management-card mb-4">
         <div class="card-header-custom">
-            <h2 class="mb-0">
-                <i class="fas fa-users me-2"></i> Utilisateurs ({{ userCount }})
-            </h2>
-    <a href="{{ path('admin_dashboard', { slash: '/' }) }}" class="add-btn" style="background-color: #fc6ea0; margin-bottom: 20px;">⬅️ Back to Dashboard</a>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mb-0">
+                    <i class="fas fa-users me-2"></i> Utilisateurs
+                    <span class="user-count-badge">{{ userCount }}</span>
+                </h2>
+                <a href="{{ path('admin_dashboard', { slash: '/' }) }}" class="back-btn">
+                    <i class="fas fa-arrow-left me-2"></i> Retour au Dashboard
+                </a>
+            </div>
         </div>
         <div class="card-body-custom">
             {% if emails is not empty %}
-                <ul class="feature-list mb-4">
-                    {% for email in emails %}
-                        <li>{{ email }}</li>
-                    {% endfor %}
-                </ul>
+                <div class="mb-4">
+                    <h5 class="text-muted mb-3">
+                        <i class="fas fa-envelope me-2"></i> Emails enregistrés
+                    </h5>
+                    <ul class="feature-list">
+                        {% for email in emails %}
+                            <li>{{ email }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endif %}
 
-            <a href="{{ path('admin_user_add') }}" class="btn btn-custom-primary mb-4">
-                <i class="fas fa-user-plus me-2"></i> Ajouter un utilisateur
-            </a>
+            <div class="mb-4">
+                <a href="{{ path('admin_user_add') }}" class="btn btn-custom-primary">
+                    <i class="fas fa-user-plus me-2"></i> Ajouter un utilisateur
+                </a>
+            </div>
 
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
-                    <thead class="table-light">
+                    <thead>
                         <tr>
-                            <th>Email</th>
-                            <th class="text-end">Actions</th>
+                            <th>
+                                <i class="fas fa-envelope me-2"></i> Email
+                            </th>
+                            <th class="text-end">
+                                <i class="fas fa-cogs me-2"></i> Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for user in users %}
                             <tr>
-                                <td>{{ user.email }}</td>
+                                <td>
+                                    <strong>{{ user.email }}</strong>
+                                </td>
                                 <td class="text-end">
-                                    <form method="post" action="{{ path('admin_user_delete', {id: user.id}) }}" class="d-inline" onsubmit="return confirm('Confirmer la suppression ?');">
+                                    <form method="post" action="{{ path('admin_user_delete', {id: user.id}) }}" class="d-inline" onsubmit="return confirm('⚠️ Confirmer la suppression de cet utilisateur ?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
                                         <button type="submit" class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash-alt me-1"></i> Supprimer
@@ -62,7 +327,11 @@
                             </tr>
                         {% else %}
                             <tr>
-                                <td colspan="2" class="text-center text-muted">Aucun utilisateur trouvé.</td>
+                                <td colspan="2" class="empty-state">
+                                    <i class="fas fa-users fa-3x mb-3" style="color: var(--light-pink);"></i>
+                                    <br>
+                                    Aucun utilisateur trouvé.
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -75,33 +344,97 @@
     <div class="management-card">
         <div class="card-header-custom">
             <h2 class="mb-0">
-                <i class="fas fa-user-plus me-2"></i> Ajouter un utilisateur
+                <i class="fas fa-user-plus me-2"></i> Ajouter un nouvel utilisateur
             </h2>
         </div>
         <div class="card-body-custom">
-            <form method="post" action="{{ path('admin_user_add') }}">
-                <div class="mb-3">
-                    <label for="name" class="form-label">Nom :</label>
-                    <input type="text" name="name" id="name" class="form-control" required>
+            <form method="post" action="{{ path('admin_user_add') }}" onsubmit="this.classList.add('form-submit-animation')">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-user me-2"></i> Nom complet
+                        </label>
+                        <input type="text" name="name" id="name" class="form-control" required placeholder="Entrez le nom complet">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">
+                            <i class="fas fa-envelope me-2"></i> Adresse email
+                        </label>
+                        <input type="email" name="email" id="email" class="form-control" required placeholder="exemple@email.com">
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email :</label>
-                    <input type="email" name="email" id="email" class="form-control" required>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="password" class="form-label">
+                            <i class="fas fa-lock me-2"></i> Mot de passe
+                        </label>
+                        <input type="password" name="password" id="password" class="form-control" required placeholder="Mot de passe sécurisé">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="roles" class="form-label">
+                            <i class="fas fa-shield-alt me-2"></i> Rôles
+                        </label>
+                        <input type="text" name="roles[]" id="roles" value="ROLE_USER" class="form-control" placeholder="ROLE_USER, ROLE_ADMIN">
+                        <div class="form-text">
+                            <i class="fas fa-info-circle me-1"></i> 
+                            Séparez les rôles par des virgules (ex: ROLE_ADMIN, ROLE_USER)
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Mot de passe :</label>
-                    <input type="password" name="password" id="password" class="form-control" required>
-                </div>
-                <div class="mb-4">
-                    <label for="roles" class="form-label">Rôles :</label>
-                    <input type="text" name="roles[]" id="roles" value="ROLE_USER" class="form-control">
-                    <div class="form-text">Exemple : ROLE_ADMIN, ROLE_USER</div>
-                </div>
+                
                 <button type="submit" class="btn btn-custom-primary w-100">
-                    <i class="fas fa-user-plus me-2"></i> Ajouter
+                    <i class="fas fa-user-plus me-2"></i> Créer l'utilisateur
                 </button>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+// Add subtle animations and interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate cards on scroll
+    const cards = document.querySelectorAll('.management-card');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    });
+    
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+    });
+    
+    // Form validation feedback
+    const form = document.querySelector('form[action*="admin_user_add"]');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+            
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = '#e74c3c';
+                } else {
+                    input.style.borderColor = 'var(--primary-pink)';
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Veuillez remplir tous les champs obligatoires.');
+            }
+        });
+    }
+});
+</script>
+
 {% endblock %}

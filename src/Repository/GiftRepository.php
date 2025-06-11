@@ -16,28 +16,26 @@ class GiftRepository extends ServiceEntityRepository
         parent::__construct($registry, Gift::class);
     }
 
-    //    /**
-    //     * @return Gift[] Returns an array of Gift objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('g.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
 
-    //    public function findOneBySomeField($value): ?Gift
-    //    {
-    //        return $this->createQueryBuilder('g')
-    //            ->andWhere('g.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function search(array $criteria): array
+    {
+        $qb = $this->createQueryBuilder('g');
+
+        if (!empty($criteria['category'])) {
+            $qb->andWhere('g.category = :category')
+               ->setParameter('category', $criteria['category']);
+        }
+
+        if (!empty($criteria['label'])) {
+            $qb->andWhere('g.label = :label')
+               ->setParameter('label', $criteria['label']);
+        }
+
+        if (!empty($criteria['age'])) {
+            $qb->andWhere('g.age = :age')
+               ->setParameter('age', $criteria['age']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

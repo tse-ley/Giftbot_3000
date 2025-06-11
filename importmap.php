@@ -28,4 +28,7 @@ return [
     'stimulus' => [
         'version' => '3.2.2',
     ],
+    'bootstrap' => [
+        'path' => './node_modules/bootstrap/dist/js/bootstrap.bundle.min.js',
+    ],
 ];

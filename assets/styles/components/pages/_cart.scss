@@ -1,35 +1,42 @@
 @use '../_shared' as *;
 
-body {
-        background-color: #1e1e1e;
-    }
+
 
     .page-wrapper {
-        background-color: #fddbd4;
+        background-color: #fc6ea0;
         padding: 2rem;
+        border: #fc6ea0 solid 1px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin: 2rem auto;
+        color: #ffffff;
     }
 
     .cart-item, .summary-box, .coupon-box {
-        background-color: #fddbd4;
+        background-color: #fc6ea0;
         border: none;
         padding: 1rem;
         margin-bottom: 1rem;
+        color: #ffffff;
     }
 
     .cart-item {
         border-bottom: 2px solid #000;
+        color: #ffffff;
     }
 
     .summary-box {
         background-color: #ff5da2;
         border-radius: 10px;
         padding: 1.5rem;
+        color: #ffffff;
     }
 
     .coupon-box {
         background-color: #ff5da2;
         border-radius: 10px;
         padding: 1rem;
+        color: #ffffff;
     }
 
     .item-image {

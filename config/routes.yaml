@@ -2,6 +2,19 @@ app_login:
     path: /login
     controller: App\Controller\SecurityController::login
 
+app_gift_search_results:
+  path: /gift/search/results
+  controller: App\Controller\FrontController\GiftController::searchResults
+  methods: [POST]
+
+controllers:
+    resource: ../src/Controller/
+    type: attribute
+
+kernel:
+    resource: ../src/Kernel.php
+    type: attribute
+
 # Admin (Back Office) routes using attribute routing
 admin_controllers:
     resource: '../src/Controller/BackController/Admin'

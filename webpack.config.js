@@ -29,6 +29,9 @@ Encore
     .addStyleEntry('giftsearch', './assets/styles/components/pages/_giftsearch.scss')
     .addStyleEntry('cart', './assets/styles/components/pages/_cart.scss')
     .addStyleEntry('contact', './assets/styles/components/pages/_contact.scss')
+    .addStyleEntry('useraccount', './assets/styles/components/pages/_useraccount.scss')
+    .addStyleEntry('login', './assets/styles/components/pages/_login.scss')
+    .addStyleEntry('adminlogin', './assets/styles/components/pages/_adminlogin.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

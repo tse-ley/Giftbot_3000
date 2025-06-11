@@ -11,6 +11,8 @@ class AdminSecurityController extends AbstractController
     #[Route('/login', name: 'admin_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        dump('AdminSecurityController::login() called');
+
         // If user is already authenticated, redirect to admin dashboard
         if ($this->getUser()) {
             dump('User is authenticated:', $this->getUser());
@@ -26,10 +28,13 @@ class AdminSecurityController extends AbstractController
         dump('Login error:', $error);
         dump('Last username:', $lastUsername);
 
-        return $this->render('admin/login.html.twig', [
+        $response = $this->render('admin/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
+
+        dump('Rendering login form with last_username:', $lastUsername, 'and error:', $error);
+        return $response;
     }
 
     #[Route('/logout', name: 'admin_logout')]
