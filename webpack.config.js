@@ -33,6 +33,11 @@ Encore
     .addStyleEntry('login', './assets/styles/components/pages/_login.scss')
     .addStyleEntry('adminlogin', './assets/styles/components/pages/_adminlogin.scss')
     .addStyleEntry('registration', './assets/styles/components/pages/_registration.scss')
+    .addStyleEntry('dashboard', './assets/styles/components/pages/_dashboard.scss')
+    .addStyleEntry('giftlist', './assets/styles/components/pages/_giftlist.scss')
+    .addStyleEntry('giftadd', './assets/styles/components/pages/_giftadd.scss')
+    .addStyleEntry('newsletter', './assets/styles/components/pages/_newsletter.scss')
+    .addStyleEntry('userlist', './assets/styles/components/pages/_userlist.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

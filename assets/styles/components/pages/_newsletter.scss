@@ -1,0 +1,358 @@
+:root {
+        --primary-pink: #fc6ea0;
+        --dark-pink: #c2185b;
+        --light-pink: #fde6e6;
+        --white: #ffffff;
+        --black: #000000;
+        --secondary-beige: #f9e4da;
+    }
+
+    .newsletter-wrapper {
+        margin: 2em auto;
+        max-width: 1200px;
+        width: 95%;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* Header Section */
+    .header-section {
+        background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(252, 110, 160, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        pointer-events: none;
+    }
+
+    .header-section h1 {
+        color: var(--white);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        position: relative;
+        z-index: 1;
+    }
+
+    .header-section .subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        margin-top: 8px;
+        font-weight: 300;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Stats Card */
+    .stats-card {
+        background: var(--white);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 25px rgba(252, 110, 160, 0.15);
+        border: 2px solid var(--light-pink);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(252, 110, 160, 0.25);
+    }
+
+    .stats-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .subscriber-count {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .count-icon {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.5rem;
+        box-shadow: 0 4px 15px rgba(252, 110, 160, 0.3);
+    }
+
+    .count-details h2 {
+        margin: 0;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-pink);
+    }
+
+    .count-details p {
+        margin: 0;
+        color: rgba(194, 24, 91, 0.7);
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    /* Back Button Enhancement */
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 24px;
+        background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.9));
+        color: var(--dark-pink);
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        color: var(--dark-pink);
+        text-decoration: none;
+        background: var(--white);
+    }
+
+    /* Table Container */
+    .table-container {
+        background: var(--white);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(252, 110, 160, 0.15);
+        border: 2px solid var(--light-pink);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .table-container:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 12px 35px rgba(252, 110, 160, 0.25);
+    }
+
+    .table-header {
+        background: linear-gradient(135deg, var(--light-pink), rgba(252, 110, 160, 0.1));
+        padding: 20px 30px;
+        border-bottom: 2px solid var(--primary-pink);
+    }
+
+    .table-header h3 {
+        margin: 0;
+        color: var(--dark-pink);
+        font-size: 1.3rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Enhanced Table */
+    .subscribers-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: var(--white);
+        margin: 0;
+    }
+
+    .subscribers-table thead th {
+        background: var(--light-pink);
+        color: var(--dark-pink);
+        font-weight: 600;
+        padding: 18px 25px;
+        text-align: left;
+        border: none;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .subscribers-table tbody tr {
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(252, 110, 160, 0.1);
+    }
+
+    .subscribers-table tbody tr:hover {
+        background: rgba(252, 110, 160, 0.05);
+        transform: scale(1.01);
+    }
+
+    .subscribers-table tbody tr:last-child {
+        border-bottom: none;
+    }
+
+    .subscribers-table tbody td {
+        padding: 18px 25px;
+        border: none;
+        color: var(--black);
+        font-weight: 400;
+        vertical-align: middle;
+    }
+
+    /* Index Number Styling */
+    .index-number {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+        color: var(--white);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 0.9rem;
+        box-shadow: 0 3px 10px rgba(252, 110, 160, 0.3);
+    }
+
+    /* Email Styling */
+    .email-cell {
+        font-weight: 500;
+        color: var(--dark-pink);
+    }
+
+    .email-icon {
+        color: var(--primary-pink);
+        margin-right: 8px;
+    }
+
+    /* Date Styling */
+    .date-cell {
+        color: rgba(194, 24, 91, 0.8);
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 0.9rem;
+    }
+
+    .date-icon {
+        color: var(--primary-pink);
+        margin-right: 8px;
+    }
+
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 60px 30px;
+        color: rgba(194, 24, 91, 0.6);
+    }
+
+    .empty-state-icon {
+        font-size: 4rem;
+        color: var(--light-pink);
+        margin-bottom: 20px;
+        display: block;
+    }
+
+    .empty-state h3 {
+        color: var(--dark-pink);
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .empty-state p {
+        font-size: 1rem;
+        margin: 0;
+        font-style: italic;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .newsletter-wrapper {
+            width: 98%;
+            margin: 1em auto;
+        }
+
+        .header-section {
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header-section h1 {
+            font-size: 2rem;
+        }
+
+        .stats-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .back-btn {
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .subscribers-table {
+            font-size: 0.9rem;
+        }
+
+        .subscribers-table thead th,
+        .subscribers-table tbody td {
+            padding: 12px 15px;
+        }
+
+        .table-header {
+            padding: 15px 20px;
+        }
+
+        .count-details h2 {
+            font-size: 1.5rem;
+        }
+    }
+
+    /* Animation for table rows */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .subscribers-table tbody tr {
+        animation: fadeInUp 0.5s ease forwards;
+    }
+
+    .subscribers-table tbody tr:nth-child(odd) {
+        animation-delay: 0.1s;
+    }
+
+    .subscribers-table tbody tr:nth-child(even) {
+        animation-delay: 0.2s;
+    }
+
+    /* Growth indicator */
+    .growth-badge {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+    }
