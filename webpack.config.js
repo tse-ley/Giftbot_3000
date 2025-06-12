@@ -32,6 +32,7 @@ Encore
     .addStyleEntry('useraccount', './assets/styles/components/pages/_useraccount.scss')
     .addStyleEntry('login', './assets/styles/components/pages/_login.scss')
     .addStyleEntry('adminlogin', './assets/styles/components/pages/_adminlogin.scss')
+    .addStyleEntry('registration', './assets/styles/components/pages/_registration.scss')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()

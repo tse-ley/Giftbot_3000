@@ -56,7 +56,7 @@ class Gift
      * @var Collection<int, CartItem>
      */
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'gift')]
-    private Collection $cartItem;
+    private Collection $cartItems;
 
     public function __construct()
     {
@@ -229,15 +229,15 @@ class Gift
     /**
      * @return Collection<int, CartItem>
      */
-    public function getCartItem(): Collection
+    public function getCartItems(): Collection
     {
-        return $this->cartItem;
+        return $this->cartItems;
     }
 
     public function addCartItem(CartItem $cartItem): static
     {
-        if (!$this->cartItem->contains($cartItem)) {
-            $this->cartItem->add($cartItem);
+        if (!$this->cartItems->contains($cartItem)) {
+            $this->cartItems->add($cartItem);
             $cartItem->setGift($this);
         }
 
@@ -246,7 +246,7 @@ class Gift
 
     public function removeCartItem(CartItem $cartItem): static
     {
-        if ($this->cartItem->removeElement($cartItem)) {
+        if ($this->cartItems->removeElement($cartItem)) {
             // set the owning side to null (unless already changed)
             if ($cartItem->getGift() === $this) {
                 $cartItem->setGift(null);

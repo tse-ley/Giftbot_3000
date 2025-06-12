@@ -65,6 +65,21 @@
                 </button>
             </form>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.querySelector('form');
+        loginForm.addEventListener('submit', function(event) {
+            const username = loginForm.querySelector('#inputEmail').value;
+            const password = loginForm.querySelector('#inputPassword').value;
+
+            if (username === 'admin' && password === 'admin') {
+                window.location.href = '/back/admin'; // Redirect to admin dashboard
+                event.preventDefault(); // Prevent the default form submission
+            }
+        });
+    });
+</script>
+
             <div class="divider">
                 <span>Instant Login</span>
             </div>
@@ -90,8 +105,7 @@
         <!-- Image Section -->
         <div class="image-section">
             <div class="image-placeholder">
-                <i class="fas fa-images fa-3x"></i>
-                <span style="margin-left: 1rem;">Images</span>
+                <img src="{{ asset('image/pexels-photo-5493203.webp') }}" alt="Gift App" style="width: 400px; height: auto;">
             </div>
 
             <h2>Searching for the perfect present?</h2>
@@ -99,11 +113,7 @@
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
             </p>
 
-            <div class="dots-indicator">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
+           
         </div>
     </div>
 

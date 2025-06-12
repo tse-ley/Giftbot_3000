@@ -15,6 +15,14 @@
     {% include 'components/_navbar.html.twig' %}
 
     <div class="container page-wrapper mt-4">
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
         <div class="row">
             <div class="col-md-8">
                 <h3>Cart</h3>
@@ -38,9 +46,16 @@
                     <div class="d-flex justify-content-between fw-bold">
                         <span>Total</span><span id="total-amount">$0.00</span>
                     </div>
-                    <div class="mt-3 text-center">
-                        <button class="checkout-btn">Proceed to checkout</button>
-                    </div>
+                    
+                    <form method="post" id="checkout-form">
+                        <input type="hidden" name="cart_data" id="cart-data-input">
+                        <div class="mt-3 text-center">
+                            <button type="button" class="checkout-btn" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+                                Proceed to checkout
+                            </button>
+                        </div>
+                    </form>
+                    
                     <hr>
                     <p class="text-center mb-0">Estimated delivery by August 6</p>
                 </div>
@@ -57,6 +72,28 @@
     </div>
 
     {% include 'components/_footer.html.twig' %}
+
+    <!-- Confirmation Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Order</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you certain of your order?</p>
+                    <div id="order-summary">
+                        <!-- Order summary will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmOrderBtn">Confirm Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
@@ -66,11 +103,20 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
         const cartContainer = document.getElementById('cart-items-container');
         const subtotalEl = document.getElementById('subtotal-amount');
         const discountEl = document.getElementById('discount-amount');
         const totalEl = document.getElementById('total-amount');
+        const cartDataInput = document.getElementById('cart-data-input');
+        const checkoutForm = document.getElementById('checkout-form');
+
+        // Check if order was successful and clear cart
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('order_success') === '1') {
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
 
         function renderCart() {
             cartContainer.innerHTML = '';
@@ -109,12 +155,15 @@
 
         function updateSummary() {
             const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            const discount = 0; // Placeholder for now
+            const discount = 0;
             const total = subtotal - discount;
 
             subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
             discountEl.textContent = `$${discount.toFixed(2)}`;
             totalEl.textContent = `$${total.toFixed(2)}`;
+            
+            // Update hidden input with cart data
+            cartDataInput.value = JSON.stringify(cart);
         }
 
         function saveCart() {
@@ -122,6 +171,7 @@
             renderCart();
         }
 
+        // Handle cart item controls
         cartContainer.addEventListener('click', e => {
             const index = e.target.dataset.index;
             if (e.target.classList.contains('increase')) {
@@ -140,10 +190,45 @@
             }
         });
 
+        // Handle coupon application
         document.querySelector('.apply-btn')?.addEventListener('click', () => {
             alert('Coupon applied! (Functionality to be implemented)');
         });
 
+        // Handle order confirmation
+        document.getElementById('confirmOrderBtn')?.addEventListener('click', function() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            // Update cart data before submitting
+            cartDataInput.value = JSON.stringify(cart);
+            
+            // Show loading state
+            this.disabled = true;
+            this.textContent = 'Processing...';
+            
+            // Submit the form
+            checkoutForm.submit();
+        });
+
+        // Update order summary in modal when it opens
+        document.getElementById('confirmationModal')?.addEventListener('show.bs.modal', function() {
+            const orderSummary = document.getElementById('order-summary');
+            let summaryHTML = '<ul class="list-unstyled">';
+            
+            cart.forEach(item => {
+                summaryHTML += `<li>${item.title} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            summaryHTML += `</ul><hr><strong>Total: $${total.toFixed(2)}</strong>`;
+            
+            orderSummary.innerHTML = summaryHTML;
+        });
+
+        // Initial render
         renderCart();
     });
     </script>
