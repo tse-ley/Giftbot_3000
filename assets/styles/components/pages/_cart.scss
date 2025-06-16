@@ -2,66 +2,66 @@
 
 
 
-    .page-wrapper {
-        background-color: #fc6ea0;
-        padding: 2rem;
-        border: #fc6ea0 solid 1px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin: 2rem auto;
-        color: #ffffff;
-    }
+.page-wrapper {
+    background-color: #fc6ea0;
+    padding: 2rem;
+    border: #fc6ea0 solid 1px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 2rem auto;
+    color: #ffffff;
+}
 
-    .cart-item, .summary-box, .coupon-box {
-        background-color: #fc6ea0;
-        border: none;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        color: #ffffff;
-    }
+.cart-item, .summary-box, .coupon-box {
+    background-color: #fc6ea0;
+    border: none;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+}
 
-    .cart-item {
-        border-bottom: 2px solid #000;
-        color: #ffffff;
-    }
+.cart-item {
+    border-bottom: 2px solid #000;
+    color: #ffffff;
+}
 
-    .summary-box {
-        background-color: #ff5da2;
-        border-radius: 10px;
-        padding: 1.5rem;
-        color: #ffffff;
-    }
+.summary-box {
+    background-color: #ff5da2;
+    border-radius: 10px;
+    padding: 1.5rem;
+    color: #ffffff;
+}
 
-    .coupon-box {
-        background-color: #ff5da2;
-        border-radius: 10px;
-        padding: 1rem;
-        color: #ffffff;
-    }
+.coupon-box {
+    background-color: #ff5da2;
+    border-radius: 10px;
+    padding: 1rem;
+    color: #ffffff;
+}
 
-    .item-image {
-        width: 80px;
-        height: 80px;
-        background-color: white;
-        border-radius: 5px;
-    }
+.item-image {
+    width: 80px;
+    height: 80px;
+    background-color: white;
+    border-radius: 5px;
+}
 
-    .item-controls button {
-        width: 40px;
-    }
+.item-controls button {
+    width: 40px;
+}
 
-    .trash-icon {
-        cursor: pointer;
-    }
+.trash-icon {
+    cursor: pointer;
+}
 
-    .checkout-btn, .apply-btn {
-        background-color: #fff0eb;
-        border: none;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-weight: bold;
-    }
+.checkout-btn, .apply-btn {
+    background-color: #fff0eb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+}
 
-    .checkout-btn:hover, .apply-btn:hover {
-        background-color: #fce1da;
-    }
+.checkout-btn:hover, .apply-btn:hover {
+    background-color: #fce1da;
+}

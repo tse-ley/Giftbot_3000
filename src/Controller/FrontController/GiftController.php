@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller\FrontController;
 
 use App\Entity\Gift;
@@ -16,15 +17,13 @@ class GiftController extends AbstractController
     {
         $query = $request->query->get('q', '');
 
-        if ($query) {
-            $gifts = $giftRepository->createQueryBuilder('g')
+        $gifts = $query
+            ? $giftRepository->createQueryBuilder('g')
                 ->where('LOWER(g.name) LIKE :q OR LOWER(g.description) LIKE :q')
                 ->setParameter('q', '%' . strtolower($query) . '%')
                 ->getQuery()
-                ->getResult();
-        } else {
-            $gifts = $giftRepository->findAll();
-        }
+                ->getResult()
+            : $giftRepository->findAll();
 
         return $this->render('gift/gift.html.twig', [
             'gifts' => $gifts,
@@ -36,7 +35,32 @@ class GiftController extends AbstractController
     public function show(Gift $gift): Response
     {
         return $this->render('gift/show.html.twig', [
-            'gift' => $gift
+            'gift' => $gift,
         ]);
+    }
+
+    #[Route('/gifts/search', name: 'app_gift_search_results')]
+    public function search(Request $request, GiftRepository $giftRepository): Response
+    {
+        $criteria = [
+            'category' => $request->request->get('category'),
+            'label' => $request->request->get('label'),
+        ];
+
+        $gifts = $giftRepository->search($criteria);
+
+        $giftArray = array_map(function (Gift $gift) {
+            return [
+                'id' => $gift->getId(),
+                'name' => $gift->getName(),
+                'description' => $gift->getDescription(),
+                'price' => $gift->getPrice(),
+                'image' => $gift->getImage(),
+                'category' => $gift->getCategory(),
+                'label' => $gift->getLabel(),
+            ];
+        }, $gifts);
+
+        return $this->json($giftArray);
     }
 }

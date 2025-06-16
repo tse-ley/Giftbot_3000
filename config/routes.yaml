@@ -4,8 +4,9 @@ app_login:
 
 app_gift_search_results:
   path: /gift/search/results
-  controller: App\Controller\FrontController\GiftController::searchResults
+  controller: App\Controller\FrontController\GiftController::index
   methods: [POST]
+
 
 controllers:
     resource: ../src/Controller/

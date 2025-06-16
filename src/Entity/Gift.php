@@ -63,6 +63,7 @@ class Gift
         $this->wishLists = new ArrayCollection();
         $this->orderItems = new ArrayCollection();
         $this->cartItems = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

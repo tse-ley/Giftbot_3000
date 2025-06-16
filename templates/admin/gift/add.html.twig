@@ -33,6 +33,24 @@
                     {{ form_errors(form.price) }}
                 </div>
 
+                <div class="mb-3">
+                    {{ form_label(form.category, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                    {{ form_widget(form.category, {'attr': {'class': 'form-control custom-input'}}) }}
+                    {{ form_errors(form.category) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.stock_quantity, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                    {{ form_widget(form.stock_quantity, {'attr': {'class': 'form-control custom-input'}}) }}
+                    {{ form_errors(form.stock_quantity) }}
+                </div>
+
+                <div class="mb-3">
+                    {{ form_label(form.image_url, null, {'label_attr': {'class': 'form-label fw-semibold'}}) }}
+                    {{ form_widget(form.image_url, {'attr': {'class': 'form-control custom-input'}}) }}
+                    {{ form_errors(form.image_url) }}
+                </div>
+
                 <div class="d-grid mt-4">
                     <button type="submit" class="btn btn-success btn-lg custom-submit">Add Gift</button>
                 </div>

@@ -13,7 +13,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Bracelet personnalisé gravé',
                 'price' => 45.00,
-                'image' => 'bracletperso.jpg', // fixed path
+                'image' => 'images/store/bracelet-grave-homme_1-879656332.jpg',
                 'description' => 'Bracelet en cuir ou acier avec message secret, parfait pour un anniversaire.',
                 'category' => 'homme',
                 'label' => 'accessoires',
@@ -21,7 +21,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Lunettes de soleil style aviator',
                 'price' => 120.00,
-                'image' => 'gift2.jpg',
+                'image' => 'images/store/lunnettes.jpg',
                 'description' => 'Lunettes polarisées anti-UV avec un design rétro.',
                 'category' => 'homme',
                 'label' => 'accessoires',
@@ -29,7 +29,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Coffret bien-être barbier',
                 'price' => 55.00,
-                'image' => 'gift3.jpg',
+                'image' => 'images/store/Coffret-barbe-Grand-scaled-3552640452.jpeg',
                 'description' => 'Kit de rasage bio avec huile, baume et brosse en poils de sanglier.',
                 'category' => 'homme',
                 'label' => 'soins',
@@ -37,7 +37,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Drone avec caméra 4K',
                 'price' => 350.00,
-                'image' => 'gift4.jpg',
+                'image' => 'images/store/drone.webp',
                 'description' => 'Drone intuitif, idéal pour les paysages ou événements sportifs.',
                 'category' => 'homme',
                 'label' => 'technologie',
@@ -45,7 +45,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Montre connectée GPS',
                 'price' => 250.00,
-                'image' => 'gift5.jpg',
+                'image' => 'images/store/montre.jpeg',
                 'description' => 'Suivi santé et sommeil avec GPS intégré - modèle Garmin.',
                 'category' => 'homme',
                 'label' => 'technologie',
@@ -53,7 +53,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Escape Game Batman',
                 'price' => 40.00,
-                'image' => 'gift6.jpg',
+                'image' => 'images/store/BatmanEscape_story_Generique-431929359.png',
                 'description' => "Expérience immersive à Paris dans l'univers de Batman.",
                 'category' => 'homme',
                 'label' => 'loisirs',
@@ -61,7 +61,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Couteau Laguiole personnalisé',
                 'price' => 160.00,
-                'image' => 'gift7.jpg',
+                'image' => 'images/store/Couteau-Laguiole-personnalisé.jpeg',
                 'description' => "Ménagère de 24 pièces made in France gravée.",
                 'category' => 'homme',
                 'label' => 'cuisine',
@@ -69,7 +69,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Simulateur de vol/voiture',
                 'price' => 130.00,
-                'image' => 'gift8.jpg',
+                'image' => 'images/store/simulateur.jpg',
                 'description' => "Session de simulation pour passionnés de pilotage.",
                 'category' => 'homme',
                 'label' => 'loisirs',
@@ -77,7 +77,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Chemise en lin Bergerac',
                 'price' => 119.00,
-                'image' => 'gift9.jpg',
+                'image' => 'images/store/chemise.jpg',
                 'description' => "Chemise en tissu respirant, fabrication éthique.",
                 'category' => 'homme',
                 'label' => 'vêtements',
@@ -85,7 +85,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Saut en parachute ou parapente',
                 'price' => 250.00,
-                'image' => 'gift10.jpg',
+                'image' => 'images/store/parachute.jpg',
                 'description' => "Sensations fortes garanties pour un anniversaire mémorable.",
                 'category' => 'homme',
                 'label' => 'loisirs',
@@ -93,7 +93,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Coffret DIY cosmétiques bio',
                 'price' => 60.00,
-                'image' => 'gift11.jpg',
+                'image' => 'images/store/cosmetic.jpg',
                 'description' => "Kit complet pour créer ses propres soins avec livret.",
                 'category' => 'femme',
                 'label' => 'soins',
@@ -101,7 +101,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Carte cadeau Sephora',
                 'price' => 50.00,
-                'image' => 'gift12.jpg',
+                'image' => 'images/store/carte.jpg',
                 'description' => "Choix libre parmi des produits de beauté de luxe.",
                 'category' => 'femme',
                 'label' => 'soins',
@@ -109,7 +109,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Housse de couette satin coton',
                 'price' => 109.00,
-                'image' => 'gift13.jpg',
+                'image' => 'images/store/satin.jpg',
                 'description' => "Housse élégante anti-déshydratation en satin de coton.",
                 'category' => 'femme',
                 'label' => 'maison',
@@ -117,7 +117,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Lampe glacière Kooduu',
                 'price' => 150.00,
-                'image' => 'gift14.jpg',
+                'image' => 'images/store/lamp.jpg',
                 'description' => "Lampe LED Bluetooth avec compartiment glacière.",
                 'category' => 'Accessoires',
                 'label' => 'maison',
@@ -125,7 +125,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Bijou infini en argent massif',
                 'price' => 29.00,
-                'image' => 'gift15.jpg',
+                'image' => 'images/store/infinity.jpg',
                 'description' => "Bague symbole d’éternité en argent, taille ajustable.",
                 'category' => 'femme',
                 'label' => 'accessoires',
@@ -133,7 +133,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Robe sur mesure Sumissura',
                 'price' => 220.00,
-                'image' => 'gift16.jpg',
+                'image' => 'images/store/robe.jpeg',
                 'description' => "Robe personnalisée pour une coupe parfaite.",
                 'category' => 'femme',
                 'label' => 'vêtements',
@@ -141,7 +141,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Escapade bien-être à Nivelles',
                 'price' => 124.00,
-                'image' => 'gift17.jpg',
+                'image' => 'images/store/pool.jpg',
                 'description' => "Week-end détente avec spa et hammam en Belgique.",
                 'category' => 'femme',
                 'label' => 'loisirs',
@@ -149,7 +149,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Plateau de bain en bambou',
                 'price' => 34.00,
-                'image' => 'gift18.jpg',
+                'image' => 'images/store/bamboo.jpg',
                 'description' => "Support pour tablette et accessoires de bain.",
                 'category' => 'femme',
                 'label' => 'maison',
@@ -157,7 +157,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Sac à main Coccinelle',
                 'price' => 250.00,
-                'image' => 'gift19.jpg',
+                'image' => 'images/store/sac.jpg',
                 'description' => "Sac en cuir italien au design intemporel.",
                 'category' => 'femme',
                 'label' => 'accessoires',
@@ -165,7 +165,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Luminette 3 luminothérapie',
                 'price' => 229.00,
-                'image' => 'gift20.jpg',
+                'image' => 'images/store/luminette.jpg',
                 'description' => "Lampe pour lutter contre la dépression saisonnière.",
                 'category' => 'femme',
                 'label' => 'technologie',
@@ -173,7 +173,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Planétarium interactif',
                 'price' => 80.00,
-                'image' => 'gift21.jpg',
+                'image' => 'images/store/planétarium.jpg',
                 'description' => "Projette les constellations avec livret éducatif.",
                 'category' => 'Enfants',
                 'label' => 'loisirs',
@@ -181,7 +181,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Kit jardinage enfant',
                 'price' => 30.00,
-                'image' => 'gift22.jpg',
+                'image' => 'images/store/jardin.jpg',
                 'description' => "Outils adaptés et graines bio, made in France.",
                 'category' => 'Enfants',
                 'label' => 'loisirs',
@@ -189,7 +189,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Jeu de société Möllky',
                 'price' => 50.00,
-                'image' => 'gift23.jpg',
+                'image' => 'images/store/molkky.jpg',
                 'description' => "Jeu de quilles en bois pour apprendre en s’amusant.",
                 'category' => 'Enfants',
                 'label' => 'loisirs',
@@ -197,7 +197,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Doudou lapin personnalisable',
                 'price' => 37.00,
-                'image' => 'gift24.jpg',
+                'image' => 'images/store/lapin.jpg',
                 'description' => "Doudou lavable brodé au prénom de l’enfant.",
                 'category' => 'Enfants',
                 'label' => 'accessoires',
@@ -205,7 +205,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Puzzle Pompier 24 pièces',
                 'price' => 27.00,
-                'image' => 'gift25.jpg',
+                'image' => 'images/store/puzzle.jpg',
                 'description' => "Puzzle éducatif avec grandes pièces solides.",
                 'category' => 'Enfants',
                 'label' => 'loisirs',
@@ -213,7 +213,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Tapis de jeu Royaume des animaux',
                 'price' => 66.00,
-                'image' => 'gift26.jpg',
+                'image' => 'images/store/tapis.jpg',
                 'description' => "Tapis coloré pour l’éveil sensoriel.",
                 'category' => 'Enfants',
                 'label' => 'maison',
@@ -221,7 +221,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Veilleuse tortue en bois',
                 'price' => 79.00,
-                'image' => 'gift27.jpg',
+                'image' => 'images/store/torte.jpg',
                 'description' => "Veilleuse apaisante en matériaux durables.",
                 'category' => 'Enfants',
                 'label' => 'accessoires',
@@ -229,7 +229,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Sac à dos Forêt enchantée',
                 'price' => 27.00,
-                'image' => 'gift28.jpg',
+                'image' => 'images/store/sac-a-dos.jpg',
                 'description' => "Petit sac à dos avec motifs féériques.",
                 'category' => 'Enfants',
                 'label' => 'accessoires',
@@ -237,7 +237,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Pâte à modeler réutilisable',
                 'price' => 20.00,
-                'image' => 'gift29.jpg',
+                'image' => 'images/store/pate.jpg',
                 'description' => "Non toxique, textures variées et amusantes.",
                 'category' => 'Enfants',
                 'label' => 'loisirs',
@@ -245,7 +245,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Livre d’éveil musical',
                 'price' => 54.00,
-                'image' => 'gift30.jpg',
+                'image' => 'images/store/musical.jpg',
                 'description' => "Livre interactif avec comptines et sons.",
                 'category' => 'Enfants',
                 'label' => 'loisirs',
@@ -253,7 +253,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Portrait personnalisé animal',
                 'price' => 40.00,
-                'image' => 'gift31.jpg',
+                'image' => 'images/store/potrait.jpg',
                 'description' => "Portrait ou puzzle basé sur une photo de l’animal.",
                 'category' => 'Animaux',
                 'label' => 'accessoires',
@@ -262,7 +262,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Collier GPS connecté',
                 'price' => 180.00,
-                'image' => 'gift32.jpg',
+                'image' => 'images/store/collier.jpg',
                 'description' => "Collier avec géolocalisation en temps réel.",
                 'category' => 'Animaux',
                 'label' => 'technologie',
@@ -270,7 +270,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Panier chauffant pour chat',
                 'price' => 60.00,
-                'image' => 'gift33.jpg',
+                'image' => 'images/store/chat.jpg',
                 'description' => "Panier lavable en mousse à mémoire de forme.",
                 'category' => 'Animaux',
                 'label' => 'maison',
@@ -278,7 +278,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Jouet distributeur de friandises',
                 'price' => 30.00,
-                'image' => 'gift34.jpg',
+                'image' => 'images/store/jouet.jpg',
                 'description' => "Stimule l’intelligence avec friandises.",
                 'category' => 'Animaux',
                 'label' => 'loisirs',
@@ -286,7 +286,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Kit soin pour chien à poils longs',
                 'price' => 30.00,
-                'image' => 'gift35.jpg',
+                'image' => 'images/store/kit-chien.jpg',
                 'description' => "Brosse et shampoing bio pour chiens.",
                 'category' => 'Animaux',
                 'label' => 'soins',
@@ -294,7 +294,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Harnais ergonomique pour chien',
                 'price' => 50.00,
-                'image' => 'gift36.jpg',
+                'image' => 'images/store/hanaris.jpg',
                 'description' => "Confortable et réfléchissant pour les randonnées.",
                 'category' => 'Animaux',
                 'label' => 'accessoires',
@@ -302,15 +302,15 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Fontaine à eau filtrante',
                 'price' => 65.00,
-                'image' => 'gift37.jpg',
+                'image' => 'images/store/fontaine.jpg',
                 'description' => "Encourage l’hydratation avec bruit doux.",
-                'category' => 'Animaux',
+                'category' => 'Accessoires',
                 'label' => 'maison',
             ],
             [
                 'name' => 'Niche en bois design',
                 'price' => 200.00,
-                'image' => 'gift38.jpg',
+                'image' => 'images/store/niche.jpg',
                 'description' => "Niche isolante et personnalisable.",
                 'category' => 'Animaux',
                 'label' => 'maison',
@@ -318,7 +318,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Suspension murale pour chat',
                 'price' => 120.00,
-                'image' => 'gift39.jpg',
+                'image' => 'images/store/chat3.jpg',
                 'description' => "Espace modulable pour grimper.",
                 'category' => 'Animaux',
                 'label' => 'accessoires',
@@ -326,15 +326,15 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Coffret jouets durables',
                 'price' => 35.00,
-                'image' => 'gift40.jpg',
-                'description' => "Cordes et peluches en matériaux recyclés.",
-                'category' => 'Enfants',
+                'image' => 'images/store/Coffretjouetsdurables.jpg',
+                'description' => "Coffret de jouets en matériaux recyclés.",
+                'category' => 'Animaux',
                 'label' => 'loisirs',
             ],
             [
                 'name' => 'Carte cadeau multi-enseignes',
                 'price' => 75.00,
-                'image' => 'gift41.jpg',
+                'image' => 'images/store/carte_cadeaux.jpg',
                 'description' => "Valable chez plus de 200 marques.",
                 'category' => 'Accessoires',
                 'label' => 'accessoires',
@@ -342,7 +342,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Gourde personnalisable Stanley',
                 'price' => 50.00,
-                'image' => 'gift42.jpg',
+                'image' => 'images/store/stanley.jpg',
                 'description' => "Gourde isotherme avec base pour voiture.",
                 'category' => 'femme',
                 'label' => 'accessoires',
@@ -350,7 +350,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Bougie parfumée Corse',
                 'price' => 38.00,
-                'image' => 'gift43.jpg',
+                'image' => 'images/store/candle.jpg',
                 'description' => "Bougie à la cire végétale senteur Méditerranée.",
                 'category' => 'femme',
                 'label' => 'maison',
@@ -358,7 +358,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Chaussettes fantaisie recyclées',
                 'price' => 11.00,
-                'image' => 'gift44.jpg',
+                'image' => 'images/store/chaussettes.jpgg',
                 'description' => "Coton recyclé avec motifs originaux.",
                 'category' => 'Accessoires',
                 'label' => 'accessoires',
@@ -366,7 +366,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Plateau apéro Ping Pong',
                 'price' => 58.00,
-                'image' => 'gift45.jpg',
+                'image' => 'images/store/pigpong.jpg',
                 'description' => "Plateau en bois avec jeu intégré.",
                 'category' => 'Accessoires',
                 'label' => 'maison',
@@ -374,7 +374,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Tote bag océan recyclé',
                 'price' => 20.00,
-                'image' => 'gift46.jpg',
+                'image' => 'images/store/tote.png',
                 'description' => "1€ reversé à la protection marine.",
                 'category' => 'Accessoires',
                 'label' => 'accessoires',
@@ -382,7 +382,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Horloge en chêne massif',
                 'price' => 84.00,
-                'image' => 'gift47.jpg',
+                'image' => 'images/store/horlage.jpg',
                 'description' => "Horloge locale au design épuré.",
                 'category' => 'Accessoires',
                 'label' => 'maison',
@@ -390,7 +390,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Gobelets à whisky gravés',
                 'price' => 35.00,
-                'image' => 'gift48.jpg',
+                'image' => 'images/store/whiskey.jpeg',
                 'description' => "Cristal taillé avec gravure personnalisée.",
                 'category' => 'homme',
                 'label' => 'accessoires',
@@ -398,7 +398,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Brume parfumée pour oreiller',
                 'price' => 20.00,
-                'image' => 'gift49.jpg',
+                'image' => 'images/store/perfume.jpg',
                 'description' => "Parfum lavande et bois sacré.",
                 'category' => 'femme',
                 'label' => 'soins',
@@ -406,7 +406,7 @@ class GiftFixtures extends Fixture
             [
                 'name' => 'Pochette ordinateur ardoise',
                 'price' => 50.00,
-                'image' => 'gift50.jpg',
+                'image' => 'images/store/pochette-ordinateur-personnalisable-764313366.png',
                 'description' => "Pochette personnalisée anti-choc.",
                 'category' => 'Accessoires',
                 'label' => 'accessoires',

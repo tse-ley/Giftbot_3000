@@ -36,15 +36,6 @@ class GiftSearchType extends AbstractType
                 'required' => false,
                 'placeholder' => 'Intérêt'
             ])
-            ->add('age', ChoiceType::class, [
-                'choices' => [
-                    '0-5 ans' => '0-5',
-                    '13-17 ans' => '13-17',
-                    'Adulte' => 'adult',
-                ],
-                'required' => false,
-                'placeholder' => 'Âge'
-            ])
         ;
     }
 

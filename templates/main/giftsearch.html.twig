@@ -6,9 +6,9 @@
     {{ parent() }}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/giftsearch.css') }}">
     <link rel="stylesheet" href="{{ asset('build/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('build/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset('build/giftsearch.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -43,7 +43,6 @@
             {{ form_start(searchForm, {'attr': {'id': 'gift-search-form', 'class': 'search-form'}}) }}
                 {{ form_row(searchForm.category, {'attr': {'class': 'form-input'}, 'label_attr': {'class': 'form-label'}, 'row_attr': {'class': 'form-group'}}) }}
                 {{ form_row(searchForm.label, {'attr': {'class': 'form-input'}, 'label_attr': {'class': 'form-label'}, 'row_attr': {'class': 'form-group'}}) }}
-                {{ form_row(searchForm.age, {'attr': {'class': 'form-input'}, 'label_attr': {'class': 'form-label'}, 'row_attr': {'class': 'form-group'}}) }}
                 <button type="submit" class="btn btn-primary search-btn">Rechercher</button>
             {{ form_end(searchForm) }}
         </section>
@@ -54,6 +53,10 @@
             <p class="results-subtitle">In Store products</p>
             
             <div class="results-container" id="resultsContainer">
+                <div id="results-section">
+                    <div id="searchStats"></div>
+                    <div id="resultsList"></div>
+                </div>
                 <!-- Loading State -->
                 <div class="loading-state" id="loadingState" style="display: none;">
                     <div class="loading-spinner"></div>
@@ -69,8 +72,6 @@
 
                 <!-- Results List -->
             </div>
-
-            
         </section>
     </div>
 
@@ -89,7 +90,6 @@
             const resultsContainer = document.getElementById('resultsContainer');
             const searchStats = document.getElementById('searchStats');
 
-
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 performSearch();
@@ -98,19 +98,11 @@
             function performSearch() {
                 const formData = new FormData(searchForm);
                 const criteria = {
-                    gender: formData.get('gender'),
-                    age: formData.get('age'),
-                    interests: formData.get('interests')
+                    category: formData.get('category'),
+                    label: formData.get('label')
                 };
 
-                // Show loading state
                 showLoadingState();
-
-                // Simulate API call delay
-                setTimeout(() => {
-                    const filteredGifts = filterGifts(criteria);
-                    displayResults(filteredGifts, criteria);
-                }, 1500);
 
                 fetch('{{ path('app_gift_search_results') }}', {
                     method: 'POST',
@@ -118,37 +110,22 @@
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest'
                     }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    displayResults(data, criteria);
-                })
-                .catch(() => {
-                    loadingState.style.display = 'none';
-                    showNoResults();
-                });
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Search results:', data);  // <-- check what is returned
+                        displayResults(data, criteria);
+                    })
+                    .catch(() => {
+                        loadingState.style.display = 'none';
+                        showNoResults();
+                    });
             }
 
             function showLoadingState() {
                 noResults.style.display = 'none';
-                resultsList.style.display = 'none';
+                if (resultsList) resultsList.style.display = 'none';
                 loadingState.style.display = 'flex';
-            }
-
-            function filterGifts(criteria) {
-                return sampleGifts.filter(gift => {
-                    let matches = true;
-
-                    if (criteria.age) {
-                        matches = matches && gift.age === criteria.age;
-                    }
-
-                    if (criteria.interests) {
-                        matches = matches && gift.interests === criteria.interests;
-                    }
-
-                    return matches;
-                });
             }
 
             function displayResults(gifts, criteria) {
@@ -159,27 +136,21 @@
                     return;
                 }
 
-                // Update search stats
                 const criteriaText = [];
-                if (criteria.gender) criteriaText.push(`Genre: ${criteria.gender}`);
-                if (criteria.age) criteriaText.push(`Âge: ${criteria.age}`);
-                if (criteria.interests) criteriaText.push(`Intérêts: ${criteria.interests}`);
+                if (criteria.category) criteriaText.push(`Catégorie: ${criteria.category}`);
+                if (criteria.label) criteriaText.push(`Intérêt: ${criteria.label}`);
 
                 searchStats.innerHTML = `
                     <strong>${gifts.length} cadeau${gifts.length > 1 ? 's' : ''} trouvé${gifts.length > 1 ? 's' : ''}</strong>
                     ${criteriaText.length > 0 ? ' - ' + criteriaText.join(' | ') : ''}
                 `;
 
-                // Create gift items HTML
                 const giftsHTML = gifts.map(gift => createGiftHTML(gift)).join('');
                 
-                document.getElementById('results-section').innerHTML = searchStats.outerHTML + giftsHTML;
-                resultsList.style.display = 'none';
-                
-                // Add fade-in animation
-                document.getElementById('results-section').classList.add('fade-in');
-                
-                // Add event listeners for new buttons
+                resultsList.innerHTML = giftsHTML;
+                resultsList.style.display = 'block';
+                noResults.style.display = 'none';
+
                 addCartButtonListeners();
             }
 
@@ -187,17 +158,16 @@
                 return `
                     <div class="gift-item" data-gift-id="${gift.id}">
                         <div class="gift-image">
-                            <i class="${gift.icon} fa-2x"></i>
+                            <img src="/uploads/images/${gift.image}" alt="${gift.name}" class="gift-thumb">
                         </div>
                         <div class="gift-details">
                             <div class="gift-name">${gift.name}</div>
                             <div class="gift-description">${gift.description}</div>
-                            <div class="gift-price">${gift.price}</div>
+                            <div class="gift-price">${gift.price.toFixed(2)} €</div>
                         </div>
                         <div class="gift-actions">
                             <button class="btn-add-cart" data-gift-id="${gift.id}">
-                                <i class="fas fa-shopping-cart me-1"></i>
-                                Ajouter
+                                <i class="fas fa-shopping-cart me-1"></i> Ajouter
                             </button>
                             <button class="btn-view-details" data-gift-id="${gift.id}">
                                 Détails
@@ -207,8 +177,9 @@
                 `;
             }
 
+
             function showNoResults() {
-                resultsList.style.display = 'none';
+                if (resultsList) resultsList.style.display = 'none';
                 noResults.innerHTML = `
                     <i class="fas fa-search"></i>
                     <h3>Aucun cadeau trouvé</h3>
@@ -218,43 +189,34 @@
             }
 
             function addCartButtonListeners() {
-                // Add to cart buttons
                 document.querySelectorAll('.btn-add-cart').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
                         const giftId = this.dataset.giftId;
                         const originalHTML = this.innerHTML;
-                        
-                        // Success animation
+
                         this.innerHTML = '<i class="fas fa-check me-1"></i>Ajouté!';
                         this.style.background = '#4caf50';
-                        
+
                         setTimeout(() => {
                             this.innerHTML = originalHTML;
                             this.style.background = '';
                         }, 2000);
-                        
+
                         console.log('Added gift to cart:', giftId);
-                        
-                        // Here you would make an AJAX call to add to cart
-                        // Example: addToCart(giftId);
                     });
                 });
 
-                // View details buttons
                 document.querySelectorAll('.btn-view-details').forEach(btn => {
                     btn.addEventListener('click', function(e) {
                         e.stopPropagation();
                         const giftId = this.dataset.giftId;
                         console.log('View details for gift:', giftId);
-                        
-                        // Here you would redirect to product details page
                         // window.location.href = `/gift/${giftId}`;
                     });
                 });
             }
 
-            // Optional: Auto-search when criteria change
             document.querySelectorAll('.form-input').forEach(input => {
                 input.addEventListener('change', function() {
                     // Uncomment to enable auto-search
@@ -262,7 +224,5 @@
                 });
             });
         });
-
-        
     </script>
 {% endblock %}

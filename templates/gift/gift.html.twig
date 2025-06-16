@@ -33,17 +33,17 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <div class="product-image">
-                                    <img src="{{ asset('./image/store/CoffretBien-être.jpg') }}" alt="Coffret Bien-être" class="img-fluid" />
+                                    <img src="{{ asset('images/store/Coffret-barbe-Grand-scaled-3552640452.jpeg') }}" alt="Coffret Bien-être" class="img-fluid" />
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="product-image">
-                                    <img src="{{ asset('./image/store/il_1080xN.5039975326_l7kv-3424799994.jpg') }}" alt="Mug Personnalisé" class="coffeeset" />
+                                    <img src="{{ asset('images/store/il_1080xN.5039975326_l7kv-3424799994.jpg') }}" alt="Mug Personnalisé" class="coffeeset" />
                                 </div>
                             </div>
                             <div class="carousel-item">
                                 <div class="product-image">
-                                    <img src="{{ asset('./image/store/pexels-photo-7497788.webp') }}" alt="vinylplayer" class="img-fluid" />
+                                    <img src="{{ asset('images/store/pexels-photo-7497788.webp') }}" alt="vinylplayer" class="img-fluid" />
                                 </div>
                             </div>
                         </div>
@@ -92,12 +92,12 @@
             {% for gift in gifts %}
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="product-card"
-                         data-product-id="{{ gift.id }}"
-                         data-product-name="{{ gift.name }}"
-                         data-product-price="{{ gift.price }}"
-                         data-product-description="{{ gift.description }}"
-                         data-product-image="{{ asset(gift.imageUrl) }}"
-                         data-category="{{ gift.category|lower }}">
+                        data-product-id="{{ gift.id }}"
+                        data-product-name="{{ gift.name }}"
+                        data-product-price="{{ gift.price }}"
+                        data-product-description="{{ gift.description }}"
+                        data-product-image="{{ asset(gift.imageUrl) }}"
+                        data-category="{{ gift.category|lower }}">
                         <div class="product-image">
                             <img src="{{ asset(gift.imageUrl) }}" alt="{{ gift.name }}" class="img-fluid" />
                         </div>
@@ -111,6 +111,7 @@
                 </div>
             {% endfor %}
         </div>
+
 
         
     </div>

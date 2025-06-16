@@ -133,11 +133,13 @@
                 itemDiv.className = 'cart-item d-flex align-items-center justify-content-between mb-3';
                 itemDiv.innerHTML = `
                     <div class="d-flex align-items-center gap-3">
-                        <div class="item-image" style="width: 60px; height: 60px; background: #eee;"></div>
+                        <div class="item-image">
+                            <img src="${item.image}" alt="${item.title}" style=" width: 80px; height: 83px; object-fit: cover; border-radius: 6px;" />
+                        </div>
                         <div>
                             <strong>${item.title}</strong><br>
                             <small>${item.description || ''}</small><br>
-                            <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                            <span>${(item.price * item.quantity).toFixed(2)} €</span>
                         </div>
                     </div>
                     <div class="d-flex align-items-center gap-2 item-controls">
@@ -149,6 +151,7 @@
                 `;
                 cartContainer.appendChild(itemDiv);
             });
+
 
             updateSummary();
         }
