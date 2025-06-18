@@ -1,74 +1,77 @@
 @use '../_shared' as *;
 
-.account-wrapper {
-        max-width: 800px;
-        margin: var(--spacing-lg) auto;
-        background-color: var(--white);
-        padding: var(--spacing-lg);
-        border-radius: var(--border-radius-xl);
-        box-shadow: var(--shadow-md);
-        font-family: var(--font-family-primary);
-        color: var(--black);
-    }
+.management-card {
+    background-color: var(--white);
+    border-radius: var(--border-radius-xl);
+    padding: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
 
-    .account-header {
-        font-size: 2rem;
-        font-weight: var(--font-weight-bold);
-        color: var(--dark-pink);
-        margin-bottom: var(--spacing-md);
-        text-align: center;
+    &.visible {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
 
-    .user-info {
+.card-header-custom {
+    border-bottom: 1px solid var(--light-gray);
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-sm);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: var(--dark-pink);
+    font-weight: var(--font-weight-bold);
+}
+
+.feature-list li {
+    margin-bottom: 0.25rem;
+    color: var(--gray-800);
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    thead th {
         background-color: var(--light-pink);
-        padding: var(--spacing-sm);
-        border-radius: var(--border-radius-md);
-        margin-bottom: var(--spacing-lg);
-    }
-
-    .user-info h2 {
-        margin-top: 0;
-        color: var(--primary-pink);
-    }
-
-    .user-info p {
-        margin: var(--spacing-xs) 0;
-    }
-
-    .orders-section h2 {
-        color: var(--primary-pink);
-        margin-bottom: var(--spacing-sm);
-    }
-
-    .order {
-        background-color: var(--white);
-        border-left: 4px solid var(--primary-pink);
-        padding: var(--spacing-sm);
-        margin-bottom: var(--spacing-sm);
-        border-radius: var(--border-radius-sm);
-    }
-
-    .order p {
-        margin: 0.25rem 0;
-    }
-
-    .no-orders {
-        font-style: italic;
         color: var(--dark-pink);
     }
-
-    .back-button {
-        background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
-        border: none;
-        color: var(--white);
-        transition: all var(--transition-normal);
-        padding: var(--spacing-xs) var(--spacing-sm);
-        border-radius: var(--border-radius-md);
-        text-decoration: none;
-        display: inline-block;
-        margin-bottom: var(--spacing-sm);
+    tbody tr {
+        background-color: var(--white);
+        border-radius: var(--border-radius-sm);
+        box-shadow: var(--shadow-sm);
     }
+}
 
-    .back-button:hover {
+.btn-custom-primary {
+    background: linear-gradient(135deg, var(--primary-pink), var(--dark-pink));
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+    &:hover {
         transform: translateY(-2px);
+        opacity: 0.9;
     }
+}
+
+form .form-label {
+    font-weight: var(--font-weight-medium);
+    color: var(--gray-900);
+}
+
+input.form-control {
+    border-radius: var(--border-radius-md);
+    transition: border 0.3s ease;
+    &:focus {
+        border-color: var(--primary-pink);
+        box-shadow: 0 0 0 0.2rem rgba(255, 99, 132, 0.2);
+    }
+}
+
+.was-validated input:invalid {
+    border-color: #dc3545;
+}

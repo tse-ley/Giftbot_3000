@@ -20,7 +20,7 @@
             <h1 class="hero-title">Votre Cadeau Parfait Vous Attend...</h1>
             <div class="hero-content ">
                 <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300&h=200&fit=crop" alt="Gift Search" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                    <img src="./assets/image/hero.jpg" alt="Gift Search" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                     <div style="display:none; width:100%; height:100%; background: linear-gradient(135deg, var(--light-pink), var(--primary-pink)); align-items:center; justify-content:center; color:white; font-size:2rem;">
                         <i class="fas fa-search"></i>
                     </div>
@@ -77,19 +77,95 @@
 
     {% include 'components/_footer.html.twig' %}
 {% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- Elements ---
             const searchForm = document.getElementById('gift-search-form');
             const loadingState = document.getElementById('loadingState');
             const noResults = document.getElementById('noResults');
             const resultsList = document.getElementById('resultsList');
-            const resultsContainer = document.getElementById('resultsContainer');
             const searchStats = document.getElementById('searchStats');
 
+            // --- 1. DYNAMIC CART BADGE LOGIC ---
+            function updateCartBadge() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                // Find the cart icon link by its ID from your navbar
+                const cartIconLink = document.getElementById('cartDropdown');
+                
+                if (!cartIconLink) return; // Exit if the cart icon isn't found
+
+                // Find or create the badge element dynamically
+                let badge = cartIconLink.querySelector('.cart-badge');
+                if (!badge) {
+                    badge = document.createElement('span');
+                    badge.className = 'badge rounded-pill bg-danger cart-badge';
+                    // Apply styles dynamically so navbar file is untouched
+                    badge.style.position = 'absolute';
+                    badge.style.top = '-5px';
+                    badge.style.right = '-10px';
+                    badge.style.fontSize = '0.7em';
+                    cartIconLink.appendChild(badge);
+                }
+                
+                // Update the badge's count and visibility
+                badge.textContent = totalItems;
+                badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+            }
+
+            // Run this once when the page loads to show the correct initial count
+            updateCartBadge();
+
+            // --- 2. ADD TO CART LOGIC USING EVENT DELEGATION ---
+            // This replaces the old `addCartButtonListeners` function entirely.
+            resultsList.addEventListener('click', function(e) {
+                // Handle "Add to Cart" button clicks
+                const addButton = e.target.closest('.btn-add-cart');
+                if (addButton) {
+                    e.stopPropagation();
+                    const giftItemElement = addButton.closest('.gift-item');
+
+                    // Create a product object that is compatible with your cart page
+                    const product = {
+                        id: giftItemElement.dataset.giftId,
+                        title: giftItemElement.querySelector('.gift-name').textContent,
+                        description: giftItemElement.querySelector('.gift-description').textContent,
+                        price: parseFloat(giftItemElement.querySelector('.gift-price').textContent),
+                        image: giftItemElement.querySelector('.gift-thumb').getAttribute('src'),
+                        quantity: 1
+                    };
+
+                    // Add the product to localStorage
+                    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                    const existingItemIndex = cart.findIndex(item => item.id === product.id);
+
+                    if (existingItemIndex > -1) {
+                        cart[existingItemIndex].quantity += 1; // Increment quantity
+                    } else {
+                        cart.push(product); // Add as a new item
+                    }
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    // Provide visual feedback on the button
+                    const originalHTML = addButton.innerHTML;
+                    addButton.innerHTML = '<i class="fas fa-check me-1"></i>Ajouté!';
+                    addButton.disabled = true;
+                    addButton.style.background = '#4caf50';
+                    setTimeout(() => {
+                        addButton.innerHTML = originalHTML;
+                        addButton.disabled = false;
+                        addButton.style.background = '';
+                    }, 2000);
+
+                    // Update the dynamic cart badge in the navbar
+                    updateCartBadge();
+                }
+            });
+
+            // --- 3. CORE SEARCH AND DISPLAY FUNCTIONS ---
             searchForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 performSearch();
@@ -97,132 +173,79 @@
 
             function performSearch() {
                 const formData = new FormData(searchForm);
+                const categoryText = searchForm.querySelector('[name*="[category]"] option:checked').text;
+                const labelText = searchForm.querySelector('[name*="[label]"] option:checked').text;
                 const criteria = {
-                    category: formData.get('category'),
-                    label: formData.get('label')
+                    category: categoryText === 'Catégorie' ? '' : categoryText,
+                    label: labelText === 'Intérêt' ? '' : labelText
                 };
 
                 showLoadingState();
-
                 fetch('{{ path('app_gift_search_results') }}', {
                     method: 'POST',
-                    body: new FormData(searchForm),
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Search results:', data);  // <-- check what is returned
-                        displayResults(data, criteria);
-                    })
-                    .catch(() => {
-                        loadingState.style.display = 'none';
-                        showNoResults();
-                    });
+                    body: formData,
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                })
+                .then(response => response.json())
+                .then(data => displayResults(data, criteria))
+                .catch(error => {
+                    console.error('Search failed:', error);
+                    showNoResults();
+                });
             }
 
             function showLoadingState() {
                 noResults.style.display = 'none';
-                if (resultsList) resultsList.style.display = 'none';
+                resultsList.innerHTML = '';
+                resultsList.style.display = 'none';
+                searchStats.innerHTML = '';
                 loadingState.style.display = 'flex';
             }
 
             function displayResults(gifts, criteria) {
                 loadingState.style.display = 'none';
-
-                if (gifts.length === 0) {
+                if (!gifts || gifts.length === 0) {
                     showNoResults();
                     return;
                 }
-
-                const criteriaText = [];
-                if (criteria.category) criteriaText.push(`Catégorie: ${criteria.category}`);
-                if (criteria.label) criteriaText.push(`Intérêt: ${criteria.label}`);
-
-                searchStats.innerHTML = `
-                    <strong>${gifts.length} cadeau${gifts.length > 1 ? 's' : ''} trouvé${gifts.length > 1 ? 's' : ''}</strong>
-                    ${criteriaText.length > 0 ? ' - ' + criteriaText.join(' | ') : ''}
-                `;
-
-                const giftsHTML = gifts.map(gift => createGiftHTML(gift)).join('');
-                
-                resultsList.innerHTML = giftsHTML;
-                resultsList.style.display = 'block';
+                const criteriaText = [criteria.category, criteria.label].filter(Boolean).join(' | ');
+                searchStats.innerHTML = `<strong>${gifts.length} cadeau${gifts.length > 1 ? 's' : ''} trouvé${gifts.length > 1 ? 's' : ''}</strong>${criteriaText ? ' - ' + criteriaText : ''}`;
+                resultsList.innerHTML = gifts.map(gift => createGiftHTML(gift)).join('');
+                resultsList.style.display = 'grid';
                 noResults.style.display = 'none';
-
-                addCartButtonListeners();
+                // The `addCartButtonListeners()` call is no longer needed because of event delegation.
             }
 
             function createGiftHTML(gift) {
+                const price = gift.price ? parseFloat(gift.price).toFixed(2) : 'N/A';
+                const imageUrl = gift.image ? `/${gift.image}` : 'https://via.placeholder.com/150';
                 return `
                     <div class="gift-item" data-gift-id="${gift.id}">
                         <div class="gift-image">
-                            <img src="/uploads/images/${gift.image}" alt="${gift.name}" class="gift-thumb">
+                            <img src="${imageUrl}" alt="${gift.name}" class="gift-thumb">
                         </div>
                         <div class="gift-details">
                             <div class="gift-name">${gift.name}</div>
-                            <div class="gift-description">${gift.description}</div>
-                            <div class="gift-price">${gift.price.toFixed(2)} €</div>
+                            <div class="gift-description">${gift.description || ''}</div>
+                            <div class="gift-price">${price} €</div>
                         </div>
                         <div class="gift-actions">
-                            <button class="btn-add-cart" data-gift-id="${gift.id}">
+                            <button class="btn btn-add-cart" data-gift-id="${gift.id}">
                                 <i class="fas fa-shopping-cart me-1"></i> Ajouter
-                            </button>
-                            <button class="btn-view-details" data-gift-id="${gift.id}">
-                                Détails
                             </button>
                         </div>
                     </div>
                 `;
             }
 
-
             function showNoResults() {
-                if (resultsList) resultsList.style.display = 'none';
                 noResults.innerHTML = `
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-box-open"></i>
                     <h3>Aucun cadeau trouvé</h3>
                     <p>Essayez de modifier vos critères de recherche pour découvrir plus d'options.</p>
                 `;
                 noResults.style.display = 'block';
             }
-
-            function addCartButtonListeners() {
-                document.querySelectorAll('.btn-add-cart').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const giftId = this.dataset.giftId;
-                        const originalHTML = this.innerHTML;
-
-                        this.innerHTML = '<i class="fas fa-check me-1"></i>Ajouté!';
-                        this.style.background = '#4caf50';
-
-                        setTimeout(() => {
-                            this.innerHTML = originalHTML;
-                            this.style.background = '';
-                        }, 2000);
-
-                        console.log('Added gift to cart:', giftId);
-                    });
-                });
-
-                document.querySelectorAll('.btn-view-details').forEach(btn => {
-                    btn.addEventListener('click', function(e) {
-                        e.stopPropagation();
-                        const giftId = this.dataset.giftId;
-                        console.log('View details for gift:', giftId);
-                        // window.location.href = `/gift/${giftId}`;
-                    });
-                });
-            }
-
-            document.querySelectorAll('.form-input').forEach(input => {
-                input.addEventListener('change', function() {
-                    // Uncomment to enable auto-search
-                    // performSearch();
-                });
-            });
         });
     </script>
 {% endblock %}

@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups; // 1. Import the Groups attribute
 
 #[ORM\Entity(repositoryClass: GiftRepository::class)]
 class Gift
@@ -14,49 +15,58 @@ class Gift
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['gift:read'])] // Add group
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['gift:read'])] // Add group
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['gift:read'])] // Add group
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 0)]
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)] // 2. Changed scale to 2 for cents
+    #[Groups(['gift:read'])] // Add group
     private ?string $price = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['gift:read'])] // Add group
     private ?string $category = null;
 
     #[ORM\Column]
+    #[Groups(['gift:read'])] // Add group
     private ?int $stock_quantity = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image_url = null;
+    // 3. Renamed property to 'image' for JS, but mapped to 'image_url' DB column
+    #[ORM\Column(length: 255, name: 'image_url')]
+    #[Groups(['gift:read'])] // Add group
+    private ?string $image = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null;
+    private ?\DateTimeImmutable $created_at = null; // No group needed here
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['gift:read'])] // Add group
     private ?string $label = null;
 
     /**
      * @var Collection<int, WishList>
      */
     #[ORM\OneToMany(targetEntity: WishList::class, mappedBy: 'gift')]
-    private Collection $wishLists;
+    private Collection $wishLists; // DO NOT add a group here
 
     /**
      * @var Collection<int, OrderItems>
      */
     #[ORM\OneToMany(targetEntity: OrderItems::class, mappedBy: 'gift')]
-    private Collection $orderItems;
+    private Collection $orderItems; // DO NOT add a group here
 
     /**
      * @var Collection<int, CartItem>
      */
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'gift')]
-    private Collection $cartItems;
+    private Collection $cartItems; // DO NOT add a group here
 
     public function __construct()
     {
@@ -65,6 +75,8 @@ class Gift
         $this->cartItems = new ArrayCollection();
         $this->created_at = new \DateTimeImmutable();
     }
+
+    // --- GETTERS AND SETTERS ---
 
     public function getId(): ?int
     {
@@ -131,14 +143,15 @@ class Gift
         return $this;
     }
 
-    public function getImageUrl(): ?string
+    // Updated getter/setter for the 'image' property
+    public function getImage(): ?string
     {
-        return $this->image_url;
+        return $this->image;
     }
 
-    public function setImageUrl(string $image_url): static
+    public function setImage(string $image): static
     {
-        $this->image_url = $image_url;
+        $this->image = $image;
 
         return $this;
     }
@@ -166,6 +179,8 @@ class Gift
 
         return $this;
     }
+
+    // --- RELATIONSHIP GETTERS/SETTERS (UNCHANGED) ---
 
     /**
      * @return Collection<int, WishList>

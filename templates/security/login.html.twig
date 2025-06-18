@@ -13,7 +13,7 @@
     <div class="login-container">
         <!-- Login Form Section -->
         <div class="login-form-section">
-            <h1>Welcome back to Gift !</h1>
+            <h1>Welcome back </h1>
             <p class="subtitle">Sign into your account</p>
 
             {% if error %}
@@ -64,36 +64,6 @@
                     Login
                 </button>
             </form>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const loginForm = document.querySelector('form');
-        loginForm.addEventListener('submit', function(event) {
-            const username = loginForm.querySelector('#inputEmail').value;
-            const password = loginForm.querySelector('#inputPassword').value;
-
-            if (username === 'admin' && password === 'admin') {
-                window.location.href = '/back/admin'; // Redirect to admin dashboard
-                event.preventDefault(); // Prevent the default form submission
-            }
-        });
-    });
-</script>
-
-            <div class="divider">
-                <span>Instant Login</span>
-            </div>
-
-            <div class="social-login">
-                <a href="#" class="btn-social">
-                    <i class="fab fa-google"></i>
-                    Sign in with Google
-                </a>
-                <a href="#" class="btn-social">
-                    <i class="fab fa-facebook-f"></i>
-                    Sign in with Facebook
-                </a>
-            </div>
 
             <div class="register-link">
                 Don't have any account?

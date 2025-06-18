@@ -16,11 +16,19 @@ class GiftRepository extends ServiceEntityRepository
         parent::__construct($registry, Gift::class);
     }
 
-
+    /**
+     * Finds gifts by a dynamic set of criteria.
+     *
+     * @param array $criteria An associative array of search criteria.
+     *                        Expected keys: 'category', 'label', 'age'.
+     * @return Gift[] Returns an array of Gift objects
+     */
     public function search(array $criteria): array
     {
+        // Start building the query. 'g' is an alias for the Gift entity.
         $qb = $this->createQueryBuilder('g');
 
+        // Dynamically add conditions only if the criteria are provided.
         if (!empty($criteria['category'])) {
             $qb->andWhere('g.category = :category')
                ->setParameter('category', $criteria['category']);
@@ -31,10 +39,14 @@ class GiftRepository extends ServiceEntityRepository
                ->setParameter('label', $criteria['label']);
         }
 
+        // Note: For this to work, you must have an 'age' property on your Gift entity.
         if (!empty($criteria['age'])) {
             $qb->andWhere('g.age = :age')
                ->setParameter('age', $criteria['age']);
         }
+
+        // Add a default order to the results for a consistent user experience.
+        $qb->orderBy('g.name', 'ASC');
 
         return $qb->getQuery()->getResult();
     }

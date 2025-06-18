@@ -13,7 +13,7 @@
     <div class="login-container">
         <!-- Login Form Section -->
         <div class="login-form-section">
-            <h1>Welcome back to Gift !</h1>
+            <h1>Welcome back</h1>
             <p class="subtitle">Sign into your account</p>
 
             {% if error %}
@@ -63,34 +63,13 @@
                 <button class="btn btn-login" type="submit">
                     Login
                 </button>
-            </form>
-
-            <div class="divider">
-                <span>Instant Login</span>
-            </div>
-
-            <div class="social-login">
-                <a href="#" class="btn-social">
-                    <i class="fab fa-google"></i>
-                    Sign in with Google
-                </a>
-                <a href="#" class="btn-social">
-                    <i class="fab fa-facebook-f"></i>
-                    Sign in with Facebook
-                </a>
-            </div>
-
-            <div class="register-link">
-                Don't have any account?
-                {# Remove or update based on actual route availability #}
-                <a href="{{ path('app_register') }}" class="btn">Register Here</a>
-            </div>
+            </form>        
         </div>
 
         <!-- Image Section -->
         <div class="image-section">
             <div class="image-placeholder">
-                <img src="{{ asset('image/pexels-photo-5493203.webp') }}" alt="Gift App" style="width: 150px; height: auto;">
+                <img src="{{ asset('image/pexels-photo-5493203.webp') }}" alt="Gift App" style="width: 450px; height: 200px;">
             </div>
 
             <h2>Searching for the perfect present?</h2>
@@ -98,11 +77,7 @@
                 Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
             </p>
 
-            <div class="dots-indicator">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
+            
         </div>
     </div>
 

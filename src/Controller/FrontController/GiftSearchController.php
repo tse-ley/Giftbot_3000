@@ -25,31 +25,24 @@ class GiftSearchController extends AbstractController
     }
 
     #[Route('/giftsearch/results', name: 'app_gift_search_results', methods: ['POST'])]
-    public function searchResults(Request $request, GiftRepository $giftRepository): JsonResponse
+     public function search(Request $request, GiftRepository $giftRepository): JsonResponse
     {
-        $criteria = $request->request->all('gift_search'); // 'gift_search' is the form name by default
-        if (!$criteria) {
-            $criteria = $request->request->all(); // fallback if not nested
+        $form = $this->createForm(GiftSearchType::class);
+        $form->handleRequest($request);
+
+        $gifts = [];
+        if ($form->isSubmitted() && $form->isValid()) {
+            $criteria = $form->getData(); // Gets a clean array like ['category' => 'homme']
+
+            // Call the search method in your repository
+            $gifts = $giftRepository->search($criteria);
         }
 
-        $gifts = $giftRepository->search($criteria);
-
-        $data = array_map(function (Gift $gift) {
-            return [
-                'id' => $gift->getId(),
-                'name' => $gift->getName(),
-                'description' => $gift->getDescription(),
-                'price' => number_format($gift->getPrice(), 2) . ' €',
-                'gender' => $gift->getGender(),
-                'age' => $gift->getAgeGroup(),
-                'interests' => $gift->getInterest(),
-                'icon' => $gift->getIconClass()
-            ];
-        }, $gifts);
-
-        return new JsonResponse($data);
+        // Return the results as JSON, using the 'gift:read' group we defined in the Gift entity.
+        // This is the correct, modern Symfony way.
+        return $this->json($gifts, 200, [], ['groups' => 'gift:read']);
     }
-
+    
     #[Route('/gifts', name: 'app_gifts')]
     public function index(Request $request, GiftRepository $giftRepository): Response
     {

@@ -12,12 +12,10 @@ class AdminController extends AbstractController
     #[Route('/back/admin/login', name: 'admin_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // Redirect if already logged in
         if ($this->getUser()) {
             return $this->redirectToRoute('admin_dashboard');
         }
 
-        // Get login error and last entered username
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -33,6 +31,7 @@ class AdminController extends AbstractController
         throw new \LogicException('This method is blank and intercepted by Symfony’s security system.');
     }
 
+    #[Route('/back/admin', name: 'admin_dashboard')]
     public function dashboard(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
