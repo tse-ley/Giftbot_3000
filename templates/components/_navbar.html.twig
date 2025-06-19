@@ -49,12 +49,12 @@
                            data-bs-toggle="dropdown" 
                            data-bs-auto-close="true"
                            aria-expanded="false">
-                           <i class="fas fa-user me-1"></i> 
-                           <span>{{ app.user.firstName ?? 'Mon Compte' }}</span>
+                        <i class="fas fa-user me-1"></i>
+                        <span>{{ app.user.name ?? 'Mon Compte' }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdownMenu">
-                            <li>
-                                <a class="dropdown-item" href="{{ path('app_account') }}">
+                        <li>
+                                <a class="dropdown-item" href="{{ path('app_user_account') }}">
                                     <i class="fas fa-user-circle me-2"></i>Mon Profil
                                 </a>
                             </li>

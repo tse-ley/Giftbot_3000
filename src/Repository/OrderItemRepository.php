@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Orders;
+use App\Entity\OrderItems;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Orders>
+ * @extends ServiceEntityRepository<OrderItem>
  */
-class OrdersRepository extends ServiceEntityRepository
+class OrderItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Orders::class);
+        parent::__construct($registry, OrderItem::class);
     }
 
     //    /**
-    //     * @return Orders[] Returns an array of Orders objects
+    //     * @return OrderItem[] Returns an array of OrderItem objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class OrdersRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Orders
+    //    public function findOneBySomeField($value): ?OrderItem
     //    {
     //        return $this->createQueryBuilder('o')
     //            ->andWhere('o.exampleField = :val')
@@ -40,13 +40,4 @@ class OrdersRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-
-    public function findRecent(int $limit = 5): array
-    {
-        return $this->createQueryBuilder('o')
-            ->orderBy('o.created_at', 'DESC') // <-- use the property name from your entity
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
-    }
 }

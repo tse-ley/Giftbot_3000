@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups; // 1. Import the Groups attribute
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: GiftRepository::class)]
 class Gift
@@ -15,58 +15,57 @@ class Gift
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['gift:read'])] // Add group
+    #[Groups(['gift:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['gift:read'])] // Add group
+    #[Groups(['gift:read'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['gift:read'])] // Add group
+    #[Groups(['gift:read'])]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)] // 2. Changed scale to 2 for cents
-    #[Groups(['gift:read'])] // Add group
+    #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
+    #[Groups(['gift:read'])]
     private ?string $price = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['gift:read'])] // Add group
+    #[Groups(['gift:read'])]
     private ?string $category = null;
 
     #[ORM\Column]
-    #[Groups(['gift:read'])] // Add group
+    #[Groups(['gift:read'])]
     private ?int $stock_quantity = null;
 
-    // 3. Renamed property to 'image' for JS, but mapped to 'image_url' DB column
     #[ORM\Column(length: 255, name: 'image_url')]
-    #[Groups(['gift:read'])] // Add group
-    private ?string $image = null;
+    #[Groups(['gift:read'])]
+    private ?string $imageUrl = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $created_at = null; // No group needed here
+    private ?\DateTimeImmutable $created_at = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    #[Groups(['gift:read'])] // Add group
+    #[Groups(['gift:read'])]
     private ?string $label = null;
 
     /**
      * @var Collection<int, WishList>
      */
     #[ORM\OneToMany(targetEntity: WishList::class, mappedBy: 'gift')]
-    private Collection $wishLists; // DO NOT add a group here
+    private Collection $wishLists;
 
     /**
-     * @var Collection<int, OrderItems>
+     * @var Collection<int, OrderItem>
      */
-    #[ORM\OneToMany(targetEntity: OrderItems::class, mappedBy: 'gift')]
-    private Collection $orderItems; // DO NOT add a group here
+    #[ORM\OneToMany(targetEntity: OrderItem::class, mappedBy: 'gift')]
+    private Collection $orderItems;
 
     /**
      * @var Collection<int, CartItem>
      */
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'gift')]
-    private Collection $cartItems; // DO NOT add a group here
+    private Collection $cartItems;
 
     public function __construct()
     {
@@ -91,7 +90,6 @@ class Gift
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -103,7 +101,6 @@ class Gift
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -115,7 +112,6 @@ class Gift
     public function setPrice(string $price): static
     {
         $this->price = $price;
-
         return $this;
     }
 
@@ -127,7 +123,6 @@ class Gift
     public function setCategory(string $category): static
     {
         $this->category = $category;
-
         return $this;
     }
 
@@ -139,20 +134,17 @@ class Gift
     public function setStockQuantity(int $stock_quantity): static
     {
         $this->stock_quantity = $stock_quantity;
-
         return $this;
     }
 
-    // Updated getter/setter for the 'image' property
-    public function getImage(): ?string
+    public function getImageUrl(): ?string
     {
-        return $this->image;
+        return $this->imageUrl;
     }
 
-    public function setImage(string $image): static
+    public function setImageUrl(string $imageUrl): static
     {
-        $this->image = $image;
-
+        $this->imageUrl = $imageUrl;
         return $this;
     }
 
@@ -164,7 +156,6 @@ class Gift
     public function setCreatedAt(\DateTimeImmutable $created_at): static
     {
         $this->created_at = $created_at;
-
         return $this;
     }
 
@@ -176,11 +167,8 @@ class Gift
     public function setLabel(?string $label): static
     {
         $this->label = $label;
-
         return $this;
     }
-
-    // --- RELATIONSHIP GETTERS/SETTERS (UNCHANGED) ---
 
     /**
      * @return Collection<int, WishList>
@@ -196,49 +184,43 @@ class Gift
             $this->wishLists->add($wishList);
             $wishList->setGift($this);
         }
-
         return $this;
     }
 
     public function removeWishList(WishList $wishList): static
     {
         if ($this->wishLists->removeElement($wishList)) {
-            // set the owning side to null (unless already changed)
             if ($wishList->getGift() === $this) {
                 $wishList->setGift(null);
             }
         }
-
         return $this;
     }
 
     /**
-     * @return Collection<int, OrderItems>
+     * @return Collection<int, OrderItem>
      */
     public function getOrderItems(): Collection
     {
         return $this->orderItems;
     }
 
-    public function addOrderItem(OrderItems $orderItem): static
+    public function addOrderItem(OrderItem $orderItem): static
     {
         if (!$this->orderItems->contains($orderItem)) {
             $this->orderItems->add($orderItem);
             $orderItem->setGift($this);
         }
-
         return $this;
     }
 
-    public function removeOrderItem(OrderItems $orderItem): static
+    public function removeOrderItem(OrderItem $orderItem): static
     {
         if ($this->orderItems->removeElement($orderItem)) {
-            // set the owning side to null (unless already changed)
             if ($orderItem->getGift() === $this) {
                 $orderItem->setGift(null);
             }
         }
-
         return $this;
     }
 
@@ -256,19 +238,16 @@ class Gift
             $this->cartItems->add($cartItem);
             $cartItem->setGift($this);
         }
-
         return $this;
     }
 
     public function removeCartItem(CartItem $cartItem): static
     {
         if ($this->cartItems->removeElement($cartItem)) {
-            // set the owning side to null (unless already changed)
             if ($cartItem->getGift() === $this) {
                 $cartItem->setGift(null);
             }
         }
-
         return $this;
     }
 }

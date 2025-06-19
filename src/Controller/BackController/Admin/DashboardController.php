@@ -2,7 +2,7 @@
 namespace App\Controller\BackController\Admin;
 
 use App\Repository\GiftRepository;
-use App\Repository\OrdersRepository;
+use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -15,16 +15,16 @@ class DashboardController extends AbstractDashboardController
 {
     private UserRepository $userRepository;
     private GiftRepository $giftRepository;
-    private OrdersRepository $ordersRepository;
+    private OrderRepository $orderRepository;
 
     public function __construct(
         UserRepository $userRepository,
         GiftRepository $giftRepository,
-        OrdersRepository $ordersRepository
+        OrderRepository $orderRepository
     ) {
         $this->userRepository = $userRepository;
         $this->giftRepository = $giftRepository;
-        $this->ordersRepository = $ordersRepository;
+        $this->orderRepository = $orderRepository;
     }
 
     #[Route('{slash}', name: 'admin_dashboard', requirements: ['slash' => '[/]?'])]
@@ -36,8 +36,8 @@ class DashboardController extends AbstractDashboardController
         return $this->render('admin/dashboard/index.html.twig', [
             'userCount' => $this->userRepository->count([]),
             'giftCount' => $this->giftRepository->count([]),
-            'orderCount' => $this->ordersRepository->count([]),
-            'recentOrders' => $this->ordersRepository->findRecent(5),
+            'orderCount' => $this->orderRepository->count([]),
+            'recentOrders' => $this->orderRepository->findRecent(5),
             'user' => $this->getUser(),
             'users' => $users,
         ]);

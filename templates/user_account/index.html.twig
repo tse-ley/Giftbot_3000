@@ -4,6 +4,7 @@
 
 {% block body %}
 {%block stylesheets %}
+     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/useraccount.css') }}">
 {% endblock %}
 
@@ -23,7 +24,7 @@
     {% for order in orders %}
     <div class="order">
                     <p><strong>Order ID:</strong> {{ order.id }}</p>
-                    <p><strong>Date:</strong> {{ order.date|date('Y-m-d') }}</p>
+                    <p><strong>Date:</strong> {{ order.createdAt|date('Y-m-d') }}</p>
                     <p><strong>Total:</strong> €{{ order.total }}</p>
                 </div>
             {% endfor %}

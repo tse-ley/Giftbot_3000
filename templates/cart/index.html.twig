@@ -15,12 +15,11 @@
     {% include 'components/_navbar.html.twig' %}
 
     <div class="container page-wrapper mt-4">
-        {% for message in app.flashes('success') %}
-            <div class="alert alert-success">{{ message }}</div>
-        {% endfor %}
-        
-        {% for message in app.flashes('error') %}
-            <div class="alert alert-danger">{{ message }}</div>
+        {# Improved: Show all flash messages, not just success/error #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label == 'error' ? 'danger' : label }}">{{ message }}</div>
+            {% endfor %}
         {% endfor %}
 
         <div class="row">
@@ -116,6 +115,8 @@
         if (urlParams.get('order_success') === '1') {
             cart = [];
             localStorage.setItem('cart', JSON.stringify(cart));
+            // Optionally, show a toast or alert
+            console.log('Order success: cart cleared');
         }
 
         function renderCart() {
@@ -151,7 +152,6 @@
                 `;
                 cartContainer.appendChild(itemDiv);
             });
-
 
             updateSummary();
         }
@@ -207,11 +207,14 @@
             
             // Update cart data before submitting
             cartDataInput.value = JSON.stringify(cart);
-            
+
+            // Debug: Log cart data being submitted
+            console.log('Submitting cart:', cartDataInput.value);
+
             // Show loading state
             this.disabled = true;
             this.textContent = 'Processing...';
-            
+
             // Submit the form
             checkoutForm.submit();
         });

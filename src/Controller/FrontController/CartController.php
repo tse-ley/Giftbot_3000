@@ -1,7 +1,10 @@
 <?php
+
 namespace App\Controller\FrontController;
 
 use App\Entity\CartItem;
+use App\Entity\Order;
+use App\Entity\OrderItem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -10,7 +13,6 @@ use App\Repository\GiftRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Mime\Address;
@@ -19,63 +21,109 @@ use Symfony\Component\Mime\Address;
 class CartController extends AbstractController
 {
     #[Route('', name: 'app_cart')]
-    public function index(Request $request, CartItemRepository $cartItemRepository, MailerInterface $mailer, EntityManagerInterface $em, GiftRepository $giftRepository): Response
-    {
+    public function index(
+        Request $request,
+        CartItemRepository $cartItemRepository,
+        MailerInterface $mailer,
+        EntityManagerInterface $em,
+        GiftRepository $giftRepository
+    ): Response {
         if ($request->isMethod('POST')) {
             // Handle localStorage cart data for checkout
             $cartData = json_decode($request->request->get('cart_data', '[]'), true);
-            
+
             if (empty($cartData)) {
                 $this->addFlash('error', 'Your cart is empty.');
                 return $this->redirectToRoute('app_cart');
             }
 
             $total = 0;
-            $orderItems = [];
+            $orderItemsData = [];
 
-                // Process each item from localStorage
-                foreach ($cartData as $item) {
-                    if (empty($item['id'])) {
-                        continue;
-                    }
-                    $gift = $giftRepository->find($item['id']);
-                    if ($gift) {
-                        $quantity = $item['quantity'] ?? 1;
-                        $total += $gift->getPrice() * $quantity;
-                        $orderItems[] = [
-                            'gift' => $gift,
-                        'quantity' => $quantity
+            // Validate and prepare order items
+            foreach ($cartData as $item) {
+                if (empty($item['id'])) {
+                    continue;
+                }
+                $gift = $giftRepository->find($item['id']);
+                if ($gift) {
+                    $quantity = $item['quantity'] ?? 1;
+                    $price = $gift->getPrice();
+                    $total += $price * $quantity;
+                    $orderItemsData[] = [
+                        'gift' => $gift,
+                        'quantity' => $quantity,
+                        'price' => $price,
                     ];
                 }
             }
 
-            // Send confirmation email
+            if (empty($orderItemsData)) {
+                $this->addFlash('error', 'No valid items found in your cart.');
+                return $this->redirectToRoute('app_cart');
+            }
+
+            // Persist the Order and OrderItems
             try {
+                $order = new Order();
+                $order->setUser($this->getUser());
+                $order->setTotal($total);
+                $order->setCreatedAt(new \DateTime());
+
+                foreach ($orderItemsData as $itemData) {
+                    $orderItem = new OrderItem();
+                    $orderItem->setGift($itemData['gift']);
+                    $orderItem->setQuantity($itemData['quantity']);
+                    $orderItem->setPrice($itemData['price']);
+                    $orderItem->setOrder($order);
+                    $em->persist($orderItem);
+                    $order->addOrderItem($orderItem);
+                }
+
+                $em->persist($order);
+                $em->flush();
+
+                // Clear the user's cart in the DB after successful order creation
+                if ($this->getUser()) {
+                    $cartItems = $cartItemRepository->findByUser($this->getUser());
+                    foreach ($cartItems as $cartItem) {
+                        $em->remove($cartItem);
+                    }
+                    $em->flush();
+                }
+
+                // Send confirmation email
                 $email = (new Email())
                     ->from(new Address('noreply@example.com', 'Giftbot 3000'))
                     ->to($this->getUser()->getEmail())
                     ->subject('Order Confirmation')
                     ->html($this->renderView('emails/order_confirmation.html.twig', [
-                        'orderItems' => $orderItems,
+                        'orderItems' => $orderItemsData,
                         'total' => $total,
-                        'user' => $this->getUser()
+                        'user' => $this->getUser(),
+                        'order' => $order
                     ]));
 
-                $mailer->send($email);
-                $this->addFlash('success', 'Order placed successfully! Check your email for confirmation.');
-                
-                // Clear the cart (will be handled by JavaScript)
+                try {
+                    $mailer->send($email);
+                    $this->addFlash('success', 'Order placed successfully! Check your email for confirmation.');
+                } catch (\Exception $e) {
+                    $this->addFlash('warning', 'Order placed successfully, but there was an issue sending the confirmation email. Please contact support.');
+                    // Log the error for further investigation
+                    error_log('Email sending failed: ' . $e->getMessage());
+                }
+
+                // Redirect to cart with success flag
                 return $this->redirectToRoute('app_cart', ['order_success' => true]);
-                
-            } catch (\Exception $e) {
+            } catch (\Doctrine\ORM\ORMException $e) {
                 $this->addFlash('error', 'There was an error processing your order. Please try again.');
                 return $this->redirectToRoute('app_cart');
             }
         }
 
-        // For logged-in users, you might want to show DB cart as well
-        $cartItems = $this->getUser() 
-            ? $cartItemRepository->findByUser($this->getUser()) 
+        // For logged-in users, show DB cart as well
+        $cartItems = $this->getUser()
+            ? $cartItemRepository->findByUser($this->getUser())
             : [];
 
         return $this->render('cart/index.html.twig', [
@@ -92,8 +140,8 @@ class CartController extends AbstractController
         CartItemRepository $cartItemRepository,
         EntityManagerInterface $em
     ): Response {
-        $giftId = $request->request->get('gift_id'); // Fixed: get gift_id from request
-        
+        $giftId = $request->request->get('gift_id');
+
         if (!$giftId) {
             throw $this->createNotFoundException('Gift ID not provided');
         }
@@ -138,4 +186,5 @@ class CartController extends AbstractController
     {
         return $this->render('cart/checkout.html.twig');
     }
+
 }
