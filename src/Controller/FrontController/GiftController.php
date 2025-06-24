@@ -11,17 +11,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GiftController extends AbstractController
 {
-    /**
-     * This is the main store page. It displays all gifts or filters them
-     * based on a simple text search from the URL (?q=...).
-     */
+    
     #[Route('/gifts', name: 'app_gifts')]
     public function index(Request $request, GiftRepository $giftRepository): Response
     {
         $query = $request->query->get('q', '');
 
         if ($query) {
-            // If a search query is present, find matching gifts
+            // for finding matching gifts
             $gifts = $giftRepository->createQueryBuilder('g')
                 ->where('LOWER(g.name) LIKE :q OR LOWER(g.description) LIKE :q')
                 ->setParameter('q', '%' . strtolower($query) . '%')
@@ -29,13 +26,12 @@ class GiftController extends AbstractController
                 ->getQuery()
                 ->getResult();
         } else {
-            // If there is no search, get all gifts.
-            // If this returns nothing, your database is empty.
+            // If there is nothing is being searched, get all gifts.
             $gifts = $giftRepository->findAll();
         }
 
         return $this->render('gift/gift.html.twig', [
-            'gifts' => $gifts,
+            'gifts' => $gifts, 
             'searchQuery' => $query,
         ]);
     }
@@ -43,7 +39,7 @@ class GiftController extends AbstractController
     /**
      * Displays a single gift's detail page.
      * This uses Symfony's ParamConverter to automatically find the Gift by its ID.
-     */
+    **/
     #[Route('/gifts/{id}', name: 'app_gift_show')]
     public function show(Gift $gift): Response
     {

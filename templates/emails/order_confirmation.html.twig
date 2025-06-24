@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +13,7 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            background-color: #ffffff;
         }
         .header {
             background-color: #f8f9fa;
@@ -19,6 +21,9 @@
             text-align: center;
             border-radius: 8px;
             margin-bottom: 20px;
+        }
+        .content {
+            padding: 0 10px;
         }
         .order-item {
             border-bottom: 1px solid #eee;
@@ -37,13 +42,14 @@
             font-weight: bold;
             margin-bottom: 5px;
         }
-        .item-quantity {
+        .item-quantity, .item-description {
             color: #666;
             font-size: 14px;
         }
         .item-price {
             font-weight: bold;
             color: #28a745;
+            padding-left: 15px;
         }
         .total-section {
             background-color: #f8f9fa;
@@ -63,6 +69,7 @@
             border-top: 1px solid #eee;
             color: #666;
             font-size: 14px;
+            text-align: center;
         }
     </style>
 </head>
@@ -75,16 +82,17 @@
     <div class="content">
         <h2>Order Details</h2>
         
+        {# FIX: Use item['key'] for the array, but object.property for the Gift object #}
         {% for item in orderItems %}
         <div class="order-item">
             <div class="item-details">
-                <div class="item-title">{{ item.gift.name }}</div>
-                <div class="item-quantity">Quantity: {{ item.quantity }}</div>
-                {% if item.gift.description %}
-                <div class="item-description">{{ item.gift.description }}</div>
+                <div class="item-title">{{ item['gift'].name }}</div>
+                <div class="item-quantity">Quantity: {{ item['quantity'] }}</div>
+                {% if item['gift'].description %}
+                <div class="item-description">{{ item['gift'].description|slice(0, 100) ~ '...' }}</div>
                 {% endif %}
             </div>
-            <div class="item-price">${{ (item.gift.price * item.quantity)|number_format(2) }}</div>
+            <div class="item-price">${{ (item['gift'].price * item['quantity'])|number_format(2) }}</div>
         </div>
         {% endfor %}
         
@@ -93,8 +101,7 @@
         </div>
 
         <div class="footer">
-            <p><strong>Estimated Delivery:</strong> August 6, 2025</p>
-            <p><strong>Order Date:</strong> {{ "now"|date("F j, Y") }}</p>
+            <p><strong>Order Date:</strong> {{ order.createdAt|date("F j, Y") }}</p>
             <p>If you have any questions about your order, please don't hesitate to contact us.</p>
             <p>Thank you for choosing Giftbot 3000!</p>
         </div>

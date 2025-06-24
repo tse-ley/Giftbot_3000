@@ -12,7 +12,7 @@
 <div class="container mt-5">
     <div class="card shadow-sm border-0 rounded-4 custom-card">
         <div class="card-body p-5">
-            <h2 class="card-title mb-4 text-center ">Add New Gift</h2>
+            <h2 class="card-title mb-4 text-center ">Ajouter un nouveau cadeau</h2>
 
             {{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
                 <div class="mb-3">
@@ -52,12 +52,12 @@
                 </div>
 
                 <div class="d-grid mt-4">
-                    <button type="submit" class="btn btn-success btn-lg custom-submit">Add Gift</button>
+                    <button type="submit" class="btn btn-success btn-lg custom-submit">Ajouter le cadeau</button>
                 </div>
             {{ form_end(form) }}
 
             <div class="mt-4 text-center">
-                <a href="{{ path('admin_gift_index') }}" class="btn btn-outline-secondary custom-back">← Back to Gift List</a>
+                <a href="{{ path('admin_gift_index') }}" class="btn btn-outline-secondary custom-back">← Retour à la liste des cadeaux</a>
             </div>
         </div>
     </div>

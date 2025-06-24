@@ -90,16 +90,15 @@
                         data-product-name="{{ gift.name }}"
                         data-product-price="{{ gift.price }}"
                         data-product-description="{{ gift.description }}"
-                        data-product-image="{{ asset(gift.image) }}"
+                        data-product-image="{{ asset(gift.imageUrl) }}"
                         data-category="{{ gift.category|lower }}">
                         <div class="product-image">
-                            <img src="{{ asset(gift.image) }}" alt="{{ gift.name }}" class="img-fluid" />
+                            <img src="{{ asset(gift.imageUrl) }}" alt="{{ gift.name }}" class="img-fluid" />
                         </div>
                         <div class="product-title">{{ gift.name }}</div>
                         <div class="product-price">{{ gift.price|number_format(2, '.', ' ') }} €</div>
                     </div>
                 </div>
-            {# --- THIS IS THE CORRECTED ELSE BLOCK --- #}
             {% else %}
                 <div class="col-12 text-center">
                     <p>Aucun produit trouvé. Essayez une autre recherche ou <a href="{{ path('app_gifts') }}">réinitialisez</a>.</p>

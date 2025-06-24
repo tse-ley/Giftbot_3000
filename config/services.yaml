@@ -1,3 +1,5 @@
+# config/services.yaml
+
 # This file is the entry point to configure your own services.
 # Files in the packages/ subdirectory configure your dependencies.
 
@@ -21,5 +23,6 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    # THE DEFINITION FOR LogoutSuccessHandler HAS BEEN REMOVED.
+    # It is no longer needed because we are using an Event Subscriber,
+    # which is handled automatically by the _defaults above.

@@ -46,7 +46,7 @@
                         <span>Total</span><span id="total-amount">$0.00</span>
                     </div>
                     
-                    <form method="post" id="checkout-form">
+                    <form method="post" id="checkout-form" action="{{ path('app_cart_place_order') }}">
                         <input type="hidden" name="cart_data" id="cart-data-input">
                         <div class="mt-3 text-center">
                             <button type="button" class="checkout-btn" data-bs-toggle="modal" data-bs-target="#confirmationModal">

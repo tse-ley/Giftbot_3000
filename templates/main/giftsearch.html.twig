@@ -218,7 +218,7 @@
 
             function createGiftHTML(gift) {
                 const price = gift.price ? parseFloat(gift.price).toFixed(2) : 'N/A';
-                const imageUrl = gift.image ? `/${gift.image}` : 'https://via.placeholder.com/150';
+                const imageUrl = gift.imageUrl ? `{{ asset('` + gift.imageUrl + `') }}` : 'https://via.placeholder.com/150';
                 return `
                     <div class="gift-item" data-gift-id="${gift.id}">
                         <div class="gift-image">

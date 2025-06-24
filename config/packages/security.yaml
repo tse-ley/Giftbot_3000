@@ -47,7 +47,12 @@ security:
                 enable_csrf: true
             logout:
                 path: app_logout
-                target: app_login
+                # CORRECTED: This uses the 'target' option, which is available in your version.
+                # It specifies the *path* to redirect to after a successful logout.
+                # The logic for clearing the cart is handled separately by the LogoutEventSubscriber.
+                # Replace '/' with the path to your homepage if it's different.
+                target: /
+                invalidate_session: true
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 week
@@ -73,6 +78,3 @@ when@test:
                 cost: 4 # For bcrypt
                 time_cost: 3 # For argon2i
                 memory_cost: 10 # For argon2i
-
-services:
-    App\Security\AuthenticationSuccessHandler: ~
