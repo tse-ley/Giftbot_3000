@@ -25,7 +25,7 @@ class AuthenticationSuccessHandler implements AuthenticationSuccessHandlerInterf
             return new RedirectResponse($this->router->generate('admin_dashboard'));
         }
 
-        // Default redirect for regular users
+        
         return new RedirectResponse($this->router->generate('user_dashboard'));
     }
 }

@@ -1,17 +1,13 @@
 {# navbar.html.twig #}
-<nav class="navbar navbar-expand-lg" style="background-color: #FD6C9E;">
+<nav class="navbar navbar-expand-lg sticky-top w-100" style="background-color: #FD6C9E;">
     <div class="container">
         <a class="navbar-brand text-white fw-bold d-flex align-items-center me-4" href="{{ path('app_home') }}">
             <img src="{{ asset('image/logo.png') }}" alt="GiftBot" height="40" class="me-2">
             <span>GiftBot 3000</span>
         </a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-bars text-white fs-4"></i>
-        </button>
 
         <div class="collapse navbar-collapse" id="navbarNav">
-            {# Center nav links #}
             <ul class="navbar-nav mx-auto text-center gap-lg-3 gap-2">
                 <li class="nav-item">
                     <a class="nav-link text-white px-3 {% if app.request.get('_route') == 'app_home' %}fw-bold{% endif %}" href="{{ path('app_home') }}">Accueil</a>
@@ -32,7 +28,7 @@
 
             {# Right-side icons #}
             <ul class="navbar-nav ms-auto d-flex flex-row align-items-center gap-3">
-                {# Cart #}
+                {# for Cart #}
                 <li class="nav-item position-relative">
                     <a class="nav-link text-white" href="{{ path('app_cart') }}" id="cartDropdown">
                         <i class="fas fa-shopping-cart fs-5"></i>

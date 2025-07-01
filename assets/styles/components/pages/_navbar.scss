@@ -33,3 +33,8 @@
         }
     }
 }
+
+/* In your CSS file */
+.sticky-top {
+    z-index: 1030; /* Bootstrap default, increase if needed */
+}

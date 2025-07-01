@@ -27,7 +27,7 @@ class NewsletterController extends AbstractController
 
             $newsletterRepository->add($newsLetter, true);
 
-            $this->addFlash('success', 'You have been subscribed to our newsletter!');
+            $this->addFlash('succès', 'Vous êtes inscrit à notre newsletter !');
             return $this->redirectToRoute('app_home');
         }
 

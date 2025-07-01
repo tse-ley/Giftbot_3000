@@ -32,38 +32,38 @@
 
             <div class="col-md-4">
                 <div class="summary-box">
-                    <h5>Order summary</h5>
+                    <h5>Résumé du panier</h5>
                     <div class="d-flex justify-content-between">
-                        <span>Subtotal</span><span id="subtotal-amount">$0.00</span>
+                        <span>Sous-total</span><span id="subtotal-amount">$0.00</span>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <span>Discount</span><span id="discount-amount">$0.00</span>
+                        <span>Remise</span><span id="discount-amount">$0.00</span>
                     </div>
                     <div class="d-flex justify-content-between">
-                        <span>Shipping</span><span>Free</span>
+                        <span>Livraison</span><span>Gratuite</span>
                     </div>
                     <div class="d-flex justify-content-between fw-bold">
-                        <span>Total</span><span id="total-amount">$0.00</span>
+                        <span>Totale</span><span id="total-amount">€0.00</span>
                     </div>
                     
                     <form method="post" id="checkout-form" action="{{ path('app_cart_place_order') }}">
                         <input type="hidden" name="cart_data" id="cart-data-input">
                         <div class="mt-3 text-center">
                             <button type="button" class="checkout-btn" data-bs-toggle="modal" data-bs-target="#confirmationModal">
-                                Proceed to checkout
+                                Procéder au paiement
                             </button>
                         </div>
                     </form>
                     
                     <hr>
-                    <p class="text-center mb-0">Estimated delivery by August 6</p>
+                    <p class="text-center mb-0">Livraison estimée pour le 6 août</p>
                 </div>
 
                 <div class="coupon-box mt-3">
-                    <p><strong>Have a coupon code?</strong></p>
+                    <p><strong>Avez-vous un code de réduction?</strong></p>
                     <div class="d-flex">
-                        <input type="text" class="form-control me-2" placeholder="Code here">
-                        <button class="apply-btn">Apply</button>
+                        <input type="text" class="form-control me-2" placeholder="Code ici">
+                        <button class="apply-btn">Appliquer</button>
                     </div>
                 </div>
             </div>
@@ -77,18 +77,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="confirmationModalLabel">Confirm Order</h5>
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmer la commande</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you certain of your order?</p>
+                    <p>Êtes-vous certain de votre commande?</p>
                     <div id="order-summary">
                         <!-- Order summary will be populated by JavaScript -->
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="confirmOrderBtn">Confirm Order</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" id="confirmOrderBtn">Confirmer la commande</button>
                 </div>
             </div>
         </div>
@@ -122,10 +122,10 @@
         function renderCart() {
             cartContainer.innerHTML = '';
             if (cart.length === 0) {
-                cartContainer.innerHTML = '<p>Your cart is empty.</p>';
-                subtotalEl.textContent = '$0.00';
-                discountEl.textContent = '$0.00';
-                totalEl.textContent = '$0.00';
+                cartContainer.innerHTML = '<p>Votre panier est vide.</p>';
+                subtotalEl.textContent = '€0.00';
+                discountEl.textContent = '€0.00';
+                totalEl.textContent = '€0.00';
                 return;
             }
 
@@ -161,10 +161,10 @@
             const discount = 0;
             const total = subtotal - discount;
 
-            subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
-            discountEl.textContent = `$${discount.toFixed(2)}`;
-            totalEl.textContent = `$${total.toFixed(2)}`;
-            
+            subtotalEl.textContent = `€${subtotal.toFixed(2)}`;
+            discountEl.textContent = `€${discount.toFixed(2)}`;
+            totalEl.textContent = `€${total.toFixed(2)}`;
+
             // Update hidden input with cart data
             cartDataInput.value = JSON.stringify(cart);
         }
@@ -195,13 +195,13 @@
 
         // Handle coupon application
         document.querySelector('.apply-btn')?.addEventListener('click', () => {
-            alert('Coupon applied! (Functionality to be implemented)');
+            alert('Coupon appliqué! (Fonctionnalité à implémenter)');
         });
 
         // Handle order confirmation
         document.getElementById('confirmOrderBtn')?.addEventListener('click', function() {
             if (cart.length === 0) {
-                alert('Your cart is empty!');
+                alert('Votre panier est vide!');
                 return;
             }
             
@@ -213,7 +213,7 @@
 
             // Show loading state
             this.disabled = true;
-            this.textContent = 'Processing...';
+            this.textContent = 'Traitement...';
 
             // Submit the form
             checkoutForm.submit();
@@ -225,11 +225,11 @@
             let summaryHTML = '<ul class="list-unstyled">';
             
             cart.forEach(item => {
-                summaryHTML += `<li>${item.title} x ${item.quantity} - $${(item.price * item.quantity).toFixed(2)}</li>`;
+                summaryHTML += `<li>${item.title} x ${item.quantity} - ${(item.price * item.quantity).toFixed(2)}</li>`;
             });
             
             const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-            summaryHTML += `</ul><hr><strong>Total: $${total.toFixed(2)}</strong>`;
+            summaryHTML += `</ul><hr><strong>Total: €${total.toFixed(2)}</strong>`;
             
             orderSummary.innerHTML = summaryHTML;
         });
